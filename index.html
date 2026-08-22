@@ -3,381 +3,226 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel Sidebar</title>
-    <!-- Font Awesome cho biểu tượng -->
+    <title>Lunara Admin - Login & Dashboard</title>
+    
+    <!-- Google Identity Services -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        /* ================== VARIABLES & RESET ================== */
         :root {
-            --bg-dark: #0f0f1a;        
-            --bg-sidebar: #1a1a2e;     
-            --glass-bg: rgba(255, 255, 255, 0.05); 
+            --bg-dark: #0f0f1a;
+            --bg-sidebar: #1a1a2e;
+            --glass-bg: rgba(255, 255, 255, 0.05);
             --glass-border: rgba(255, 255, 255, 0.1);
-            --active-bg: #6c5ce7;      
+            --active-bg: #6c5ce7;
             --text-primary: #ffffff;
             --text-muted: #a0a0b8;
             --transition: all 0.2s ease;
             --sidebar-width: 260px;
             --sidebar-collapsed: 80px;
+            --font: 'Inter', system-ui, sans-serif;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font); }
+        body { background: var(--bg-dark); color: var(--text-primary); overflow-x: hidden; }
 
-        body {
-            background: var(--bg-dark);
-            color: var(--text-primary);
-            overflow-x: hidden;
-        }
-
-        /* ================== MAIN CONTAINER ================== */
-        .app-container {
+        /* ===== 1. PHẦN LOGIN ===== */
+        .login-container {
             display: flex;
+            justify-content: center;
+            align-items: center;
             height: 100vh;
-            width: 100%;
+            background: radial-gradient(circle at 50% 10%, #1a1a3e, #0f0f1a);
         }
 
-        /* ================== SIDEBAR ================== */
-        .sidebar {
-            width: var(--sidebar-width);
-            height: 100%;
-            background: var(--bg-sidebar);
-            border-right: 1px solid var(--glass-border);
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            transition: width var(--transition), padding var(--transition);
-            position: relative;
-            overflow: hidden;
-            flex-shrink: 0;
-        }
-
-        .sidebar.collapsed {
-            width: var(--sidebar-collapsed);
-            padding: 20px 14px;
-        }
-
-        /* --- Header / Logo --- */
-        .sidebar-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 30px;
-            white-space: nowrap;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 1.2rem;
-            font-weight: 700;
-        }
-
-        .logo i {
-            font-size: 1.5rem;
-            color: var(--active-bg);
-        }
-
-        .logo-text {
-            opacity: 1;
-            transition: opacity var(--transition);
-        }
-
-        .sidebar.collapsed .logo-text {
-            opacity: 0;
-            pointer-events: none;
-            width: 0;
-        }
-
-        .toggle-btn {
+        .login-card {
+            width: min(400px, 90vw);
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
-            color: var(--text-primary);
-            border-radius: 8px;
-            padding: 8px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 1rem;
-        }
-
-        .toggle-btn:hover {
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        /* --- Navigation --- */
-        .sidebar-nav {
-            flex: 1;
-        }
-
-        .nav-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .nav-item {
-            white-space: nowrap;
-        }
-
-        .nav-link {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px;
-            border-radius: 12px;
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .nav-link i {
-            font-size: 1.2rem;
-            min-width: 20px;
-            text-align: center;
-        }
-
-        .nav-text {
-            opacity: 1;
-            transition: opacity var(--transition), transform var(--transition);
-        }
-
-        .badge {
-            background: var(--active-bg);
-            color: #fff;
-            font-size: 0.7rem;
-            padding: 2px 6px;
-            border-radius: 10px;
-            margin-left: auto;
-            opacity: 1;
-            transition: opacity var(--transition);
-        }
-
-        /* Hover state */
-        .nav-link:hover {
-            background: var(--glass-bg);
-            color: var(--text-primary);
-        }
-
-        /* Active state */
-        .nav-item.active .nav-link {
-            background: var(--active-bg);
-            color: var(--text-primary);
-            box-shadow: 0 4px 20px rgba(108, 92, 231, 0.4);
-        }
-
-        /* Collapsed state (Sidebar thu nhỏ) */
-        .sidebar.collapsed .nav-text,
-        .sidebar.collapsed .badge {
-            opacity: 0;
-            width: 0;
-            pointer-events: none;
-        }
-
-        .sidebar.collapsed .nav-link {
-            justify-content: center;
-        }
-
-        /* --- User Profile --- */
-        .user-profile {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            padding: 12px;
-            border-radius: 12px;
-            margin-top: auto;
-            transition: var(--transition);
-            white-space: nowrap;
-        }
-
-        .user-avatar img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid var(--active-bg);
-            object-fit: cover;
-        }
-
-        .user-info {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-            transition: opacity var(--transition), width var(--transition);
-        }
-
-        .user-name {
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .user-role {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-        }
-
-        .user-actions i {
-            cursor: pointer;
-            color: var(--text-muted);
-            transition: var(--transition);
-        }
-
-        .user-actions i:hover {
-            color: var(--text-primary);
-        }
-
-        /* Collapsed state User Profile */
-        .sidebar.collapsed .user-info,
-        .sidebar.collapsed .user-actions {
-            opacity: 0;
-            width: 0;
-            pointer-events: none;
-        }
-
-        .sidebar.collapsed .user-profile {
-            justify-content: center;
-            padding: 10px;
-        }
-
-        /* ================== MAIN CONTENT AREA ================== */
-        .main-content {
-            flex: 1;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
             padding: 40px;
-            background: var(--bg-dark);
-            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
 
-        .content-wrapper h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: var(--text-primary);
+        .login-card h2 { font-size: 2rem; margin-bottom: 10px; text-align: center; }
+        .login-card p.subtitle { color: var(--text-muted); text-align: center; margin-bottom: 30px; }
+
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; }
+        .input-group input {
+            width: 100%; padding: 14px; background: rgba(0,0,0,0.3);
+            border: 1px solid var(--glass-border); border-radius: 12px;
+            color: var(--text-primary); font-size: 1rem; outline: none; transition: var(--transition);
+        }
+        .input-group input:focus { border-color: var(--active-bg); box-shadow: 0 0 15px rgba(108, 92, 231, 0.2); }
+
+        .btn-login {
+            width: 100%; padding: 14px; border: none; border-radius: 12px;
+            background: linear-gradient(90deg, #6c5ce7, #a29bfe);
+            color: var(--text-primary); font-size: 1rem; font-weight: 700; cursor: pointer;
+            transition: var(--transition); margin-bottom: 20px;
+        }
+        .btn-login:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(108, 92, 231, 0.4); }
+
+        .or-divider { display: flex; align-items: center; margin-bottom: 20px; color: var(--text-muted); font-size: 0.9rem; }
+        .or-divider::before, .or-divider::after { content: ''; flex: 1; border-bottom: 1px solid var(--glass-border); }
+        .or-divider span { padding: 0 10px; }
+
+        .btn-google {
+            width: 100%; padding: 14px; border: 1px solid var(--glass-border);
+            background: rgba(255,255,255,0.05); border-radius: 12px;
+            color: var(--text-primary); font-size: 1rem; cursor: pointer;
+            display: flex; justify-content: center; align-items: center; gap: 10px; transition: var(--transition);
+        }
+        .btn-google:hover { background: rgba(255,255,255,0.1); }
+
+        /* ===== 2. PHẦN DASHBOARD (Ẩn mặc định) ===== */
+        .app-container {
+            display: none; /* Ẩn cho đến khi login thành công */
+            height: 100vh; width: 100%;
         }
 
-        .content-wrapper > p {
-            color: var(--text-muted);
-            margin-bottom: 40px;
-        }
+        .app-container.active { display: flex; }
 
+        /* Sidebar */
+        .sidebar {
+            width: var(--sidebar-width); height: 100%; background: var(--bg-sidebar);
+            border-right: 1px solid var(--glass-border); display: flex; flex-direction: column;
+            padding: 20px; transition: width var(--transition); overflow: hidden; flex-shrink: 0;
+        }
+        .sidebar.collapsed { width: var(--sidebar-collapsed); padding: 20px 14px; }
+
+        .sidebar-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px; white-space: nowrap; }
+        .logo { display: flex; align-items: center; gap: 12px; font-size: 1.2rem; font-weight: 700; }
+        .logo i { color: var(--active-bg); font-size: 1.5rem; }
+        .logo-text { transition: var(--transition); }
+        .sidebar.collapsed .logo-text { opacity: 0; width: 0; }
+
+        .toggle-btn { background: var(--glass-bg); border: 1px solid var(--glass-border); color: var(--text-primary); border-radius: 8px; padding: 8px; cursor: pointer; transition: var(--transition); font-size: 1rem; }
+
+        .nav-list { list-style: none; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+        .nav-link {
+            display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 12px;
+            color: var(--text-muted); text-decoration: none; transition: var(--transition); white-space: nowrap;
+        }
+        .nav-link i { font-size: 1.2rem; min-width: 20px; text-align: center; }
+        .nav-text { transition: var(--transition); }
+        .sidebar.collapsed .nav-text { opacity: 0; width: 0; }
+        .nav-link:hover { background: var(--glass-bg); color: var(--text-primary); }
+        .nav-item.active .nav-link { background: var(--active-bg); color: var(--text-primary); box-shadow: 0 4px 20px rgba(108, 92, 231, 0.4); }
+
+        /* User Profile */
+        .user-profile {
+            display: flex; align-items: center; gap: 12px; background: var(--glass-bg);
+            border: 1px solid var(--glass-border); padding: 12px; border-radius: 12px; margin-top: auto;
+            transition: var(--transition); white-space: nowrap;
+        }
+        .user-avatar img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid var(--active-bg); }
+        .user-info { display: flex; flex-direction: column; flex: 1; }
+        .user-name { font-weight: 600; font-size: 0.9rem; }
+        .user-role { font-size: 0.75rem; color: var(--text-muted); }
+        .sidebar.collapsed .user-info, .sidebar.collapsed .user-actions { opacity: 0; width: 0; }
+
+        /* Main Content */
+        .main-content { flex: 1; padding: 40px; }
         .placeholder-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 60px;
-            text-align: center;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            border-radius: 20px; padding: 60px; text-align: center; margin-top: 30px;
         }
+        .placeholder-card i { font-size: 4rem; color: var(--active-bg); margin-bottom: 20px; }
+        .placeholder-card p { color: var(--text-muted); }
 
-        .placeholder-card i {
-            font-size: 4rem;
-            color: var(--active-bg);
-            margin-bottom: 20px;
+        .btn-logout {
+            margin-top: 20px; padding: 10px 20px; background: transparent;
+            border: 1px solid var(--glass-border); color: var(--text-primary);
+            border-radius: 10px; cursor: pointer; transition: var(--transition);
         }
+        .btn-logout:hover { border-color: #ff6b6b; color: #ff6b6b; }
 
-        .placeholder-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-
-        .placeholder-card p {
-            color: var(--text-muted);
-        }
-
-        /* ================== RESPONSIVE ================== */
+        /* Responsive */
         @media (max-width: 768px) {
-            .sidebar {
-                position: fixed;
-                z-index: 1000;
-                height: 100%;
-                left: -100%;
-                transition: left 0.3s ease;
-            }
-
-            .sidebar.mobile-open {
-                left: 0;
-            }
-
-            .main-content {
-                padding: 20px;
-            }
+            .sidebar { position: fixed; z-index: 1000; height: 100%; left: -100%; transition: left 0.3s ease; }
+            .sidebar.mobile-open { left: 0; }
+            .main-content { padding: 20px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Main Container -->
-    <div class="app-container">
+    <!-- ================== 1. MÀN HÌNH LOGIN ================== -->
+    <div class="login-container" id="loginContainer">
+        <div class="login-card">
+            <h2>Welcome Back.</h2>
+            <p class="subtitle">Please sign in to continue your path</p>
+
+            <form id="loginForm">
+                <div class="input-group">
+                    <label>USERNAME</label>
+                    <input type="text" id="usernameLogin" placeholder="Enter your username" required>
+                </div>
+                <div class="input-group">
+                    <label>PASSWORD</label>
+                    <input type="password" id="passwordLogin" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn-login" id="loginBtn">SIGN IN &rarr;</button>
+            </form>
+
+            <div class="or-divider"><span>or</span></div>
+
+            <button type="button" class="btn-google" id="googleLoginBtn">
+                <i class="fa-brands fa-google" style="color: #EA4335;"></i>
+                <span>Login with Google</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ================== 2. ADMIN DASHBOARD (Ẩn mặc định) ================== -->
+    <div class="app-container" id="appContainer">
         
         <!-- Sidebar -->
         <aside class="sidebar" id="sidebar">
-            <!-- Logo Header -->
             <div class="sidebar-header">
                 <div class="logo">
                     <i class="fa-solid fa-cube"></i>
-                    <span class="logo-text">Admin Panel</span>
+                    <span class="logo-text" id="logoText">Admin Panel</span>
                 </div>
-                <button class="toggle-btn" id="toggleBtn">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
+                <button class="toggle-btn" id="toggleBtn"><i class="fa-solid fa-bars"></i></button>
             </div>
 
-            <!-- Navigation Menu -->
             <nav class="sidebar-nav">
                 <ul class="nav-list">
                     <li class="nav-item active" data-target="dashboard">
-                        <a href="#" class="nav-link">
-                            <i class="fa-solid fa-chart-pie"></i>
-                            <span class="nav-text">Dashboard</span>
-                        </a>
+                        <a href="#" class="nav-link"><i class="fa-solid fa-chart-pie"></i><span class="nav-text">Dashboard</span></a>
                     </li>
                     <li class="nav-item" data-target="users">
-                        <a href="#" class="nav-link">
-                            <i class="fa-solid fa-users"></i>
-                            <span class="nav-text">Users</span>
-                        </a>
+                        <a href="#" class="nav-link"><i class="fa-solid fa-users"></i><span class="nav-text">Users</span></a>
                     </li>
                     <li class="nav-item" data-target="orders">
-                        <a href="#" class="nav-link">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                            <span class="nav-text">Orders</span>
-                        </a>
+                        <a href="#" class="nav-link"><i class="fa-solid fa-cart-shopping"></i><span class="nav-text">Orders</span></a>
                     </li>
                     <li class="nav-item" data-target="analytics">
-                        <a href="#" class="nav-link">
-                            <i class="fa-solid fa-chart-line"></i>
-                            <span class="nav-text">Analytics</span>
-                        </a>
+                        <a href="#" class="nav-link"><i class="fa-solid fa-chart-line"></i><span class="nav-text">Analytics</span></a>
                     </li>
                     <li class="nav-item" data-target="messages">
-                        <a href="#" class="nav-link">
-                            <i class="fa-solid fa-envelope"></i>
-                            <span class="nav-text">Messages</span>
-                            <span class="badge">3</span>
-                        </a>
+                        <a href="#" class="nav-link"><i class="fa-solid fa-envelope"></i><span class="nav-text">Messages</span><span class="badge">3</span></a>
                     </li>
                     <li class="nav-item" data-target="settings">
-                        <a href="#" class="nav-link">
-                            <i class="fa-solid fa-gear"></i>
-                            <span class="nav-text">Settings</span>
-                        </a>
+                        <a href="#" class="nav-link"><i class="fa-solid fa-gear"></i><span class="nav-text">Settings</span></a>
                     </li>
                 </ul>
             </nav>
 
-            <!-- User Profile (Bottom) -->
             <div class="user-profile">
                 <div class="user-avatar">
                     <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="Avatar">
                 </div>
                 <div class="user-info">
-                    <span class="user-name">FEZ Academy</span>
+                    <span class="user-name" id="userNameDisplay">FEZ Academy</span>
                     <span class="user-role">Super Admin</span>
                 </div>
                 <div class="user-actions">
@@ -386,72 +231,130 @@
             </div>
         </aside>
 
-        <!-- Main Content Area -->
+        <!-- Main Content -->
         <main class="main-content">
             <div class="content-wrapper">
-                <h1>Dashboard Overview</h1>
-                <p>Select an option from the sidebar to view its content.</p>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h1>Dashboard Overview</h1>
+                    <button class="btn-logout" id="logoutBtn">Log Out</button>
+                </div>
+                <p id="welcomeMessage">Welcome back, Admin!</p>
+                
                 <div class="placeholder-card">
-                    <i class="fa-solid fa-rocket"></i>
+                    <i class="fa-solid fa-rocket" id="contentIcon"></i>
                     <h3 id="contentTitle">Dashboard</h3>
-                    <p>This is a placeholder for the "Dashboard" section.</p>
+                    <p id="contentDesc">This is a placeholder for the "Dashboard" section.</p>
                 </div>
             </div>
         </main>
 
     </div>
 
-    <!-- ================== SCRIPT ================== -->
+    <!-- ================== JAVASCRIPT ================== -->
     <script>
-        const toggleBtn = document.getElementById('toggleBtn');
-        const sidebar = document.getElementById('sidebar');
-        const navItems = document.querySelectorAll('.nav-item');
-        const contentTitle = document.getElementById('contentTitle');
-        const placeholders = {
-            dashboard: { title: 'Dashboard', icon: 'fa-chart-pie', desc: 'This is a placeholder for the "Dashboard" section.' },
-            users: { title: 'Users', icon: 'fa-users', desc: 'This is a placeholder for the "Users" section.' },
-            orders: { title: 'Orders', icon: 'fa-cart-shopping', desc: 'This is a placeholder for the "Orders" section.' },
-            analytics: { title: 'Analytics', icon: 'fa-chart-line', desc: 'This is a placeholder for the "Analytics" section.' },
-            messages: { title: 'Messages', icon: 'fa-envelope', desc: 'This is a placeholder for the "Messages" section.' },
-            settings: { title: 'Settings', icon: 'fa-gear', desc: 'This is a placeholder for the "Settings" section.' }
-        };
+        const loginContainer = document.getElementById('loginContainer');
+        const appContainer = document.getElementById('appContainer');
+        const loginForm = document.getElementById('loginForm');
+        const googleLoginBtn = document.getElementById('googleLoginBtn');
+        const usernameLogin = document.getElementById('usernameLogin');
+        const loginBtn = document.getElementById('loginBtn');
+        const logoutBtn = document.getElementById('logoutBtn');
 
-        // 1. Toggle Sidebar (Thu gọn / Mở rộng)
-        toggleBtn.addEventListener('click', () => {
-            sidebar.classList.toggle('collapsed');
+        // Xử lý đăng nhập thủ công
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (!usernameLogin.value) return;
+            
+            loginBtn.textContent = 'SIGNING IN...';
+            setTimeout(() => {
+                loginBtn.textContent = 'SUCCESS ✓';
+                setTimeout(() => {
+                    loginBtn.textContent = 'SIGN IN →';
+                    showDashboard(usernameLogin.value);
+                }, 800);
+            }, 1500);
         });
 
-        // 2. Click để chuyển đổi trạng thái Active
-        navItems.forEach(item => {
-            item.addEventListener('click', (e) => {
-                e.preventDefault();
+        // Xử lý đăng nhập Google
+        googleLoginBtn.addEventListener('click', () => {
+            google.accounts.id.initialize({
+                client_id: '342884520101-eojb8qup68fvl87qrj5m6q3da3oufd8n.apps.googleusercontent.com', // Client ID của bạn
+                callback: handleGoogleCredential
+            });
 
-                // Xóa active class khỏi tất cả các mục
-                navItems.forEach(nav => nav.classList.remove('active'));
-
-                // Thêm active class vào mục vừa click
-                item.classList.add('active');
-
-                // Cập nhật nội dung chính
-                const target = item.getAttribute('data-target');
-                const content = placeholders[target];
-                
-                contentTitle.textContent = content.title;
-                const iconElement = document.querySelector('.placeholder-card i');
-                iconElement.className = `fa-solid ${content.icon}`;
-                document.querySelector('.placeholder-card p').textContent = content.desc;
+            google.accounts.id.prompt((notification) => {
+                if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+                    const googleButton = document.createElement('div');
+                    google.accounts.id.renderButton(googleButton, { type: 'icon', shape: 'pill', theme: 'outline', size: 'large' });
+                    document.body.appendChild(googleButton);
+                    googleButton.style.position = 'absolute';
+                    googleButton.style.opacity = '0';
+                    googleButton.style.pointerEvents = 'none';
+                    
+                    setTimeout(() => {
+                        const clickableButton = googleButton.querySelector('div[role="button"]');
+                        if (clickableButton) clickableButton.click();
+                    }, 100);
+                }
             });
         });
 
-        // 3. Responsive Mobile: Tự động đóng sidebar trên mobile khi click vào menu
-        if (window.innerWidth <= 768) {
-            sidebar.classList.add('mobile-open'); 
+        function handleGoogleCredential(response) {
+            const userObject = JSON.parse(atob(response.credential.split('.')[1]));
+            showDashboard(userObject.name);
         }
 
+        // Hàm chuyển sang Dashboard
+        function showDashboard(username = 'Admin') {
+            document.getElementById('userNameDisplay').textContent = username;
+            document.getElementById('welcomeMessage').textContent = `Welcome back, ${username}!`;
+            
+            loginContainer.style.display = 'none';
+            appContainer.classList.add('active');
+
+            // Reset nút login
+            loginForm.reset();
+        }
+
+        // Đăng xuất
+        logoutBtn.addEventListener('click', () => {
+            appContainer.classList.remove('active');
+            loginContainer.style.display = 'flex';
+        });
+
+        // Sidebar Toggle
+        const toggleBtn = document.getElementById('toggleBtn');
+        const sidebar = document.getElementById('sidebar');
+        toggleBtn.addEventListener('click', () => sidebar.classList.toggle('collapsed'));
+
+        // Active Menu
+        const navItems = document.querySelectorAll('.nav-item');
+        navItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                navItems.forEach(nav => nav.classList.remove('active'));
+                item.classList.add('active');
+
+                const target = item.getAttribute('data-target');
+                const content = {
+                    dashboard: { icon: 'fa-chart-pie', title: 'Dashboard', desc: 'This is a placeholder for the "Dashboard" section.' },
+                    users: { icon: 'fa-users', title: 'Users', desc: 'This is a placeholder for the "Users" section.' },
+                    orders: { icon: 'fa-cart-shopping', title: 'Orders', desc: 'This is a placeholder for the "Orders" section.' },
+                    analytics: { icon: 'fa-chart-line', title: 'Analytics', desc: 'This is a placeholder for the "Analytics" section.' },
+                    messages: { icon: 'fa-envelope', title: 'Messages', desc: 'This is a placeholder for the "Messages" section.' },
+                    settings: { icon: 'fa-gear', title: 'Settings', desc: 'This is a placeholder for the "Settings" section.' }
+                };
+
+                document.getElementById('contentIcon').className = `fa-solid ${content[target].icon}`;
+                document.getElementById('contentTitle').textContent = content[target].title;
+                document.getElementById('contentDesc').textContent = content[target].desc;
+            });
+        });
+
+        // Responsive mobile
+        if (window.innerWidth <= 768) sidebar.classList.add('mobile-open');
         window.addEventListener('resize', () => {
-            if (window.innerWidth > 768) {
-                sidebar.classList.remove('mobile-open');
-            }
+            if (window.innerWidth > 768) sidebar.classList.remove('mobile-open');
         });
     </script>
 </body>
