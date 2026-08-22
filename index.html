@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lunara Admin - Login & Dashboard</title>
+    <title>Bán Đa Đồ Discord - User Dashboard</title>
     
     <!-- Google Identity Services -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -29,8 +29,8 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font); }
         body { background: var(--bg-dark); color: var(--text-primary); overflow-x: hidden; }
 
-        /* ===== 1. PHẦN LOGIN ===== */
-        .login-container {
+        /* ===== PHẦN LOGIN / SIGNUP ===== */
+        .auth-container {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -38,7 +38,7 @@
             background: radial-gradient(circle at 50% 10%, #1a1a3e, #0f0f1a);
         }
 
-        .login-card {
+        .auth-card {
             width: min(400px, 90vw);
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
@@ -49,8 +49,8 @@
             box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
 
-        .login-card h2 { font-size: 2rem; margin-bottom: 10px; text-align: center; }
-        .login-card p.subtitle { color: var(--text-muted); text-align: center; margin-bottom: 30px; }
+        .auth-card h2 { font-size: 2rem; margin-bottom: 10px; text-align: center; }
+        .auth-card p.subtitle { color: var(--text-muted); text-align: center; margin-bottom: 30px; }
 
         .input-group { margin-bottom: 20px; }
         .input-group label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; }
@@ -81,9 +81,16 @@
         }
         .btn-google:hover { background: rgba(255,255,255,0.1); }
 
-        /* ===== 2. PHẦN DASHBOARD (Ẩn mặc định) ===== */
+        .auth-footer { text-align: center; margin-top: 20px; font-size: 0.9rem; color: var(--text-muted); }
+        .auth-footer a { color: var(--active-bg); text-decoration: none; font-weight: 600; }
+        .auth-footer a:hover { text-decoration: underline; }
+
+        /* Ẩn/Hiện form */
+        .hide { display: none; }
+
+        /* ===== PHẦN DASHBOARD USER ===== */
         .app-container {
-            display: none; /* Ẩn cho đến khi login thành công */
+            display: none;
             height: 100vh; width: 100%;
         }
 
@@ -98,8 +105,8 @@
         .sidebar.collapsed { width: var(--sidebar-collapsed); padding: 20px 14px; }
 
         .sidebar-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px; white-space: nowrap; }
-        .logo { display: flex; align-items: center; gap: 12px; font-size: 1.2rem; font-weight: 700; }
-        .logo i { color: var(--active-bg); font-size: 1.5rem; }
+        .logo { display: flex; align-items: center; gap: 12px; font-size: 1rem; font-weight: 700; }
+        .logo i { color: #5865F2; font-size: 1.5rem; }
         .logo-text { transition: var(--transition); }
         .sidebar.collapsed .logo-text { opacity: 0; width: 0; }
 
@@ -115,6 +122,20 @@
         .sidebar.collapsed .nav-text { opacity: 0; width: 0; }
         .nav-link:hover { background: var(--glass-bg); color: var(--text-primary); }
         .nav-item.active .nav-link { background: var(--active-bg); color: var(--text-primary); box-shadow: 0 4px 20px rgba(108, 92, 231, 0.4); }
+
+        /* Nút nâng cấp VIP */
+        .upgrade-box {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .upgrade-box:hover { transform: scale(1.02); }
+        .upgrade-box p { font-size: 0.8rem; color: rgba(255,255,255,0.8); margin-bottom: 5px; }
+        .upgrade-box span { font-weight: 700; font-size: 1rem; }
 
         /* User Profile */
         .user-profile {
@@ -154,65 +175,114 @@
 </head>
 <body>
 
-    <!-- ================== 1. MÀN HÌNH LOGIN ================== -->
-    <div class="login-container" id="loginContainer">
-        <div class="login-card">
-            <h2>Welcome Back.</h2>
-            <p class="subtitle">Please sign in to continue your path</p>
+    <!-- ================== 1. MÀN HÌNH LOGIN / SIGNUP ================== -->
+    <div class="auth-container" id="authContainer">
+        <div class="auth-card">
+            
+            <!-- Form Đăng nhập -->
+            <div id="loginFormWrapper">
+                <h2>Welcome Back.</h2>
+                <p class="subtitle">Đăng nhập để mua sắm cùng Bán Đa Đồ</p>
 
-            <form id="loginForm">
-                <div class="input-group">
-                    <label>USERNAME</label>
-                    <input type="text" id="usernameLogin" placeholder="Enter your username" required>
-                </div>
-                <div class="input-group">
-                    <label>PASSWORD</label>
-                    <input type="password" id="passwordLogin" placeholder="Enter your password" required>
-                </div>
-                <button type="submit" class="btn-login" id="loginBtn">SIGN IN &rarr;</button>
-            </form>
+                <form id="loginForm">
+                    <div class="input-group">
+                        <label>USERNAME HOẶC EMAIL</label>
+                        <input type="text" id="loginUsername" placeholder="Enter your username or email" required>
+                    </div>
+                    <div class="input-group">
+                        <label>PASSWORD</label>
+                        <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="btn-login" id="loginBtn">SIGN IN &rarr;</button>
+                </form>
 
-            <div class="or-divider"><span>or</span></div>
+                <div class="or-divider"><span>or</span></div>
 
-            <button type="button" class="btn-google" id="googleLoginBtn">
-                <i class="fa-brands fa-google" style="color: #EA4335;"></i>
-                <span>Login with Google</span>
-            </button>
+                <button type="button" class="btn-google" id="googleLoginBtn">
+                    <i class="fa-brands fa-google" style="color: #EA4335;"></i>
+                    <span>Login with Google</span>
+                </button>
+
+                <p class="auth-footer">
+                    Chưa có tài khoản? <a href="#" id="showSignup">Đăng ký ngay</a>
+                </p>
+            </div>
+
+            <!-- Form Đăng ký (Ẩn mặc định) -->
+            <div id="signupFormWrapper" class="hide">
+                <h2>Create Account.</h2>
+                <p class="subtitle">Tạo tài khoản để mua sắm cùng Bán Đa Đồ</p>
+
+                <form id="signupForm">
+                    <div class="input-group">
+                        <label>HỌ VÀ TÊN</label>
+                        <input type="text" id="signupName" placeholder="Nhập họ và tên" required>
+                    </div>
+                    <div class="input-group">
+                        <label>EMAIL</label>
+                        <input type="email" id="signupEmail" placeholder="Nhập email của bạn" required>
+                    </div>
+                    <div class="input-group">
+                        <label>MẬT KHẨU</label>
+                        <input type="password" id="signupPassword" placeholder="Tạo mật khẩu" required>
+                    </div>
+                    <div class="input-group">
+                        <label>XÁC NHẬN MẬT KHẨU</label>
+                        <input type="password" id="signupConfirmPassword" placeholder="Nhập lại mật khẩu" required>
+                    </div>
+                    <button type="submit" class="btn-login" id="signupBtn">SIGN UP &rarr;</button>
+                </form>
+
+                <div class="or-divider"><span>or</span></div>
+
+                <button type="button" class="btn-google" id="googleSignupBtn">
+                    <i class="fa-brands fa-google" style="color: #EA4335;"></i>
+                    <span>Sign up with Google</span>
+                </button>
+
+                <p class="auth-footer">
+                    Đã có tài khoản? <a href="#" id="showLogin">Đăng nhập</a>
+                </p>
+            </div>
+
         </div>
     </div>
 
-    <!-- ================== 2. ADMIN DASHBOARD (Ẩn mặc định) ================== -->
+    <!-- ================== 2. DASHBOARD NGƯỜI DÙNG ================== -->
     <div class="app-container" id="appContainer">
         
         <!-- Sidebar -->
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <div class="logo">
-                    <i class="fa-solid fa-cube"></i>
-                    <span class="logo-text" id="logoText">Admin Panel</span>
+                    <i class="fa-brands fa-discord"></i>
+                    <span class="logo-text">Bán Đa Đồ Discord</span>
                 </div>
                 <button class="toggle-btn" id="toggleBtn"><i class="fa-solid fa-bars"></i></button>
             </div>
 
+            <!-- Nút nâng cấp VIP -->
+            <div class="upgrade-box">
+                <p>Bạn muốn mua sắm nhiều hơn?</p>
+                <span>Nâng cấp VIP Member</span>
+            </div>
+
             <nav class="sidebar-nav">
                 <ul class="nav-list">
-                    <li class="nav-item active" data-target="dashboard">
-                        <a href="#" class="nav-link"><i class="fa-solid fa-chart-pie"></i><span class="nav-text">Dashboard</span></a>
+                    <li class="nav-item active" data-target="home">
+                        <a href="#" class="nav-link"><i class="fa-solid fa-house"></i><span class="nav-text">Trang chủ</span></a>
                     </li>
-                    <li class="nav-item" data-target="users">
-                        <a href="#" class="nav-link"><i class="fa-solid fa-users"></i><span class="nav-text">Users</span></a>
+                    <li class="nav-item" data-target="shop">
+                        <a href="#" class="nav-link"><i class="fa-solid fa-bag-shopping"></i><span class="nav-text">Cửa hàng</span></a>
                     </li>
                     <li class="nav-item" data-target="orders">
-                        <a href="#" class="nav-link"><i class="fa-solid fa-cart-shopping"></i><span class="nav-text">Orders</span></a>
+                        <a href="#" class="nav-link"><i class="fa-solid fa-box"></i><span class="nav-text">Đơn hàng của tôi</span><span class="badge">2</span></a>
                     </li>
-                    <li class="nav-item" data-target="analytics">
-                        <a href="#" class="nav-link"><i class="fa-solid fa-chart-line"></i><span class="nav-text">Analytics</span></a>
+                    <li class="nav-item" data-target="wallet">
+                        <a href="#" class="nav-link"><i class="fa-solid fa-wallet"></i><span class="nav-text">Ví của tôi</span></a>
                     </li>
-                    <li class="nav-item" data-target="messages">
-                        <a href="#" class="nav-link"><i class="fa-solid fa-envelope"></i><span class="nav-text">Messages</span><span class="badge">3</span></a>
-                    </li>
-                    <li class="nav-item" data-target="settings">
-                        <a href="#" class="nav-link"><i class="fa-solid fa-gear"></i><span class="nav-text">Settings</span></a>
+                    <li class="nav-item" data-target="support">
+                        <a href="#" class="nav-link"><i class="fa-solid fa-headset"></i><span class="nav-text">Hỗ trợ</span></a>
                     </li>
                 </ul>
             </nav>
@@ -222,8 +292,8 @@
                     <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="Avatar">
                 </div>
                 <div class="user-info">
-                    <span class="user-name" id="userNameDisplay">FEZ Academy</span>
-                    <span class="user-role">Super Admin</span>
+                    <span class="user-name" id="userNameDisplay">Huy Pham</span>
+                    <span class="user-role">Member</span>
                 </div>
                 <div class="user-actions">
                     <i class="fa-solid fa-ellipsis-vertical"></i>
@@ -234,16 +304,16 @@
         <!-- Main Content -->
         <main class="main-content">
             <div class="content-wrapper">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <h1>Dashboard Overview</h1>
-                    <button class="btn-logout" id="logoutBtn">Log Out</button>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h1 id="pageTitle">Chào mừng trở lại!</h1>
+                    <button class="btn-logout" id="logoutBtn">Đăng xuất</button>
                 </div>
-                <p id="welcomeMessage">Welcome back, Admin!</p>
+                <p id="welcomeMessage" style="color: #a0a0b8; margin-bottom: 30px;">Rất vui được gặp lại bạn.</p>
                 
                 <div class="placeholder-card">
                     <i class="fa-solid fa-rocket" id="contentIcon"></i>
-                    <h3 id="contentTitle">Dashboard</h3>
-                    <p id="contentDesc">This is a placeholder for the "Dashboard" section.</p>
+                    <h3 id="contentTitle">Trang chủ</h3>
+                    <p id="contentDesc">Khám phá những sản phẩm Discord mới nhất!</p>
                 </div>
             </div>
         </main>
@@ -252,33 +322,87 @@
 
     <!-- ================== JAVASCRIPT ================== -->
     <script>
-        const loginContainer = document.getElementById('loginContainer');
+        const authContainer = document.getElementById('authContainer');
         const appContainer = document.getElementById('appContainer');
-        const loginForm = document.getElementById('loginForm');
-        const googleLoginBtn = document.getElementById('googleLoginBtn');
-        const usernameLogin = document.getElementById('usernameLogin');
-        const loginBtn = document.getElementById('loginBtn');
-        const logoutBtn = document.getElementById('logoutBtn');
+        
+        // Chuyển đổi form Login / Signup
+        const loginFormWrapper = document.getElementById('loginFormWrapper');
+        const signupFormWrapper = document.getElementById('signupFormWrapper');
+        const showSignup = document.getElementById('showSignup');
+        const showLogin = document.getElementById('showLogin');
+
+        showSignup.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginFormWrapper.classList.add('hide');
+            signupFormWrapper.classList.remove('hide');
+        });
+
+        showLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            signupFormWrapper.classList.add('hide');
+            loginFormWrapper.classList.remove('hide');
+        });
 
         // Xử lý đăng nhập thủ công
+        const loginForm = document.getElementById('loginForm');
+        const loginBtn = document.getElementById('loginBtn');
+
         loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            if (!usernameLogin.value) return;
+            const username = document.getElementById('loginUsername').value;
             
             loginBtn.textContent = 'SIGNING IN...';
             setTimeout(() => {
                 loginBtn.textContent = 'SUCCESS ✓';
                 setTimeout(() => {
                     loginBtn.textContent = 'SIGN IN →';
-                    showDashboard(usernameLogin.value);
+                    showDashboard(username);
+                }, 800);
+            }, 1500);
+        });
+
+        // Xử lý đăng ký thủ công (Lưu vào localStorage)
+        const signupForm = document.getElementById('signupForm');
+        const signupBtn = document.getElementById('signupBtn');
+        const signupName = document.getElementById('signupName');
+        const signupEmail = document.getElementById('signupEmail');
+        const signupPassword = document.getElementById('signupPassword');
+        const signupConfirmPassword = document.getElementById('signupConfirmPassword');
+
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Kiểm tra mật khẩu khớp
+            if (signupPassword.value !== signupConfirmPassword.value) {
+                alert('Mật khẩu xác nhận không khớp!');
+                return;
+            }
+
+            // Lưu tài khoản vào localStorage
+            const userData = {
+                name: signupName.value,
+                email: signupEmail.value,
+                password: signupPassword.value
+            };
+            localStorage.setItem('userAccount', JSON.stringify(userData));
+
+            signupBtn.textContent = 'CREATING...';
+            setTimeout(() => {
+                signupBtn.textContent = 'SUCCESS ✓';
+                setTimeout(() => {
+                    signupBtn.textContent = 'SIGN UP →';
+                    showDashboard(signupName.value);
                 }, 800);
             }, 1500);
         });
 
         // Xử lý đăng nhập Google
-        googleLoginBtn.addEventListener('click', () => {
+        const googleLoginBtn = document.getElementById('googleLoginBtn');
+        const googleSignupBtn = document.getElementById('googleSignupBtn');
+
+        function handleGoogleAuth() {
             google.accounts.id.initialize({
-                client_id: '342884520101-eojb8qup68fvl87qrj5m6q3da3oufd8n.apps.googleusercontent.com', // Client ID của bạn
+                client_id: '342884520101-eojb8qup68fvl87qrj5m6q3da3oufd8n.apps.googleusercontent.com',
                 callback: handleGoogleCredential
             });
 
@@ -297,7 +421,10 @@
                     }, 100);
                 }
             });
-        });
+        }
+
+        googleLoginBtn.addEventListener('click', handleGoogleAuth);
+        googleSignupBtn.addEventListener('click', handleGoogleAuth);
 
         function handleGoogleCredential(response) {
             const userObject = JSON.parse(atob(response.credential.split('.')[1]));
@@ -305,21 +432,27 @@
         }
 
         // Hàm chuyển sang Dashboard
-        function showDashboard(username = 'Admin') {
+        function showDashboard(username = 'Huy Pham') {
             document.getElementById('userNameDisplay').textContent = username;
-            document.getElementById('welcomeMessage').textContent = `Welcome back, ${username}!`;
+            document.getElementById('welcomeMessage').textContent = `Rất vui được gặp lại, ${username}!`;
             
-            loginContainer.style.display = 'none';
+            authContainer.style.display = 'none';
             appContainer.classList.add('active');
 
-            // Reset nút login
+            // Reset form
             loginForm.reset();
+            signupForm.reset();
         }
 
         // Đăng xuất
+        const logoutBtn = document.getElementById('logoutBtn');
         logoutBtn.addEventListener('click', () => {
             appContainer.classList.remove('active');
-            loginContainer.style.display = 'flex';
+            authContainer.style.display = 'flex';
+            
+            // Chuyển về form login
+            signupFormWrapper.classList.add('hide');
+            loginFormWrapper.classList.remove('hide');
         });
 
         // Sidebar Toggle
@@ -337,12 +470,11 @@
 
                 const target = item.getAttribute('data-target');
                 const content = {
-                    dashboard: { icon: 'fa-chart-pie', title: 'Dashboard', desc: 'This is a placeholder for the "Dashboard" section.' },
-                    users: { icon: 'fa-users', title: 'Users', desc: 'This is a placeholder for the "Users" section.' },
-                    orders: { icon: 'fa-cart-shopping', title: 'Orders', desc: 'This is a placeholder for the "Orders" section.' },
-                    analytics: { icon: 'fa-chart-line', title: 'Analytics', desc: 'This is a placeholder for the "Analytics" section.' },
-                    messages: { icon: 'fa-envelope', title: 'Messages', desc: 'This is a placeholder for the "Messages" section.' },
-                    settings: { icon: 'fa-gear', title: 'Settings', desc: 'This is a placeholder for the "Settings" section.' }
+                    home: { icon: 'fa-house', title: 'Trang chủ', desc: 'Khám phá những sản phẩm Discord mới nhất!' },
+                    shop: { icon: 'fa-bag-shopping', title: 'Cửa hàng', desc: 'Nơi bán đa dạng các loại đồ dùng, phụ kiện Discord.' },
+                    orders: { icon: 'fa-box', title: 'Đơn hàng của tôi', desc: 'Theo dõi trạng thái đơn hàng bạn đã mua.' },
+                    wallet: { icon: 'fa-wallet', title: 'Ví của tôi', desc: 'Quản lý số dư và lịch sử giao dịch của bạn.' },
+                    support: { icon: 'fa-headset', title: 'Hỗ trợ', desc: 'Liên hệ với đội ngũ hỗ trợ khi bạn cần giúp đỡ.' }
                 };
 
                 document.getElementById('contentIcon').className = `fa-solid ${content[target].icon}`;
