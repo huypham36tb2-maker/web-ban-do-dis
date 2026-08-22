@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lunara - Sign in</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background"></div>
+
+    <div class="login-container" id="loginContainer">
+        <form class="login-form" id="loginForm">
+            <div class="brand">✦ Lunara ✦</div>
+            <h1 class="title">Welcome back</h1>
+            <p class="subtitle">Sign in to continue your journey</p>
+
+            <div class="input-group">
+                <input type="email" id="email" placeholder="Email address" required>
+                <span class="input-icon">✉️</span>
+            </div>
+
+            <div class="input-group">
+                <input type="password" id="password" placeholder="Password" required>
+                <span class="input-icon">🔒</span>
+            </div>
+
+            <div class="options-row">
+                <label class="remember-me">
+                    <input type="checkbox" id="rememberMe">
+                    <span class="checkmark"></span>
+                    Remember me
+                </label>
+                <a href="#" class="forgot-link">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="signin-btn" id="signinBtn">
+                <span class="btn-text">Sign in</span>
+                <span class="btn-loader" hidden></span>
+                <span class="btn-success" hidden>✓</span>
+            </button>
+
+            <div class="divider">
+                <span>or continue with</span>
+            </div>
+
+            <div class="social-buttons">
+                <button type="button" class="social-btn google-btn">
+                    <span class="social-icon">G</span>
+                    <span>Google</span>
+                </button>
+                <button type="button" class="social-btn apple-btn">
+                    <span class="social-icon"></span>
+                    <span>Apple</span>
+                </button>
+            </div>
+
+            <p class="footer-text">
+                New to Lunara? <a href="#" class="create-link">Create account</a>
+            </p>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
