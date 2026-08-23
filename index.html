@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bán Đa Đồ Discord - E-Commerce Full System</title>
+    <title>Bán Đa Đồ Discord - Full System</title>
     
     <!-- Google Identity Services -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
+    
+    <!-- Cloudflare Turnstile CAPTCHA -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -180,7 +183,6 @@
         /* ===== E-COMMERCE FEATURES ===== */
         .section-title { font-size: 2rem; margin-bottom: 20px; }
 
-        /* Product Grid */
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -218,64 +220,38 @@
         .product-card h3 { font-size: 1.2rem; margin-bottom: 10px; }
         .product-card .price { color: var(--active-bg); font-size: 1.3rem; font-weight: 700; margin-bottom: 15px; }
         .product-card .btn-add-cart {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            border-radius: 8px;
-            background: var(--active-bg);
-            color: white;
-            cursor: pointer;
-            transition: var(--transition);
+            width: 100%; padding: 10px; border: none; border-radius: 8px;
+            background: var(--active-bg); color: white; cursor: pointer; transition: var(--transition);
         }
         .product-card .btn-add-cart:hover { opacity: 0.9; }
 
         /* Cart */
         .cart-container {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 30px;
-            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.03); border: 1px solid var(--glass-border);
+            border-radius: 16px; padding: 30px; margin-bottom: 40px;
         }
 
         .cart-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 15px 0;
+            display: flex; align-items: center; gap: 15px; padding: 15px 0;
             border-bottom: 1px solid var(--glass-border);
         }
 
         .cart-item .item-info { flex: 1; }
         .cart-item .item-price { color: var(--active-bg); font-weight: 700; }
-        .cart-item .btn-remove {
-            background: transparent;
-            border: none;
-            color: #ff6b6b;
-            cursor: pointer;
-            font-size: 1.2rem;
-        }
+        .cart-item .btn-remove { background: transparent; border: none; color: #ff6b6b; cursor: pointer; font-size: 1.2rem; }
 
         .cart-total { text-align: right; margin-top: 20px; font-size: 1.2rem; }
         .cart-total span { color: var(--active-bg); font-weight: 700; }
 
         /* Wallet & History */
-        .wallet-balance {
-            font-size: 3rem;
-            color: var(--active-bg);
-            font-weight: 800;
-            margin-bottom: 30px;
-        }
+        .wallet-balance { font-size: 3rem; color: var(--active-bg); font-weight: 800; margin-bottom: 30px; }
 
         .order-table {
-            width: 100%;
-            border-collapse: collapse;
+            width: 100%; border-collapse: collapse;
         }
 
         .order-table th, .order-table td {
-            padding: 15px;
-            text-align: left;
-            border-bottom: 1px solid var(--glass-border);
+            padding: 15px; text-align: left; border-bottom: 1px solid var(--glass-border);
         }
 
         .order-table th { color: var(--text-muted); font-size: 0.9rem; }
@@ -283,140 +259,70 @@
 
         /* Admin Shop Update */
         .admin-shop-form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            max-width: 500px;
+            display: flex; flex-direction: column; gap: 20px; max-width: 500px;
         }
 
         .btn-update {
-            padding: 15px;
-            border: none;
-            border-radius: 12px;
-            background: var(--admin-bg);
-            color: white;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
+            padding: 15px; border: none; border-radius: 12px;
+            background: var(--admin-bg); color: white; font-size: 1rem; font-weight: 700;
+            cursor: pointer; transition: var(--transition);
         }
         .btn-update:hover { opacity: 0.9; }
 
         /* AI Chatbot */
         #chatbot-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 9999;
-            width: 350px;
-            max-height: 500px;
-            background: var(--bg-sidebar);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
+            position: fixed; bottom: 20px; right: 20px; z-index: 9999;
+            width: 350px; max-height: 500px;
+            background: var(--bg-sidebar); border: 1px solid var(--glass-border);
+            border-radius: 16px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            display: flex; flex-direction: column; overflow: hidden;
         }
 
-        #chatbot-container.chat-open {
-            display: flex;
-        }
-
-        #chatbot-container.chat-closed {
-            display: none;
-        }
+        #chatbot-container.chat-open { display: flex; }
+        #chatbot-container.chat-closed { display: none; }
 
         .chat-header {
             background: linear-gradient(90deg, #6c5ce7, #a29bfe);
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 700;
+            padding: 15px; display: flex; justify-content: space-between; align-items: center; font-weight: 700;
         }
 
-        .chat-header .chat-close {
-            cursor: pointer;
-            font-size: 1.2rem;
-        }
+        .chat-header .chat-close { cursor: pointer; font-size: 1.2rem; }
 
         .chat-body {
-            flex: 1;
-            padding: 15px;
-            overflow-y: auto;
-            max-height: 300px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+            flex: 1; padding: 15px; overflow-y: auto; max-height: 300px;
+            display: flex; flex-direction: column; gap: 10px;
         }
 
         .chat-message {
-            padding: 10px 15px;
-            border-radius: 12px;
-            max-width: 80%;
-            font-size: 0.9rem;
+            padding: 10px 15px; border-radius: 12px; max-width: 80%; font-size: 0.9rem;
         }
 
-        .chat-message.bot {
-            background: rgba(255, 255, 255, 0.1);
-            align-self: flex-start;
-        }
-
-        .chat-message.user {
-            background: var(--active-bg);
-            color: white;
-            align-self: flex-end;
-        }
+        .chat-message.bot { background: rgba(255, 255, 255, 0.1); align-self: flex-start; }
+        .chat-message.user { background: var(--active-bg); color: white; align-self: flex-end; }
 
         .chat-input-area {
-            padding: 10px;
-            border-top: 1px solid var(--glass-border);
-            display: flex;
-            gap: 10px;
+            padding: 10px; border-top: 1px solid var(--glass-border); display: flex; gap: 10px;
         }
 
         .chat-input-area input {
-            flex: 1;
-            padding: 10px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--glass-border);
-            border-radius: 8px;
-            color: white;
-            outline: none;
+            flex: 1; padding: 10px; background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border); border-radius: 8px; color: white; outline: none;
         }
 
         .chat-input-area button {
-            background: var(--active-bg);
-            border: none;
-            color: white;
-            border-radius: 8px;
-            padding: 10px 15px;
-            cursor: pointer;
+            background: var(--active-bg); border: none; color: white;
+            border-radius: 8px; padding: 10px 15px; cursor: pointer;
         }
 
         #chatbot-toggle-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 9998;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: var(--active-bg);
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 5px 20px rgba(108, 92, 231, 0.4);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            position: fixed; bottom: 20px; right: 20px; z-index: 9998;
+            width: 60px; height: 60px; border-radius: 50%;
+            background: var(--active-bg); border: none; color: white; font-size: 1.5rem;
+            cursor: pointer; box-shadow: 0 5px 20px rgba(108, 92, 231, 0.4);
+            display: flex; justify-content: center; align-items: center;
         }
 
-        #chatbot-toggle-btn.chat-open {
-            display: none;
-        }
+        #chatbot-toggle-btn.chat-open { display: none; }
 
         @media (max-width: 768px) {
             .sidebar { position: fixed; z-index: 1000; height: 100%; left: -100%; transition: left 0.3s ease; }
@@ -446,6 +352,10 @@
                         <label>PASSWORD</label>
                         <input type="password" id="loginPassword" placeholder="Nhập mật khẩu" required>
                     </div>
+
+                    <!-- Cloudflare Turnstile CAPTCHA -->
+                    <div class="cf-turnstile" data-sitekey="0x4AAAAAAEYxuxD1sZ94uXbl"></div>
+
                     <button type="submit" class="btn-login" id="loginBtn">SIGN IN &rarr;</button>
                 </form>
 
@@ -485,6 +395,10 @@
                         <label>XÁC NHẬN MẬT KHẨU</label>
                         <input type="password" id="signupConfirmPassword" placeholder="Nhập lại mật khẩu" required>
                     </div>
+
+                    <!-- Cloudflare Turnstile CAPTCHA -->
+                    <div class="cf-turnstile" data-sitekey="0x4AAAAAAEYxuxD1sZ94uXbl"></div>
+
                     <button type="submit" class="btn-login" id="signupBtn">SIGN UP &rarr;</button>
                 </form>
 
@@ -514,6 +428,10 @@
                         <label>PASSWORD</label>
                         <input type="password" id="adminPassword" placeholder="Nhập mật khẩu" required>
                     </div>
+
+                    <!-- Cloudflare Turnstile CAPTCHA -->
+                    <div class="cf-turnstile" data-sitekey="0x4AAAAAAEYxuxD1sZ94uXbl"></div>
+
                     <button type="submit" class="btn-admin-login" id="adminLoginBtn">ADMIN LOGIN &rarr;</button>
                 </form>
 
@@ -595,9 +513,7 @@
                 <!-- CỬA HÀNG -->
                 <div id="section-shop" class="content-section" style="display: none;">
                     <h2 class="section-title">Cửa hàng</h2>
-                    <div class="product-grid" id="productGrid">
-                        <!-- JS sẽ load sản phẩm vào đây -->
-                    </div>
+                    <div class="product-grid" id="productGrid"></div>
                     
                     <div class="cart-container">
                         <h3 style="margin-bottom: 20px;">Giỏ hàng của bạn</h3>
@@ -621,9 +537,7 @@
                                 <th>Trạng thái</th>
                             </tr>
                         </thead>
-                        <tbody id="userOrderHistory">
-                            <!-- JS sẽ load lịch sử đơn hàng -->
-                        </tbody>
+                        <tbody id="userOrderHistory"></tbody>
                     </table>
                 </div>
 
@@ -726,9 +640,7 @@
                 <div id="admin-section-products" class="content-section" style="display: none;">
                     <h2 class="section-title">Quản lý sản phẩm</h2>
                     <button class="btn-login" style="margin-bottom: 20px;" onclick="addSampleProduct()">Thêm sản phẩm mẫu</button>
-                    <div class="product-grid" id="adminProductGrid">
-                        <!-- JS load sản phẩm -->
-                    </div>
+                    <div class="product-grid" id="adminProductGrid"></div>
                 </div>
 
                 <!-- QUẢN LÝ ĐƠN HÀNG -->
@@ -744,9 +656,7 @@
                                 <th>Trạng thái</th>
                             </tr>
                         </thead>
-                        <tbody id="allOrders">
-                            <!-- JS load -->
-                        </tbody>
+                        <tbody id="allOrders"></tbody>
                     </table>
                 </div>
 
@@ -813,6 +723,7 @@
         </div>
     </div>
 
+    <!-- ================== JAVASCRIPT ================== -->
     <script>
         // ===== DỮ LIỆU MẪU =====
         const ADMIN_EMAIL = 'huypham36.tb2@gmail.com';
@@ -825,7 +736,6 @@
             { id: 4, name: 'Tài khoản Discord LV30', price: 150000, icon: 'fa-user-astronaut' }
         ];
 
-        // Trạng thái hiện tại
         let currentUser = { name: 'Huy Pham', role: 'user', email: '' };
         let cart = [];
         let walletBalance = 0;
@@ -835,6 +745,14 @@
         const loginForm = document.getElementById('loginForm');
         loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
+            
+            // Kiểm tra CAPTCHA
+            const token = document.querySelector('input[name="cf-turnstile-response"]')?.value;
+            if (!token) {
+                alert('Vui lòng xác nhận bạn không phải là robot!');
+                return;
+            }
+
             const email = document.getElementById('loginUsername').value;
             const pass = document.getElementById('loginPassword').value;
 
@@ -891,6 +809,14 @@
         const adminLoginForm = document.getElementById('adminLoginForm');
         adminLoginForm.addEventListener('submit', (e) => {
             e.preventDefault();
+            
+            // Kiểm tra CAPTCHA
+            const token = document.querySelector('input[name="cf-turnstile-response"]')?.value;
+            if (!token) {
+                alert('Vui lòng xác nhận bạn không phải là robot!');
+                return;
+            }
+
             const email = document.getElementById('adminEmail').value;
             const pass = document.getElementById('adminPassword').value;
 
@@ -929,6 +855,14 @@
         const signupForm = document.getElementById('signupForm');
         signupForm.addEventListener('submit', (e) => {
             e.preventDefault();
+            
+            // Kiểm tra CAPTCHA
+            const token = document.querySelector('input[name="cf-turnstile-response"]')?.value;
+            if (!token) {
+                alert('Vui lòng xác nhận bạn không phải là robot!');
+                return;
+            }
+
             const name = document.getElementById('signupName').value;
             const email = document.getElementById('signupEmail').value;
             const pass = document.getElementById('signupPassword').value;
@@ -980,7 +914,6 @@
 
         // ===== USER DASHBOARD DATA =====
         function loadUserDashboardData() {
-            // Load products into shop
             const productGrid = document.getElementById('productGrid');
             productGrid.innerHTML = '';
             products.forEach(product => {
@@ -994,7 +927,6 @@
                 `;
             });
 
-            // Load orders history
             const orderHistory = document.getElementById('userOrderHistory');
             orderHistory.innerHTML = '';
             allOrders.filter(order => order.email === currentUser.email).forEach(order => {
@@ -1008,7 +940,6 @@
                 `;
             });
 
-            // Load wallet
             document.getElementById('userWalletBalance').textContent = walletBalance.toLocaleString() + 'đ';
         }
 
@@ -1055,7 +986,6 @@
                 return;
             }
 
-            // Trừ tiền, tạo đơn hàng
             walletBalance -= total;
             const order = {
                 id: Date.now(),
@@ -1084,7 +1014,6 @@
         function loadAdminDashboardData() {
             document.getElementById('revenueTitle').textContent = allOrders.reduce((sum, order) => sum + order.total, 0).toLocaleString() + 'đ';
             
-            // Admin products
             const adminProductGrid = document.getElementById('adminProductGrid');
             adminProductGrid.innerHTML = '';
             products.forEach(product => {
@@ -1098,7 +1027,6 @@
                 `;
             });
 
-            // All orders
             const allOrdersTable = document.getElementById('allOrders');
             allOrdersTable.innerHTML = '';
             allOrders.forEach(order => {
@@ -1162,7 +1090,6 @@
             chatBody.innerHTML += `<div class="chat-message user">${message}</div>`;
             input.value = '';
 
-            // Trả lời tự động
             setTimeout(() => {
                 let botResponse = "Xin lỗi, tôi chưa hiểu câu hỏi của bạn. Bạn có thể hỏi về sản phẩm, giá cả hoặc đơn hàng.";
                 const lowerMessage = message.toLowerCase();
@@ -1185,7 +1112,7 @@
         }
 
         // ===== SIDEBAR NAVIGATION =====
-        function setupNavigation(containerId, defaultSection) {
+        function setupNavigation(containerId) {
             const container = document.getElementById(containerId);
             const navItems = container.querySelectorAll('.nav-item');
             const sections = container.querySelectorAll('.content-section');
@@ -1206,10 +1133,9 @@
             });
         }
 
-        setupNavigation('userAppContainer', 'home');
-        setupNavigation('adminAppContainer', 'overview');
+        setupNavigation('userAppContainer');
+        setupNavigation('adminAppContainer');
 
-        // Sidebar toggles
         document.getElementById('userToggleBtn').addEventListener('click', () => {
             document.getElementById('userSidebar').classList.toggle('collapsed');
         });
@@ -1218,7 +1144,6 @@
             document.getElementById('adminSidebar').classList.toggle('collapsed');
         });
 
-        // Responsive
         if (window.innerWidth <= 768) {
             document.getElementById('userSidebar').classList.add('mobile-open');
             document.getElementById('adminSidebar').classList.add('mobile-open');
