@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bán Đa Đồ Discord - User Dashboard</title>
+    <title>Bán Đa Đồ Discord - Multi Role</title>
     
     <!-- Google Identity Services -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -18,6 +18,7 @@
             --glass-bg: rgba(255, 255, 255, 0.05);
             --glass-border: rgba(255, 255, 255, 0.1);
             --active-bg: #6c5ce7;
+            --admin-bg: #e74c3c; /* Màu đỏ cho Admin */
             --text-primary: #ffffff;
             --text-muted: #a0a0b8;
             --transition: all 0.2s ease;
@@ -29,7 +30,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font); }
         body { background: var(--bg-dark); color: var(--text-primary); overflow-x: hidden; }
 
-        /* ===== PHẦN LOGIN / SIGNUP ===== */
+        /* ===== PHẦN AUTH (ĐĂNG NHẬP / ĐĂNG KÝ) ===== */
         .auth-container {
             display: flex;
             justify-content: center;
@@ -39,7 +40,7 @@
         }
 
         .auth-card {
-            width: min(400px, 90vw);
+            width: min(420px, 90vw);
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
             backdrop-filter: blur(20px);
@@ -69,6 +70,15 @@
         }
         .btn-login:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(108, 92, 231, 0.4); }
 
+        .btn-admin-login {
+            width: 100%; padding: 14px; border: none; border-radius: 12px;
+            background: linear-gradient(90deg, #e74c3c, #c0392b);
+            color: var(--text-primary); font-size: 1rem; font-weight: 700; cursor: pointer;
+            transition: var(--transition); margin-bottom: 20px;
+            display: flex; justify-content: center; align-items: center; gap: 10px;
+        }
+        .btn-admin-login:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(231, 76, 60, 0.4); }
+
         .or-divider { display: flex; align-items: center; margin-bottom: 20px; color: var(--text-muted); font-size: 0.9rem; }
         .or-divider::before, .or-divider::after { content: ''; flex: 1; border-bottom: 1px solid var(--glass-border); }
         .or-divider span { padding: 0 10px; }
@@ -85,10 +95,12 @@
         .auth-footer a { color: var(--active-bg); text-decoration: none; font-weight: 600; }
         .auth-footer a:hover { text-decoration: underline; }
 
-        /* Ẩn/Hiện form */
+        .admin-link { display: block; text-align: center; margin-top: 15px; font-size: 0.85rem; color: rgba(255,255,255,0.4); text-decoration: none; }
+        .admin-link:hover { color: #e74c3c; }
+
         .hide { display: none; }
 
-        /* ===== PHẦN DASHBOARD USER ===== */
+        /* ===== PHẦN DASHBOARD ===== */
         .app-container {
             display: none;
             height: 100vh; width: 100%;
@@ -123,6 +135,10 @@
         .nav-link:hover { background: var(--glass-bg); color: var(--text-primary); }
         .nav-item.active .nav-link { background: var(--active-bg); color: var(--text-primary); box-shadow: 0 4px 20px rgba(108, 92, 231, 0.4); }
 
+        /* Sidebar Admin - Màu đỏ */
+        .sidebar.admin-sidebar .nav-item.active .nav-link { background: var(--admin-bg); box-shadow: 0 4px 20px rgba(231, 76, 60, 0.4); }
+        .sidebar.admin-sidebar .logo i { color: var(--admin-bg); }
+        
         /* Nút nâng cấp VIP */
         .upgrade-box {
             background: linear-gradient(135deg, #6c5ce7, #a29bfe);
@@ -136,6 +152,9 @@
         .upgrade-box:hover { transform: scale(1.02); }
         .upgrade-box p { font-size: 0.8rem; color: rgba(255,255,255,0.8); margin-bottom: 5px; }
         .upgrade-box span { font-weight: 700; font-size: 1rem; }
+
+        /* Sidebar Admin - Ẩn nút VIP */
+        .sidebar.admin-sidebar .upgrade-box { display: none; }
 
         /* User Profile */
         .user-profile {
@@ -175,7 +194,7 @@
 </head>
 <body>
 
-    <!-- ================== 1. MÀN HÌNH LOGIN / SIGNUP ================== -->
+    <!-- ================== 1. MÀN HÌNH AUTH ================== -->
     <div class="auth-container" id="authContainer">
         <div class="auth-card">
             
@@ -186,12 +205,12 @@
 
                 <form id="loginForm">
                     <div class="input-group">
-                        <label>USERNAME HOẶC EMAIL</label>
-                        <input type="text" id="loginUsername" placeholder="Enter your username or email" required>
+                        <label>EMAIL HOẶC USERNAME</label>
+                        <input type="text" id="loginUsername" placeholder="Nhập email hoặc username" required>
                     </div>
                     <div class="input-group">
                         <label>PASSWORD</label>
-                        <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                        <input type="password" id="loginPassword" placeholder="Nhập mật khẩu" required>
                     </div>
                     <button type="submit" class="btn-login" id="loginBtn">SIGN IN &rarr;</button>
                 </form>
@@ -206,6 +225,9 @@
                 <p class="auth-footer">
                     Chưa có tài khoản? <a href="#" id="showSignup">Đăng ký ngay</a>
                 </p>
+                
+                <!-- Link ẩn cho Admin -->
+                <a href="#" class="admin-link" id="adminLoginLink">Dành cho quản trị viên</a>
             </div>
 
             <!-- Form Đăng ký (Ẩn mặc định) -->
@@ -245,23 +267,42 @@
                 </p>
             </div>
 
+            <!-- Form Admin (Ẩn mặc định) -->
+            <div id="adminFormWrapper" class="hide">
+                <h2>Admin Login.</h2>
+                <p class="subtitle">Cổng đăng nhập dành riêng cho quản trị viên</p>
+
+                <form id="adminLoginForm">
+                    <div class="input-group">
+                        <label>EMAIL ADMIN</label>
+                        <input type="email" id="adminEmail" placeholder="admin@shop.com" required>
+                    </div>
+                    <div class="input-group">
+                        <label>PASSWORD</label>
+                        <input type="password" id="adminPassword" placeholder="Nhập mật khẩu" required>
+                    </div>
+                    <button type="submit" class="btn-admin-login" id="adminLoginBtn">ADMIN LOGIN &rarr;</button>
+                </form>
+
+                <p class="auth-footer">
+                    <a href="#" id="backToLogin">Quay lại đăng nhập người dùng</a>
+                </p>
+            </div>
+
         </div>
     </div>
 
-    <!-- ================== 2. DASHBOARD NGƯỜI DÙNG ================== -->
-    <div class="app-container" id="appContainer">
-        
-        <!-- Sidebar -->
-        <aside class="sidebar" id="sidebar">
+    <!-- ================== 2. DASHBOARD USER ================== -->
+    <div class="app-container" id="userAppContainer">
+        <aside class="sidebar" id="userSidebar">
             <div class="sidebar-header">
                 <div class="logo">
                     <i class="fa-brands fa-discord"></i>
                     <span class="logo-text">Bán Đa Đồ Discord</span>
                 </div>
-                <button class="toggle-btn" id="toggleBtn"><i class="fa-solid fa-bars"></i></button>
+                <button class="toggle-btn" id="userToggleBtn"><i class="fa-solid fa-bars"></i></button>
             </div>
 
-            <!-- Nút nâng cấp VIP -->
             <div class="upgrade-box">
                 <p>Bạn muốn mua sắm nhiều hơn?</p>
                 <span>Nâng cấp VIP Member</span>
@@ -301,105 +342,196 @@
             </div>
         </aside>
 
-        <!-- Main Content -->
         <main class="main-content">
             <div class="content-wrapper">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                    <h1 id="pageTitle">Chào mừng trở lại!</h1>
-                    <button class="btn-logout" id="logoutBtn">Đăng xuất</button>
+                    <h1 id="userPageTitle">Chào mừng trở lại!</h1>
+                    <button class="btn-logout" id="userLogoutBtn">Đăng xuất</button>
                 </div>
-                <p id="welcomeMessage" style="color: #a0a0b8; margin-bottom: 30px;">Rất vui được gặp lại bạn.</p>
+                <p id="userWelcomeMessage" style="color: #a0a0b8; margin-bottom: 30px;">Rất vui được gặp lại bạn.</p>
                 
                 <div class="placeholder-card">
-                    <i class="fa-solid fa-rocket" id="contentIcon"></i>
-                    <h3 id="contentTitle">Trang chủ</h3>
-                    <p id="contentDesc">Khám phá những sản phẩm Discord mới nhất!</p>
+                    <i class="fa-solid fa-rocket" id="userContentIcon"></i>
+                    <h3 id="userContentTitle">Trang chủ</h3>
+                    <p id="userContentDesc">Khám phá những sản phẩm Discord mới nhất!</p>
                 </div>
             </div>
         </main>
+    </div>
 
+    <!-- ================== 3. DASHBOARD ADMIN ================== -->
+    <div class="app-container" id="adminAppContainer">
+        <aside class="sidebar admin-sidebar" id="adminSidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span class="logo-text">Admin Shop</span>
+                </div>
+                <button class="toggle-btn" id="adminToggleBtn"><i class="fa-solid fa-bars"></i></button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li class="nav-item active" data-target="overview">
+                        <a href="#" class="nav-link"><i class="fa-solid fa-gauge-high"></i><span class="nav-text">Tổng quan</span></a>
+                    </li>
+                    <li class="nav-item" data-target="products">
+                        <a href="#" class="nav-link"><i class="fa-solid fa-boxes-stacked"></i><span class="nav-text">Quản lý sản phẩm</span></a>
+                    </li>
+                    <li class="nav-item" data-target="admin-orders">
+                        <a href="#" class="nav-link"><i class="fa-solid fa-cart-shopping"></i><span class="nav-text">Quản lý đơn hàng</span><span class="badge">5</span></a>
+                    </li>
+                    <li class="nav-item" data-target="revenue">
+                        <a href="#" class="nav-link"><i class="fa-solid fa-chart-line"></i><span class="nav-text">Doanh thu</span></a>
+                    </li>
+                    <li class="nav-item" data-target="customers">
+                        <a href="#" class="nav-link"><i class="fa-solid fa-users-gear"></i><span class="nav-text">Quản lý khách hàng</span></a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="Admin Avatar">
+                </div>
+                <div class="user-info">
+                    <span class="user-name" id="adminNameDisplay">Huy Pham</span>
+                    <span class="user-role">Super Admin</span>
+                </div>
+                <div class="user-actions">
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h1 id="adminPageTitle">Tổng quan Admin</h1>
+                    <button class="btn-logout" id="adminLogoutBtn">Đăng xuất</button>
+                </div>
+                <p id="adminWelcomeMessage" style="color: #a0a0b8; margin-bottom: 30px;">Chào mừng trở lại, Admin!</p>
+                
+                <div class="placeholder-card">
+                    <i class="fa-solid fa-rocket" id="adminContentIcon"></i>
+                    <h3 id="adminContentTitle">Tổng quan</h3>
+                    <p id="adminContentDesc">Theo dõi tình hình hoạt động của cửa hàng.</p>
+                </div>
+            </div>
+        </main>
     </div>
 
     <!-- ================== JAVASCRIPT ================== -->
     <script>
+        // Const
         const authContainer = document.getElementById('authContainer');
-        const appContainer = document.getElementById('appContainer');
-        
-        // Chuyển đổi form Login / Signup
         const loginFormWrapper = document.getElementById('loginFormWrapper');
         const signupFormWrapper = document.getElementById('signupFormWrapper');
-        const showSignup = document.getElementById('showSignup');
-        const showLogin = document.getElementById('showLogin');
+        const adminFormWrapper = document.getElementById('adminFormWrapper');
 
-        showSignup.addEventListener('click', (e) => {
+        // Chuyển đổi giữa các form Auth
+        document.getElementById('showSignup').addEventListener('click', (e) => {
             e.preventDefault();
             loginFormWrapper.classList.add('hide');
             signupFormWrapper.classList.remove('hide');
         });
 
-        showLogin.addEventListener('click', (e) => {
+        document.getElementById('showLogin').addEventListener('click', (e) => {
             e.preventDefault();
             signupFormWrapper.classList.add('hide');
             loginFormWrapper.classList.remove('hide');
         });
 
-        // Xử lý đăng nhập thủ công
-        const loginForm = document.getElementById('loginForm');
-        const loginBtn = document.getElementById('loginBtn');
-
-        loginForm.addEventListener('submit', (e) => {
+        // Liên kết ẩn Admin
+        document.getElementById('adminLoginLink').addEventListener('click', (e) => {
             e.preventDefault();
-            const username = document.getElementById('loginUsername').value;
-            
-            loginBtn.textContent = 'SIGNING IN...';
-            setTimeout(() => {
-                loginBtn.textContent = 'SUCCESS ✓';
-                setTimeout(() => {
-                    loginBtn.textContent = 'SIGN IN →';
-                    showDashboard(username);
-                }, 800);
-            }, 1500);
+            loginFormWrapper.classList.add('hide');
+            adminFormWrapper.classList.remove('hide');
         });
 
-        // Xử lý đăng ký thủ công (Lưu vào localStorage)
-        const signupForm = document.getElementById('signupForm');
-        const signupBtn = document.getElementById('signupBtn');
-        const signupName = document.getElementById('signupName');
-        const signupEmail = document.getElementById('signupEmail');
-        const signupPassword = document.getElementById('signupPassword');
-        const signupConfirmPassword = document.getElementById('signupConfirmPassword');
+        document.getElementById('backToLogin').addEventListener('click', (e) => {
+            e.preventDefault();
+            adminFormWrapper.classList.add('hide');
+            loginFormWrapper.classList.remove('hide');
+        });
 
+        // ===== XỬ LÝ ĐĂNG NHẬP THỦ CÔNG =====
+        const ADMIN_EMAIL = 'huypham36.tb2@gmail.com';
+        const ADMIN_PASS = 'Huy198900';
+
+        // Đăng nhập User thủ công
+        const loginForm = document.getElementById('loginForm');
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const inputEmail = document.getElementById('loginUsername').value;
+            const inputPass = document.getElementById('loginPassword').value;
+
+            // Kiểm tra nếu là Admin
+            if (inputEmail === ADMIN_EMAIL && inputPass === ADMIN_PASS) {
+                showAdminDashboard(ADMIN_EMAIL);
+                return;
+            }
+
+            // Đăng nhập User thường
+            const btn = document.getElementById('loginBtn');
+            btn.textContent = 'SIGNING IN...';
+            setTimeout(() => {
+                btn.textContent = 'SUCCESS ✓';
+                setTimeout(() => {
+                    btn.textContent = 'SIGN IN →';
+                    showUserDashboard(inputEmail);
+                }, 800);
+            }, 1200);
+        });
+
+        // Đăng nhập Admin thủ công
+        const adminLoginForm = document.getElementById('adminLoginForm');
+        adminLoginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const adminEmail = document.getElementById('adminEmail').value;
+            const adminPass = document.getElementById('adminPassword').value;
+
+            if (adminEmail === ADMIN_EMAIL && adminPass === ADMIN_PASS) {
+                const btn = document.getElementById('adminLoginBtn');
+                btn.textContent = 'VERIFYING...';
+                setTimeout(() => {
+                    btn.textContent = 'SUCCESS ✓';
+                    setTimeout(() => {
+                        btn.textContent = 'ADMIN LOGIN →';
+                        showAdminDashboard(adminEmail);
+                    }, 800);
+                }, 1200);
+            } else {
+                alert('Sai email hoặc mật khẩu Admin!');
+            }
+        });
+
+        // ===== XỬ LÝ ĐĂNG KÝ THỦ CÔNG =====
+        const signupForm = document.getElementById('signupForm');
         signupForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            
-            // Kiểm tra mật khẩu khớp
-            if (signupPassword.value !== signupConfirmPassword.value) {
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const pass = document.getElementById('signupPassword').value;
+            const confirmPass = document.getElementById('signupConfirmPassword').value;
+
+            if (pass !== confirmPass) {
                 alert('Mật khẩu xác nhận không khớp!');
                 return;
             }
 
-            // Lưu tài khoản vào localStorage
-            const userData = {
-                name: signupName.value,
-                email: signupEmail.value,
-                password: signupPassword.value
-            };
-            localStorage.setItem('userAccount', JSON.stringify(userData));
-
-            signupBtn.textContent = 'CREATING...';
+            const btn = document.getElementById('signupBtn');
+            btn.textContent = 'CREATING...';
             setTimeout(() => {
-                signupBtn.textContent = 'SUCCESS ✓';
+                btn.textContent = 'SUCCESS ✓';
                 setTimeout(() => {
-                    signupBtn.textContent = 'SIGN UP →';
-                    showDashboard(signupName.value);
+                    btn.textContent = 'SIGN UP →';
+                    showUserDashboard(name);
                 }, 800);
-            }, 1500);
+            }, 1200);
         });
 
-        // Xử lý đăng nhập Google
-        const googleLoginBtn = document.getElementById('googleLoginBtn');
-        const googleSignupBtn = document.getElementById('googleSignupBtn');
-
+        // ===== XỬ LÝ ĐĂNG NHẬP GOOGLE =====
         function handleGoogleAuth() {
             google.accounts.id.initialize({
                 client_id: '342884520101-eojb8qup68fvl87qrj5m6q3da3oufd8n.apps.googleusercontent.com',
@@ -423,49 +555,76 @@
             });
         }
 
-        googleLoginBtn.addEventListener('click', handleGoogleAuth);
-        googleSignupBtn.addEventListener('click', handleGoogleAuth);
+        document.getElementById('googleLoginBtn').addEventListener('click', handleGoogleAuth);
+        document.getElementById('googleSignupBtn').addEventListener('click', handleGoogleAuth);
 
         function handleGoogleCredential(response) {
             const userObject = JSON.parse(atob(response.credential.split('.')[1]));
-            showDashboard(userObject.name);
+            
+            // Kiểm tra xem email Google có phải là Admin không
+            if (userObject.email === ADMIN_EMAIL) {
+                showAdminDashboard(userObject.name);
+            } else {
+                showUserDashboard(userObject.name);
+            }
         }
 
-        // Hàm chuyển sang Dashboard
-        function showDashboard(username = 'Huy Pham') {
+        // ===== HÀM HIỂN THỊ DASHBOARD =====
+        function showUserDashboard(username = 'Huy Pham') {
             document.getElementById('userNameDisplay').textContent = username;
-            document.getElementById('welcomeMessage').textContent = `Rất vui được gặp lại, ${username}!`;
+            document.getElementById('userWelcomeMessage').textContent = `Rất vui được gặp lại, ${username}!`;
             
             authContainer.style.display = 'none';
-            appContainer.classList.add('active');
-
-            // Reset form
+            document.getElementById('userAppContainer').classList.add('active');
             loginForm.reset();
-            signupForm.reset();
         }
 
-        // Đăng xuất
-        const logoutBtn = document.getElementById('logoutBtn');
-        logoutBtn.addEventListener('click', () => {
-            appContainer.classList.remove('active');
-            authContainer.style.display = 'flex';
+        function showAdminDashboard(username = 'Huy Pham') {
+            document.getElementById('adminNameDisplay').textContent = username;
+            document.getElementById('adminWelcomeMessage').textContent = `Chào mừng trở lại, Admin ${username}!`;
             
-            // Chuyển về form login
+            authContainer.style.display = 'none';
+            document.getElementById('adminAppContainer').classList.add('active');
+            adminLoginForm.reset();
+        }
+
+        // ===== ĐĂNG XUẤT =====
+        document.getElementById('userLogoutBtn').addEventListener('click', () => {
+            document.getElementById('userAppContainer').classList.remove('active');
+            authContainer.style.display = 'flex';
+            // Quay về login
             signupFormWrapper.classList.add('hide');
+            adminFormWrapper.classList.add('hide');
             loginFormWrapper.classList.remove('hide');
         });
 
-        // Sidebar Toggle
-        const toggleBtn = document.getElementById('toggleBtn');
-        const sidebar = document.getElementById('sidebar');
-        toggleBtn.addEventListener('click', () => sidebar.classList.toggle('collapsed'));
+        document.getElementById('adminLogoutBtn').addEventListener('click', () => {
+            document.getElementById('adminAppContainer').classList.remove('active');
+            authContainer.style.display = 'flex';
+            // Quay về login
+            signupFormWrapper.classList.add('hide');
+            adminFormWrapper.classList.add('hide');
+            loginFormWrapper.classList.remove('hide');
+        });
 
-        // Active Menu
-        const navItems = document.querySelectorAll('.nav-item');
-        navItems.forEach(item => {
+        // ===== SIDEBAR TOGGLE =====
+        // User Sidebar
+        document.getElementById('userToggleBtn').addEventListener('click', () => {
+            document.getElementById('userSidebar').classList.toggle('collapsed');
+        });
+
+        // Admin Sidebar
+        document.getElementById('adminToggleBtn').addEventListener('click', () => {
+            document.getElementById('adminSidebar').classList.toggle('collapsed');
+        });
+
+        // ===== ACTIVE MENU =====
+        // Xử lý cho User Dashboard
+        const userNavItems = document.querySelectorAll('#userAppContainer .nav-item');
+        userNavItems.forEach(item => {
             item.addEventListener('click', (e) => {
                 e.preventDefault();
-                navItems.forEach(nav => nav.classList.remove('active'));
+                userNavItems.forEach(nav => nav.classList.remove('active'));
                 item.classList.add('active');
 
                 const target = item.getAttribute('data-target');
@@ -477,16 +636,33 @@
                     support: { icon: 'fa-headset', title: 'Hỗ trợ', desc: 'Liên hệ với đội ngũ hỗ trợ khi bạn cần giúp đỡ.' }
                 };
 
-                document.getElementById('contentIcon').className = `fa-solid ${content[target].icon}`;
-                document.getElementById('contentTitle').textContent = content[target].title;
-                document.getElementById('contentDesc').textContent = content[target].desc;
+                document.getElementById('userContentIcon').className = `fa-solid ${content[target].icon}`;
+                document.getElementById('userContentTitle').textContent = content[target].title;
+                document.getElementById('userContentDesc').textContent = content[target].desc;
             });
         });
 
-        // Responsive mobile
-        if (window.innerWidth <= 768) sidebar.classList.add('mobile-open');
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 768) sidebar.classList.remove('mobile-open');
+        // Xử lý cho Admin Dashboard
+        const adminNavItems = document.querySelectorAll('#adminAppContainer .nav-item');
+        adminNavItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                adminNavItems.forEach(nav => nav.classList.remove('active'));
+                item.classList.add('active');
+
+                const target = item.getAttribute('data-target');
+                const content = {
+                    overview: { icon: 'fa-gauge-high', title: 'Tổng quan', desc: 'Theo dõi tình hình hoạt động của cửa hàng.' },
+                    products: { icon: 'fa-boxes-stacked', title: 'Quản lý sản phẩm', desc: 'Thêm, sửa, xóa sản phẩm trong cửa hàng.' },
+                    'admin-orders': { icon: 'fa-cart-shopping', title: 'Quản lý đơn hàng', desc: 'Xử lý đơn hàng của khách hàng.' },
+                    revenue: { icon: 'fa-chart-line', title: 'Doanh thu', desc: 'Xem báo cáo doanh thu theo ngày, tuần, tháng.' },
+                    customers: { icon: 'fa-users-gear', title: 'Quản lý khách hàng', desc: 'Danh sách và thông tin khách hàng.' }
+                };
+
+                document.getElementById('adminContentIcon').className = `fa-solid ${content[target].icon}`;
+                document.getElementById('adminContentTitle').textContent = content[target].title;
+                document.getElementById('adminContentDesc').textContent = content[target].desc;
+            });
         });
     </script>
 </body>
