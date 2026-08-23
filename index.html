@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bán Đa Đồ Discord - Full System</title>
+    <title>Bán Đa Đồ Discord - Full Data System</title>
     
     <!-- Google Identity Services -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -163,23 +163,165 @@
 
         /* Main Content */
         .main-content { flex: 1; padding: 40px; }
-        .placeholder-card {
-            background: var(--glass-bg); border: 1px solid var(--glass-border);
-            border-radius: 20px; padding: 60px; text-align: center; margin-top: 30px;
+
+        /* ===== DASHBOARD DESIGN MỚI ===== */
+        .dash-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
         }
-        .placeholder-card i { font-size: 4rem; color: var(--active-bg); margin-bottom: 20px; }
-        .placeholder-card p { color: var(--text-muted); }
 
-        .btn-logout {
-            margin-top: 20px; padding: 10px 20px; background: transparent;
-            border: 1px solid var(--glass-border); color: var(--text-primary);
-            border-radius: 10px; cursor: pointer; transition: var(--transition);
+        .dash-header h1 { font-size: 2.5rem; font-weight: 800; }
+        .dash-header p { color: var(--text-muted); margin-top: 5px; }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
         }
-        .btn-logout:hover { border-color: #ff6b6b; color: #ff6b6b; }
 
-        /* ===== E-COMMERCE FEATURES ===== */
-        .section-title { font-size: 2rem; margin-bottom: 20px; }
+        .stat-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 20px;
+            transition: var(--transition);
+        }
 
+        .stat-card:hover { transform: translateY(-3px); box-shadow: 0 5px 20px rgba(0,0,0,0.3); }
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .stat-card h3 { font-size: 1.8rem; font-weight: 800; margin-bottom: 5px; }
+        .stat-card p { font-size: 0.9rem; color: var(--text-muted); }
+
+        /* Biểu đồ */
+        .charts-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .chart-box {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .chart-box h4 { margin-bottom: 20px; font-size: 1.1rem; }
+
+        /* CSS Bar Chart */
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 200px;
+            gap: 15px;
+        }
+
+        .bar {
+            width: 20%;
+            background: linear-gradient(to top, #6c5ce7, #a29bfe);
+            border-radius: 6px 6px 0 0;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .bar:hover { opacity: 0.8; }
+        .bar span {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* CSS Donut Chart */
+        .donut-chart {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: conic-gradient(#6c5ce7 0% 40%, #a29bfe 40% 70%, #00ffcf 70% 100%);
+            margin: 0 auto 20px;
+            position: relative;
+        }
+
+        .donut-chart::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 110px;
+            height: 110px;
+            background: var(--bg-sidebar);
+            border-radius: 50%;
+        }
+
+        .legend {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+
+        .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+        /* Bảng đơn hàng gần đây */
+        .recent-orders {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .recent-orders h4 { margin-bottom: 20px; font-size: 1.1rem; }
+
+        .order-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .order-table th, .order-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .order-table th { color: var(--text-muted); font-size: 0.8rem; font-weight: 600; }
+        .order-table td { font-size: 0.9rem; }
+
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-delivered { background: rgba(0, 255, 207, 0.1); color: #00ffcf; }
+        .status-pending { background: rgba(240, 192, 96, 0.1); color: #f0c060; }
+        .status-cancelled { background: rgba(255, 107, 107, 0.1); color: #ff6b6b; }
+
+        /* Product Grid */
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -222,38 +364,6 @@
         }
         .product-card .btn-add-cart:hover { opacity: 0.9; }
 
-        /* Cart */
-        .cart-container {
-            background: rgba(255, 255, 255, 0.03); border: 1px solid var(--glass-border);
-            border-radius: 16px; padding: 30px; margin-bottom: 40px;
-        }
-
-        .cart-item {
-            display: flex; align-items: center; gap: 15px; padding: 15px 0;
-            border-bottom: 1px solid var(--glass-border);
-        }
-
-        .cart-item .item-info { flex: 1; }
-        .cart-item .item-price { color: var(--active-bg); font-weight: 700; }
-        .cart-item .btn-remove { background: transparent; border: none; color: #ff6b6b; cursor: pointer; font-size: 1.2rem; }
-
-        .cart-total { text-align: right; margin-top: 20px; font-size: 1.2rem; }
-        .cart-total span { color: var(--active-bg); font-weight: 700; }
-
-        /* Wallet & History */
-        .wallet-balance { font-size: 3rem; color: var(--active-bg); font-weight: 800; margin-bottom: 30px; }
-
-        .order-table {
-            width: 100%; border-collapse: collapse;
-        }
-
-        .order-table th, .order-table td {
-            padding: 15px; text-align: left; border-bottom: 1px solid var(--glass-border);
-        }
-
-        .order-table th { color: var(--text-muted); font-size: 0.9rem; }
-        .order-table td { font-size: 0.9rem; }
-
         /* Admin Shop Update */
         .admin-shop-form {
             display: flex; flex-direction: column; gap: 20px; max-width: 500px;
@@ -266,112 +376,7 @@
         }
         .btn-update:hover { opacity: 0.9; }
 
-        /* ===== MODAL (HỘP THOẠI BẬT LÊN) ===== */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            z-index: 10000;
-            display: none;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        .modal-container {
-            width: min(500px, 90vw);
-            background: var(--bg-sidebar);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 40px;
-            position: relative;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            cursor: pointer;
-            font-size: 1.5rem;
-            color: var(--text-muted);
-            transition: var(--transition);
-        }
-
-        .modal-close:hover {
-            color: var(--text-primary);
-        }
-
-        .modal-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .modal-section {
-            display: none;
-        }
-
-        .modal-section.active {
-            display: block;
-        }
-
-        .modal-menu {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .modal-menu-btn {
-            padding: 15px;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            color: var(--text-primary);
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-menu-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .modal-sub-menu {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .back-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: var(--transition);
-        }
-
-        .back-btn:hover {
-            color: var(--text-primary);
-        }
-
-        /* ===== AI CHATBOT ===== */
+        /* AI Chatbot */
         #chatbot-container {
             position: fixed;
             bottom: 20px;
@@ -469,12 +474,101 @@
 
         #chatbot-toggle-btn.chat-open { display: none; }
 
+        /* MODAL */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            z-index: 10000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.active { display: flex; }
+
+        .modal-container {
+            width: min(500px, 90vw);
+            background: var(--bg-sidebar);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px; right: 20px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+
+        .modal-close:hover { color: var(--text-primary); }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .modal-section { display: none; }
+        .modal-section.active { display: block; }
+
+        .modal-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .modal-menu-btn {
+            padding: 15px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-menu-btn:hover { background: rgba(255, 255, 255, 0.1); }
+
+        .modal-sub-menu {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .back-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .back-btn:hover { color: var(--text-primary); }
+
         @media (max-width: 768px) {
             .sidebar { position: fixed; z-index: 1000; height: 100%; left: -100%; transition: left 0.3s ease; }
             .sidebar.mobile-open { left: 0; }
             .main-content { padding: 20px; }
+            .charts-row { grid-template-columns: 1fr; }
+            .dash-header h1 { font-size: 1.8rem; }
             .modal-container { padding: 30px; }
-            #chatbot-container { width: 90vw; right: 5vw; }
         }
     </style>
 </head>
@@ -499,7 +593,6 @@
                         <input type="password" id="loginPassword" placeholder="Nhập mật khẩu" required>
                     </div>
 
-                    <!-- Cloudflare Turnstile CAPTCHA -->
                     <div class="cf-turnstile" data-sitekey="1x00000000000000000000AA"></div>
 
                     <button type="submit" class="btn-login" id="loginBtn">SIGN IN &rarr;</button>
@@ -639,18 +732,97 @@
 
         <main class="main-content">
             <div class="content-wrapper">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                    <h1 id="userPageTitle">Chào mừng trở lại!</h1>
-                    <button class="btn-logout" id="userLogoutBtn">Đăng xuất</button>
-                </div>
-                <p id="userWelcomeMessage" style="color: #a0a0b8; margin-bottom: 30px;">Rất vui được gặp lại bạn.</p>
-
-                <!-- TRANG CHỦ -->
+                
+                <!-- DASHBOARD HOME -->
                 <div id="section-home" class="content-section">
-                    <div class="placeholder-card">
-                        <i class="fa-solid fa-rocket"></i>
-                        <h3>Trang chủ</h3>
-                        <p>Khám phá những sản phẩm Discord mới nhất!</p>
+                    <div class="dash-header">
+                        <div>
+                            <h1>Chào mừng trở lại!</h1>
+                            <p id="userWelcomeMessage">Rất vui được gặp lại bạn.</p>
+                        </div>
+                        <button class="btn-logout" id="userLogoutBtn">Đăng xuất</button>
+                    </div>
+
+                    <!-- Thẻ thống kê -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: rgba(108, 92, 231, 0.1); color: #6c5ce7;">
+                                <i class="fa-solid fa-wallet"></i>
+                            </div>
+                            <h3 id="walletStat">0đ</h3>
+                            <p>Số dư ví</p>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: rgba(0, 255, 207, 0.1); color: #00ffcf;">
+                                <i class="fa-solid fa-bag-shopping"></i>
+                            </div>
+                            <h3 id="orderStat">0</h3>
+                            <p>Tổng đơn hàng</p>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: rgba(240, 192, 96, 0.1); color: #f0c060;">
+                                <i class="fa-solid fa-gift"></i>
+                            </div>
+                            <h3 id="productStat">0</h3>
+                            <p>Sản phẩm đã mua</p>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: rgba(255, 107, 107, 0.1); color: #ff6b6b;">
+                                <i class="fa-solid fa-clock"></i>
+                            </div>
+                            <h3>Trực tuyến</h3>
+                            <p>Trạng thái</p>
+                        </div>
+                    </div>
+
+                    <!-- Biểu đồ và bảng đơn hàng -->
+                    <div class="charts-row">
+                        <div class="chart-box">
+                            <h4>Chi tiêu hàng tháng</h4>
+                            <div class="bar-chart">
+                                <div class="bar" style="height: 40%;"><span>T1</span></div>
+                                <div class="bar" style="height: 60%;"><span>T2</span></div>
+                                <div class="bar" style="height: 30%;"><span>T3</span></div>
+                                <div class="bar" style="height: 80%;"><span>T4</span></div>
+                                <div class="bar" style="height: 50%;"><span>T5</span></div>
+                                <div class="bar" style="height: 90%;"><span>T6</span></div>
+                            </div>
+                        </div>
+
+                        <div class="chart-box">
+                            <h4>Phân bố chi tiêu</h4>
+                            <div class="donut-chart"></div>
+                            <div class="legend">
+                                <div class="legend-item">
+                                    <div class="legend-dot" style="background: #6c5ce7;"></div>
+                                    <span>Nitro Classic (40%)</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-dot" style="background: #a29bfe;"></div>
+                                    <span>Nitro Boost (30%)</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-dot" style="background: #00ffcf;"></div>
+                                    <span>Phụ kiện (30%)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bảng đơn hàng gần đây -->
+                    <div class="recent-orders">
+                        <h4>Đơn hàng gần đây</h4>
+                        <table class="order-table">
+                            <thead>
+                                <tr>
+                                    <th>Mã đơn</th>
+                                    <th>Sản phẩm</th>
+                                    <th>Số tiền</th>
+                                    <th>Trạng thái</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentOrdersTable"></tbody>
+                        </table>
                     </div>
                 </div>
 
@@ -711,6 +883,7 @@
                         <p>Liên hệ với đội ngũ hỗ trợ khi bạn cần giúp đỡ. Chatbot bên phải luôn sẵn sàng!</p>
                     </div>
                 </div>
+
             </div>
         </main>
     </div>
@@ -867,7 +1040,7 @@
         </div>
     </div>
 
-    <!-- ================== 5. MODAL (MENU DẤU BA CHẤM) ================== -->
+    <!-- ================== 5. MODAL ================== -->
     <div class="modal-overlay" id="userModal">
         <div class="modal-container">
             <div class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></div>
@@ -983,21 +1156,26 @@
 
     <!-- ================== JAVASCRIPT ================== -->
     <script>
-        // ===== DỮ LIỆU MẪU =====
+        // ===== DỮ LIỆU MẪU (Mock Data) =====
         const ADMIN_EMAIL = 'huypham36.tb2@gmail.com';
         const ADMIN_PASS = 'Huy198900';
 
+        // Sản phẩm (8 sản phẩm thật)
         let products = [
             { id: 1, name: 'Nitro Classic 1 tháng', price: 25000, icon: 'fa-rocket' },
             { id: 2, name: 'Nitro Boost 1 tháng', price: 50000, icon: 'fa-bolt' },
             { id: 3, name: 'Giftcode 100k', price: 100000, icon: 'fa-gift' },
-            { id: 4, name: 'Tài khoản Discord LV30', price: 150000, icon: 'fa-user-astronaut' }
+            { id: 4, name: 'Tài khoản Discord LV30', price: 150000, icon: 'fa-user-astronaut' },
+            { id: 5, name: 'Nitro Classic 3 tháng', price: 70000, icon: 'fa-rocket' },
+            { id: 6, name: 'Server Booster 3 tháng', price: 150000, icon: 'fa-server' },
+            { id: 7, name: 'Huy hiệu Discord đặc biệt', price: 50000, icon: 'fa-medal' },
+            { id: 8, name: 'Tài khoản Discord LV50', price: 250000, icon: 'fa-crown' }
         ];
 
         let currentUser = { name: 'Huy Pham', role: 'user', email: '' };
         let cart = [];
-        let walletBalance = 0;
-        let allOrders = [];
+        let walletBalance = 500000; // Ví có sẵn 500k
+        let allOrders = []; // Sẽ được tạo ngẫu nhiên bên dưới
         let transactions = [
             { time: '10:00 AM', amount: 50000, type: 'Nạp tiền' },
             { time: '11:30 AM', amount: 25000, type: 'Mua Nitro' }
@@ -1006,6 +1184,22 @@
             { icon: 'fa-truck', text: 'Đơn hàng #123 đã được giao thành công!' },
             { icon: 'fa-tag', text: 'Bạn nhận được mã giảm giá 10%!' }
         ];
+
+        // Tạo dữ liệu đơn hàng ngẫu nhiên cho Admin
+        function generateMockOrders() {
+            const mockNames = ['Nguyễn Văn A', 'Trần Thị B', 'Lê Hoàng C', 'Phạm Minh D', 'Vũ Quỳnh E'];
+            const mockProducts = ['Nitro Classic 1 tháng', 'Nitro Boost 1 tháng', 'Giftcode 100k', 'Tài khoản LV30', 'Server Booster'];
+            for (let i = 0; i < 15; i++) {
+                allOrders.push({
+                    id: 1000 + i,
+                    email: mockNames[Math.floor(Math.random() * mockNames.length)] + '@gmail.com',
+                    products: mockProducts[Math.floor(Math.random() * mockProducts.length)],
+                    total: Math.floor(Math.random() * 200000) + 10000,
+                    status: Math.random() > 0.5 ? 'Đang xử lý' : 'Đã giao'
+                });
+            }
+        }
+        generateMockOrders();
 
         // ===== MODAL (MENU DẤU BA CHẤM) =====
         function openModal() {
@@ -1019,12 +1213,10 @@
         }
 
         function showModalSection(sectionId) {
-            // Ẩn tất cả các section
             document.querySelectorAll('.modal-section').forEach(section => {
                 section.classList.remove('active');
             });
             
-            // Hiện section được chọn
             if (sectionId === 'main') {
                 document.getElementById('modal-main').classList.add('active');
             } else {
@@ -1033,7 +1225,6 @@
         }
 
         function loadModalData() {
-            // Load lịch sử giao dịch
             document.getElementById('modalTransactionHistory').innerHTML = '';
             transactions.forEach(t => {
                 document.getElementById('modalTransactionHistory').innerHTML += `
@@ -1045,7 +1236,6 @@
                 `;
             });
 
-            // Load thông báo
             document.getElementById('notificationList').innerHTML = '';
             notificationsList.forEach(n => {
                 document.getElementById('notificationList').innerHTML += `
@@ -1094,7 +1284,6 @@
         loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
             
-            // Kiểm tra CAPTCHA
             const token = document.querySelector('input[name="cf-turnstile-response"]')?.value;
             if (!token) {
                 alert('Vui lòng xác nhận bạn không phải là robot!');
@@ -1282,6 +1471,24 @@
                         <td>${order.products}</td>
                         <td>${order.total.toLocaleString()}đ</td>
                         <td>${order.status}</td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById('walletStat').textContent = walletBalance.toLocaleString() + 'đ';
+            document.getElementById('orderStat').textContent = allOrders.filter(order => order.email === currentUser.email).length;
+            document.getElementById('productStat').textContent = products.length;
+
+            const recentOrdersTable = document.getElementById('recentOrdersTable');
+            recentOrdersTable.innerHTML = '';
+            allOrders.filter(order => order.email === currentUser.email).slice(0, 5).forEach(order => {
+                const statusClass = order.status === 'Đã giao' ? 'status-delivered' : (order.status === 'Đang xử lý' ? 'status-pending' : 'status-cancelled');
+                recentOrdersTable.innerHTML += `
+                    <tr>
+                        <td>#${order.id}</td>
+                        <td>${order.products}</td>
+                        <td>${order.total.toLocaleString()}đ</td>
+                        <td><span class="status-badge ${statusClass}">${order.status}</span></td>
                     </tr>
                 `;
             });
