@@ -8,9 +8,6 @@
     <!-- Google Identity Services -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     
-    <!-- Cloudflare Turnstile CAPTCHA -->
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-    
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -269,13 +266,126 @@
         }
         .btn-update:hover { opacity: 0.9; }
 
-        /* AI Chatbot */
+        /* ===== MODAL (HỘP THOẠI BẬT LÊN) ===== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            z-index: 10000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-container {
+            width: min(500px, 90vw);
+            background: var(--bg-sidebar);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            color: var(--text-primary);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .modal-section {
+            display: none;
+        }
+
+        .modal-section.active {
+            display: block;
+        }
+
+        .modal-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .modal-menu-btn {
+            padding: 15px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-menu-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-sub-menu {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .back-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .back-btn:hover {
+            color: var(--text-primary);
+        }
+
+        /* ===== AI CHATBOT ===== */
         #chatbot-container {
-            position: fixed; bottom: 20px; right: 20px; z-index: 9999;
-            width: 350px; max-height: 500px;
-            background: var(--bg-sidebar); border: 1px solid var(--glass-border);
-            border-radius: 16px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-            display: flex; flex-direction: column; overflow: hidden;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            width: 350px;
+            max-height: 500px;
+            background: var(--bg-sidebar);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
         }
 
         #chatbot-container.chat-open { display: flex; }
@@ -283,43 +393,78 @@
 
         .chat-header {
             background: linear-gradient(90deg, #6c5ce7, #a29bfe);
-            padding: 15px; display: flex; justify-content: space-between; align-items: center; font-weight: 700;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
         }
 
         .chat-header .chat-close { cursor: pointer; font-size: 1.2rem; }
 
         .chat-body {
-            flex: 1; padding: 15px; overflow-y: auto; max-height: 300px;
-            display: flex; flex-direction: column; gap: 10px;
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            max-height: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
         .chat-message {
-            padding: 10px 15px; border-radius: 12px; max-width: 80%; font-size: 0.9rem;
+            padding: 10px 15px;
+            border-radius: 12px;
+            max-width: 80%;
+            font-size: 0.9rem;
         }
 
         .chat-message.bot { background: rgba(255, 255, 255, 0.1); align-self: flex-start; }
         .chat-message.user { background: var(--active-bg); color: white; align-self: flex-end; }
 
         .chat-input-area {
-            padding: 10px; border-top: 1px solid var(--glass-border); display: flex; gap: 10px;
+            padding: 10px;
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            gap: 10px;
         }
 
         .chat-input-area input {
-            flex: 1; padding: 10px; background: rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--glass-border); border-radius: 8px; color: white; outline: none;
+            flex: 1;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            color: white;
+            outline: none;
         }
 
         .chat-input-area button {
-            background: var(--active-bg); border: none; color: white;
-            border-radius: 8px; padding: 10px 15px; cursor: pointer;
+            background: var(--active-bg);
+            border: none;
+            color: white;
+            border-radius: 8px;
+            padding: 10px 15px;
+            cursor: pointer;
         }
 
         #chatbot-toggle-btn {
-            position: fixed; bottom: 20px; right: 20px; z-index: 9998;
-            width: 60px; height: 60px; border-radius: 50%;
-            background: var(--active-bg); border: none; color: white; font-size: 1.5rem;
-            cursor: pointer; box-shadow: 0 5px 20px rgba(108, 92, 231, 0.4);
-            display: flex; justify-content: center; align-items: center;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9998;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--active-bg);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(108, 92, 231, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         #chatbot-toggle-btn.chat-open { display: none; }
@@ -328,6 +473,7 @@
             .sidebar { position: fixed; z-index: 1000; height: 100%; left: -100%; transition: left 0.3s ease; }
             .sidebar.mobile-open { left: 0; }
             .main-content { padding: 20px; }
+            .modal-container { padding: 30px; }
             #chatbot-container { width: 90vw; right: 5vw; }
         }
     </style>
@@ -354,7 +500,7 @@
                     </div>
 
                     <!-- Cloudflare Turnstile CAPTCHA -->
-                    <div class="cf-turnstile" data-sitekey="0x4AAAAAAEYxuxD1sZ94uXbl"></div>
+                    <div class="cf-turnstile" data-sitekey="1x00000000000000000000AA"></div>
 
                     <button type="submit" class="btn-login" id="loginBtn">SIGN IN &rarr;</button>
                 </form>
@@ -396,8 +542,7 @@
                         <input type="password" id="signupConfirmPassword" placeholder="Nhập lại mật khẩu" required>
                     </div>
 
-                    <!-- Cloudflare Turnstile CAPTCHA -->
-                    <div class="cf-turnstile" data-sitekey="0x4AAAAAAEYxuxD1sZ94uXbl"></div>
+                    <div class="cf-turnstile" data-sitekey="1x00000000000000000000AA"></div>
 
                     <button type="submit" class="btn-login" id="signupBtn">SIGN UP &rarr;</button>
                 </form>
@@ -429,8 +574,7 @@
                         <input type="password" id="adminPassword" placeholder="Nhập mật khẩu" required>
                     </div>
 
-                    <!-- Cloudflare Turnstile CAPTCHA -->
-                    <div class="cf-turnstile" data-sitekey="0x4AAAAAAEYxuxD1sZ94uXbl"></div>
+                    <div class="cf-turnstile" data-sitekey="1x00000000000000000000AA"></div>
 
                     <button type="submit" class="btn-admin-login" id="adminLoginBtn">ADMIN LOGIN &rarr;</button>
                 </form>
@@ -488,7 +632,7 @@
                     <span class="user-role">Member</span>
                 </div>
                 <div class="user-actions">
-                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                    <i class="fa-solid fa-ellipsis-vertical" onclick="openModal()"></i>
                 </div>
             </div>
         </aside>
@@ -614,7 +758,7 @@
                     <span class="user-role">Super Admin</span>
                 </div>
                 <div class="user-actions">
-                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                    <i class="fa-solid fa-ellipsis-vertical" onclick="openModal()"></i>
                 </div>
             </div>
         </aside>
@@ -723,6 +867,120 @@
         </div>
     </div>
 
+    <!-- ================== 5. MODAL (MENU DẤU BA CHẤM) ================== -->
+    <div class="modal-overlay" id="userModal">
+        <div class="modal-container">
+            <div class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></div>
+            
+            <!-- Menu chính -->
+            <div class="modal-section active" id="modal-main">
+                <h2 class="modal-title">Tài khoản của bạn</h2>
+                <div class="modal-menu">
+                    <button class="modal-menu-btn" onclick="showModalSection('update-profile')">
+                        <span><i class="fa-solid fa-user-pen"></i> Cập nhật hồ sơ</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                    <button class="modal-menu-btn" onclick="showModalSection('transaction')">
+                        <span><i class="fa-solid fa-clock-rotate-left"></i> Lịch sử giao dịch</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                    <button class="modal-menu-btn" onclick="showModalSection('change-password')">
+                        <span><i class="fa-solid fa-key"></i> Đổi mật khẩu</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                    <button class="modal-menu-btn" onclick="showModalSection('notifications')">
+                        <span><i class="fa-solid fa-bell"></i> Thông báo</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                    <button class="modal-menu-btn" onclick="showModalSection('recharge')">
+                        <span><i class="fa-solid fa-wallet"></i> Nạp tiền nhanh</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Cập nhật hồ sơ -->
+            <div class="modal-section" id="modal-update-profile">
+                <div class="modal-sub-menu">
+                    <button class="back-btn" onclick="showModalSection('main')"><i class="fa-solid fa-arrow-left"></i> Quay lại</button>
+                </div>
+                <h2 class="modal-title">Cập nhật hồ sơ</h2>
+                <form onsubmit="updateProfile(event)">
+                    <div class="input-group">
+                        <label>TÊN</label>
+                        <input type="text" id="profileName" required>
+                    </div>
+                    <div class="input-group">
+                        <label>SỐ ĐIỆN THOẠI</label>
+                        <input type="text" id="profilePhone" placeholder="Nhập số điện thoại">
+                    </div>
+                    <button type="submit" class="btn-login">Lưu thay đổi</button>
+                </form>
+            </div>
+
+            <!-- Lịch sử giao dịch -->
+            <div class="modal-section" id="modal-transaction">
+                <div class="modal-sub-menu">
+                    <button class="back-btn" onclick="showModalSection('main')"><i class="fa-solid fa-arrow-left"></i> Quay lại</button>
+                </div>
+                <h2 class="modal-title">Lịch sử giao dịch</h2>
+                <table class="order-table">
+                    <thead>
+                        <tr>
+                            <th>Thời gian</th>
+                            <th>Số tiền</th>
+                            <th>Loại</th>
+                        </tr>
+                    </thead>
+                    <tbody id="modalTransactionHistory"></tbody>
+                </table>
+            </div>
+
+            <!-- Đổi mật khẩu -->
+            <div class="modal-section" id="modal-change-password">
+                <div class="modal-sub-menu">
+                    <button class="back-btn" onclick="showModalSection('main')"><i class="fa-solid fa-arrow-left"></i> Quay lại</button>
+                </div>
+                <h2 class="modal-title">Đổi mật khẩu</h2>
+                <form onsubmit="changePassword(event)">
+                    <div class="input-group">
+                        <label>MẬT KHẨU HIỆN TẠI</label>
+                        <input type="password" id="currentPassword" required>
+                    </div>
+                    <div class="input-group">
+                        <label>MẬT KHẨU MỚI</label>
+                        <input type="password" id="newPassword" required>
+                    </div>
+                    <button type="submit" class="btn-login">Đổi mật khẩu</button>
+                </form>
+            </div>
+
+            <!-- Thông báo -->
+            <div class="modal-section" id="modal-notifications">
+                <div class="modal-sub-menu">
+                    <button class="back-btn" onclick="showModalSection('main')"><i class="fa-solid fa-arrow-left"></i> Quay lại</button>
+                </div>
+                <h2 class="modal-title">Thông báo</h2>
+                <div id="notificationList" style="display: flex; flex-direction: column; gap: 10px;"></div>
+            </div>
+
+            <!-- Nạp tiền nhanh -->
+            <div class="modal-section" id="modal-recharge">
+                <div class="modal-sub-menu">
+                    <button class="back-btn" onclick="showModalSection('main')"><i class="fa-solid fa-arrow-left"></i> Quay lại</button>
+                </div>
+                <h2 class="modal-title">Nạp tiền nhanh</h2>
+                <form onsubmit="quickRecharge(event)">
+                    <div class="input-group">
+                        <label>SỐ TIỀN</label>
+                        <input type="number" id="quickAmount" placeholder="Nhập số tiền" required>
+                    </div>
+                    <button type="submit" class="btn-login">Nạp tiền</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- ================== JAVASCRIPT ================== -->
     <script>
         // ===== DỮ LIỆU MẪU =====
@@ -740,6 +998,96 @@
         let cart = [];
         let walletBalance = 0;
         let allOrders = [];
+        let transactions = [
+            { time: '10:00 AM', amount: 50000, type: 'Nạp tiền' },
+            { time: '11:30 AM', amount: 25000, type: 'Mua Nitro' }
+        ];
+        let notificationsList = [
+            { icon: 'fa-truck', text: 'Đơn hàng #123 đã được giao thành công!' },
+            { icon: 'fa-tag', text: 'Bạn nhận được mã giảm giá 10%!' }
+        ];
+
+        // ===== MODAL (MENU DẤU BA CHẤM) =====
+        function openModal() {
+            document.getElementById('userModal').classList.add('active');
+            showModalSection('main');
+            loadModalData();
+        }
+
+        function closeModal() {
+            document.getElementById('userModal').classList.remove('active');
+        }
+
+        function showModalSection(sectionId) {
+            // Ẩn tất cả các section
+            document.querySelectorAll('.modal-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Hiện section được chọn
+            if (sectionId === 'main') {
+                document.getElementById('modal-main').classList.add('active');
+            } else {
+                document.getElementById('modal-' + sectionId).classList.add('active');
+            }
+        }
+
+        function loadModalData() {
+            // Load lịch sử giao dịch
+            document.getElementById('modalTransactionHistory').innerHTML = '';
+            transactions.forEach(t => {
+                document.getElementById('modalTransactionHistory').innerHTML += `
+                    <tr>
+                        <td>${t.time}</td>
+                        <td>${t.amount.toLocaleString()}đ</td>
+                        <td>${t.type}</td>
+                    </tr>
+                `;
+            });
+
+            // Load thông báo
+            document.getElementById('notificationList').innerHTML = '';
+            notificationsList.forEach(n => {
+                document.getElementById('notificationList').innerHTML += `
+                    <div style="display: flex; align-items: center; gap: 10px; padding: 10px; background: var(--glass-bg); border-radius: 8px;">
+                        <i class="fa-solid ${n.icon}" style="color: var(--active-bg);"></i>
+                        <span style="font-size: 0.9rem;">${n.text}</span>
+                    </div>
+                `;
+            });
+        }
+
+        function updateProfile(e) {
+            e.preventDefault();
+            const name = document.getElementById('profileName').value;
+            const phone = document.getElementById('profilePhone').value;
+            currentUser.name = name;
+            alert('Đã cập nhật hồ sơ!');
+            closeModal();
+        }
+
+        function changePassword(e) {
+            e.preventDefault();
+            const current = document.getElementById('currentPassword').value;
+            const newPass = document.getElementById('newPassword').value;
+            if (current === ADMIN_PASS) {
+                alert('Mật khẩu đã được đổi (Demo)');
+                closeModal();
+            } else {
+                alert('Mật khẩu hiện tại không đúng!');
+            }
+        }
+
+        function quickRecharge(e) {
+            e.preventDefault();
+            const amount = document.getElementById('quickAmount').value;
+            walletBalance += parseInt(amount);
+            transactions.push({ time: new Date().toLocaleTimeString(), amount: parseInt(amount), type: 'Nạp tiền' });
+            loadUserDashboardData();
+            loadModalData();
+            alert('Nạp tiền thành công!');
+            closeModal();
+        }
 
         // ===== LOGIN LOGIC =====
         const loginForm = document.getElementById('loginForm');
@@ -810,7 +1158,6 @@
         adminLoginForm.addEventListener('submit', (e) => {
             e.preventDefault();
             
-            // Kiểm tra CAPTCHA
             const token = document.querySelector('input[name="cf-turnstile-response"]')?.value;
             if (!token) {
                 alert('Vui lòng xác nhận bạn không phải là robot!');
@@ -856,7 +1203,6 @@
         signupForm.addEventListener('submit', (e) => {
             e.preventDefault();
             
-            // Kiểm tra CAPTCHA
             const token = document.querySelector('input[name="cf-turnstile-response"]')?.value;
             if (!token) {
                 alert('Vui lòng xác nhận bạn không phải là robot!');
@@ -1005,6 +1351,7 @@
             const amount = prompt('Nhập số tiền cần nạp:');
             if (amount && !isNaN(amount)) {
                 walletBalance += parseInt(amount);
+                transactions.push({ time: new Date().toLocaleTimeString(), amount: parseInt(amount), type: 'Nạp tiền' });
                 loadUserDashboardData();
                 alert('Nạp tiền thành công!');
             }
