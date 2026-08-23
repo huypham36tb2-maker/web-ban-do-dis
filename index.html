@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NeonCraft - Digital Design & Development</title>
+    <title>NeonCraft - Bán Đồ Discord</title>
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -26,19 +26,15 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font); }
         body { background: var(--dark-bg); color: var(--text-main); overflow-x: hidden; }
 
-        /* ===== BACKGROUND EFFECTS ===== */
+        /* ===== BACKGROUND ===== */
         .bg-glow {
             position: fixed;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
+            top: -50%; left: -50%; width: 200%; height: 200%;
             background: radial-gradient(circle at center, rgba(72, 25, 255, 0.2) 0%, transparent 50%),
                         radial-gradient(circle at 80% 20%, rgba(0, 239, 243, 0.1) 0%, transparent 40%);
             z-index: -1;
             animation: rotateBg 30s linear infinite;
         }
-
         @keyframes rotateBg {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -57,27 +53,24 @@
             top: 0;
             z-index: 100;
         }
-
         .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); text-shadow: 0 0 20px var(--primary); }
         .nav-links { display: flex; gap: 30px; list-style: none; }
         .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 500; transition: color 0.3s; }
         .nav-links a:hover { color: var(--primary); }
         .nav-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--text-main); }
 
-        /* ===== HERO SECTION ===== */
+        /* ===== HERO ===== */
         .hero {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 100px 5%;
-            min-height: 90vh;
+            padding: 80px 5%;
+            min-height: 80vh;
         }
-
         .hero-content { max-width: 600px; }
         .hero-title { font-size: 3.5rem; font-weight: 800; line-height: 1.2; margin-bottom: 20px; }
         .hero-title span { color: var(--primary); text-shadow: 0 0 30px var(--primary); }
         .hero-subtitle { font-size: 1.2rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 30px; }
-
         .btn-primary {
             display: inline-block;
             padding: 15px 40px;
@@ -89,87 +82,107 @@
             transition: transform 0.3s, box-shadow 0.3s;
         }
         .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0, 239, 243, 0.4); }
-
         .hero-visual {
-            width: 400px;
-            height: 400px;
+            width: 400px; height: 400px;
             background: var(--card-bg);
             border: 1px solid var(--border);
             border-radius: 30px;
             backdrop-filter: blur(10px);
             position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display: flex; justify-content: center; align-items: center;
             overflow: hidden;
         }
-
         .hero-visual::before {
             content: '';
             position: absolute;
-            width: 200px;
-            height: 200px;
+            width: 200px; height: 200px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             border-radius: 50%;
             filter: blur(60px);
             opacity: 0.5;
             animation: pulse 3s infinite alternate;
         }
-
         @keyframes pulse {
             0% { transform: scale(1); opacity: 0.5; }
             100% { transform: scale(1.2); opacity: 0.8; }
         }
 
-        /* ===== SERVICES ===== */
-        .services { padding: 80px 5%; }
+        /* ===== PRODUCTS ===== */
+        .products-section { padding: 80px 5%; }
         .section-title { font-size: 2.5rem; font-weight: 800; text-align: center; margin-bottom: 50px; }
         .section-title span { color: var(--primary); }
-
-        .services-grid {
+        .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 30px;
         }
-
-        .service-card {
+        .product-card {
             background: var(--card-bg);
             border: 1px solid var(--border);
             border-radius: 20px;
             padding: 30px;
             transition: transform 0.3s, border-color 0.3s;
             backdrop-filter: blur(10px);
+            text-align: center;
         }
-
-        .service-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-        }
-
-        .service-icon {
-            width: 60px;
-            height: 60px;
+        .product-card:hover { transform: translateY(-10px); border-color: var(--primary); }
+        .product-icon {
+            width: 80px; height: 80px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 15px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.5rem;
-            margin-bottom: 20px;
+            border-radius: 20px;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 2rem;
+            margin: 0 auto 20px;
             box-shadow: 0 10px 30px rgba(0, 239, 243, 0.3);
         }
+        .product-card h3 { font-size: 1.2rem; margin-bottom: 10px; }
+        .product-card .price { font-size: 1.5rem; font-weight: 800; color: var(--primary); margin-bottom: 20px; }
+        .btn-buy {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            background: var(--primary);
+            color: var(--dark-bg);
+            font-weight: 800;
+            cursor: pointer;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+        .btn-buy:hover { transform: translateY(-2px); opacity: 0.9; }
 
-        .service-card h3 { font-size: 1.2rem; margin-bottom: 10px; }
-        .service-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
+        /* ===== CART ===== */
+        .cart-section {
+            padding: 40px 5%;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            margin: 40px 5%;
+            backdrop-filter: blur(10px);
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .cart-total { text-align: right; margin-top: 20px; font-size: 1.3rem; }
+        .cart-total span { color: var(--primary); font-weight: 800; }
+        .btn-checkout {
+            padding: 15px 40px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .btn-checkout:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0, 239, 243, 0.4); }
 
         /* ===== FOOTER ===== */
-        footer {
-            padding: 40px 5%;
-            border-top: 1px solid var(--border);
-            text-align: center;
-            color: var(--text-muted);
-        }
-
+        footer { padding: 40px 5%; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); }
         footer a { color: var(--primary); text-decoration: none; }
 
         /* ===== RESPONSIVE ===== */
@@ -179,6 +192,7 @@
             .hero { flex-direction: column; text-align: center; padding-top: 50px; }
             .hero-title { font-size: 2.5rem; }
             .hero-visual { width: 100%; max-width: 350px; height: 300px; margin-top: 40px; }
+            .cart-section { margin: 20px 5%; padding: 20px; }
         }
     </style>
 </head>
@@ -192,8 +206,8 @@
         <div class="logo">NeonCraft</div>
         <ul class="nav-links" id="navLinks">
             <li><a href="#home">Trang chủ</a></li>
-            <li><a href="#services">Dịch vụ</a></li>
-            <li><a href="#contact">Liên hệ</a></li>
+            <li><a href="#products">Cửa hàng</a></li>
+            <li><a href="#cart">Giỏ hàng</a></li>
         </ul>
         <div class="nav-toggle" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></div>
     </nav>
@@ -201,44 +215,110 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-content">
-            <h1 class="hero-title">Thiết kế <span>Đồ họa</span> & Phát triển Web</h1>
-            <p class="hero-subtitle">Chúng tôi tạo ra những sản phẩm số đẹp mắt, hiện đại và tối ưu cho doanh nghiệp của bạn. Đưa thương hiệu của bạn lên tầm cao mới.</p>
-            <a href="#services" class="btn-primary">Khám phá ngay</a>
+            <h1 class="hero-title">Bán đồ <span>Discord</span> Chất lượng cao</h1>
+            <p class="hero-subtitle">Nitro, Boost, Giftcode và các tài khoản Discord uy tín, giá tốt nhất thị trường. Đặt hàng ngay hôm nay!</p>
+            <a href="#products" class="btn-primary">Mua ngay</a>
         </div>
         <div class="hero-visual">
-            <i class="fa-solid fa-cube" style="font-size: 5rem; color: var(--primary); filter: drop-shadow(0 0 20px var(--primary));"></i>
+            <i class="fa-brands fa-discord" style="font-size: 5rem; color: var(--primary); filter: drop-shadow(0 0 20px var(--primary));"></i>
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section class="services" id="services">
-        <h2 class="section-title">Dịch vụ <span>Nổi bật</span></h2>
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-icon"><i class="fa-solid fa-palette"></i></div>
-                <h3>Thiết kế UI/UX</h3>
-                <p>Giao diện trực quan, tối ưu trải nghiệm người dùng với các xu hướng mới nhất.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon"><i class="fa-solid fa-code"></i></div>
-                <h3>Phát triển Web</h3>
-                <p>Xây dựng website nhanh, mạnh mẽ, tương thích mọi thiết bị.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon"><i class="fa-solid fa-rocket"></i></div>
-                <h3>Digital Marketing</h3>
-                <p>Chiến lược marketing giúp doanh nghiệp tiếp cận khách hàng hiệu quả.</p>
-            </div>
+    <!-- Products Section -->
+    <section class="products-section" id="products">
+        <h2 class="section-title">Sản phẩm <span>Nổi bật</span></h2>
+        <div class="products-grid" id="productsGrid">
+            <!-- JS sẽ load sản phẩm vào đây -->
         </div>
+    </section>
+
+    <!-- Cart Section -->
+    <section class="cart-section" id="cart">
+        <h3 style="margin-bottom: 20px;">Giỏ hàng của bạn</h3>
+        <div id="cartItems"></div>
+        <div class="cart-total">
+            Tổng cộng: <span id="cartTotal">0đ</span>
+        </div>
+        <button class="btn-checkout" onclick="checkout()">Thanh toán ngay</button>
     </section>
 
     <!-- Footer -->
-    <footer id="contact">
-        <p>&copy; 2024 NeonCraft. Thiết kế bởi <a href="#">NeonCraft Studio</a>.</p>
+    <footer>
+        <p>&copy; 2024 NeonCraft. Bán đồ Discord uy tín. <a href="#">Liên hệ</a>.</p>
     </footer>
 
     <script>
-        // Toggle Mobile Menu
+        // ===== DỮ LIỆU SẢN PHẨM =====
+        const products = [
+            { id: 1, name: 'Nitro Classic 1 tháng', price: 25000, icon: 'fa-rocket' },
+            { id: 2, name: 'Nitro Boost 1 tháng', price: 50000, icon: 'fa-bolt' },
+            { id: 3, name: 'Giftcode 100k', price: 100000, icon: 'fa-gift' },
+            { id: 4, name: 'Tài khoản LV30', price: 150000, icon: 'fa-user-astronaut' }
+        ];
+
+        let cart = [];
+
+        // ===== LOAD PRODUCTS =====
+        function loadProducts() {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
+            products.forEach(product => {
+                grid.innerHTML += `
+                    <div class="product-card">
+                        <div class="product-icon"><i class="fa-solid ${product.icon}"></i></div>
+                        <h3>${product.name}</h3>
+                        <div class="price">${product.price.toLocaleString()}đ</div>
+                        <button class="btn-buy" onclick="addToCart(${product.id})">Thêm vào giỏ</button>
+                    </div>
+                `;
+            });
+        }
+        loadProducts();
+
+        // ===== CART =====
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            cart.push(product);
+            renderCart();
+        }
+
+        function renderCart() {
+            const cartItems = document.getElementById('cartItems');
+            cartItems.innerHTML = '';
+            let total = 0;
+            cart.forEach((item, index) => {
+                total += item.price;
+                cartItems.innerHTML += `
+                    <div class="cart-item">
+                        <span>${item.name}</span>
+                        <span style="color: var(--primary);">${item.price.toLocaleString()}đ</span>
+                        <button onclick="removeFromCart(${index})" style="background: none; border: none; color: #ff6b6b; cursor: pointer;"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                `;
+            });
+            document.getElementById('cartTotal').textContent = total.toLocaleString() + 'đ';
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p style="color: var(--text-muted);">Giỏ hàng trống.</p>';
+            }
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            renderCart();
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Giỏ hàng trống!');
+                return;
+            }
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            alert(`Đặt hàng thành công! Tổng tiền: ${total.toLocaleString()}đ`);
+            cart = [];
+            renderCart();
+        }
+
+        // ===== MENU TOGGLE =====
         function toggleMenu() {
             const navLinks = document.getElementById('navLinks');
             if (navLinks.style.display === 'flex') {
