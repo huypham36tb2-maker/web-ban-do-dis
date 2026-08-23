@@ -66,6 +66,18 @@
             text-decoration: none; 
             cursor: pointer;
         }
+        .nav-links .btn-logout {
+            display: none;
+            padding: 10px 20px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: border-color 0.3s;
+        }
+        .nav-links .btn-logout:hover { border-color: #ff6b6b; color: #ff6b6b; }
         .nav-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--text-main); }
 
         /* ===== HERO ===== */
@@ -116,8 +128,12 @@
             100% { transform: scale(1.2); opacity: 0.8; }
         }
 
-        /* ===== PRODUCTS ===== */
-        .products-section { padding: 80px 5%; }
+        /* ===== PRODUCTS (CHỈ HIỆN KHI ĐĂNG NHẬP) ===== */
+        .dashboard {
+            display: none;
+            padding: 80px 5%;
+        }
+        .dashboard.active { display: block; }
         .section-title { font-size: 2.5rem; font-weight: 800; text-align: center; margin-bottom: 50px; }
         .section-title span { color: var(--primary); }
         .products-grid {
@@ -166,7 +182,7 @@
             background: var(--card-bg);
             border: 1px solid var(--border);
             border-radius: 20px;
-            margin: 40px 5%;
+            margin: 40px 0;
             backdrop-filter: blur(10px);
         }
         .cart-item {
@@ -357,7 +373,6 @@
             .hero { flex-direction: column; text-align: center; padding-top: 50px; }
             .hero-title { font-size: 2.5rem; }
             .hero-visual { width: 100%; max-width: 350px; height: 300px; margin-top: 40px; }
-            .cart-section { margin: 20px 5%; padding: 20px; }
             .auth-card { width: 90vw; }
             #chatbot-container { width: 90vw; right: 5vw; }
         }
@@ -373,41 +388,42 @@
         <div class="logo">NeonCraft</div>
         <ul class="nav-links" id="navLinks">
             <li><a href="#home">Trang chủ</a></li>
-            <li><a href="#products">Cửa hàng</a></li>
-            <li><a href="#cart">Giỏ hàng</a></li>
-            <li><button class="btn-login" onclick="openAuthModal('login')">Đăng nhập</button></li>
+            <li><a href="#dashboard" id="dashboardLink" style="display: none;">Cửa hàng</a></li>
+            <li><a href="#cart" id="cartLink" style="display: none;">Giỏ hàng</a></li>
+            <li><button class="btn-login" id="loginBtn" onclick="openAuthModal('login')">Đăng nhập</button></li>
+            <li><button class="btn-logout" id="logoutBtn" onclick="logout()">Đăng xuất</button></li>
         </ul>
         <div class="nav-toggle" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero Section (Chỉ hiện khi chưa đăng nhập) -->
     <section class="hero" id="home">
         <div class="hero-content">
             <h1 class="hero-title">Bán đồ <span>Discord</span> Chất lượng cao</h1>
-            <p class="hero-subtitle">Nitro, Boost, Giftcode và các tài khoản Discord uy tín, giá tốt nhất thị trường. Đặt hàng ngay hôm nay!</p>
-            <a href="#products" class="btn-primary">Mua ngay</a>
+            <p class="hero-subtitle">Nitro, Boost, Giftcode và các tài khoản Discord uy tín, giá tốt nhất thị trường. Đăng nhập để mua sắm ngay hôm nay!</p>
+            <button class="btn-primary" onclick="openAuthModal('login')">Đăng nhập để mua</button>
         </div>
         <div class="hero-visual">
             <i class="fa-brands fa-discord" style="font-size: 5rem; color: var(--primary); filter: drop-shadow(0 0 20px var(--primary));"></i>
         </div>
     </section>
 
-    <!-- Products Section -->
-    <section class="products-section" id="products">
+    <!-- Dashboard (Chỉ hiện khi đã đăng nhập) -->
+    <section class="dashboard" id="dashboard">
         <h2 class="section-title">Sản phẩm <span>Nổi bật</span></h2>
         <div class="products-grid" id="productsGrid">
             <!-- JS sẽ load sản phẩm vào đây -->
         </div>
-    </section>
-
-    <!-- Cart Section -->
-    <section class="cart-section" id="cart">
-        <h3 style="margin-bottom: 20px;">Giỏ hàng của bạn</h3>
-        <div id="cartItems"></div>
-        <div class="cart-total">
-            Tổng cộng: <span id="cartTotal">0đ</span>
+        
+        <!-- Cart Section -->
+        <div class="cart-section" id="cart">
+            <h3 style="margin-bottom: 20px;">Giỏ hàng của bạn</h3>
+            <div id="cartItems"></div>
+            <div class="cart-total">
+                Tổng cộng: <span id="cartTotal">0đ</span>
+            </div>
+            <button class="btn-checkout" onclick="checkout()">Thanh toán ngay</button>
         </div>
-        <button class="btn-checkout" onclick="checkout()">Thanh toán ngay</button>
     </section>
 
     <!-- Footer -->
@@ -497,6 +513,7 @@
         ];
 
         let cart = [];
+        let isLoggedIn = false;
         let walletBalance = 200000; // Ví mặc định có 200k
 
         // ===== LOAD PRODUCTS =====
@@ -566,7 +583,7 @@
             renderCart();
         }
 
-        // ===== AUTH =====
+        // ===== AUTH & DASHBOARD =====
         function openAuthModal(type) {
             document.getElementById('authModal').classList.add('active');
             switchAuthForm(type);
@@ -588,19 +605,81 @@
 
         function handleLogin(e) {
             e.preventDefault();
-            alert('Đăng nhập thành công!');
+            
+            // Giả lập đăng nhập thành công
+            isLoggedIn = true;
             closeAuthModal();
+            
+            // Cập nhật UI
+            document.getElementById('loginBtn').style.display = 'none';
+            document.getElementById('logoutBtn').style.display = 'block';
+            document.getElementById('dashboardLink').style.display = 'block';
+            document.getElementById('cartLink').style.display = 'block';
+            
+            // Chuyển sang Dashboard
+            document.getElementById('home').style.display = 'none';
+            document.getElementById('dashboard').classList.add('active');
+            
+            alert('Đăng nhập thành công!');
         }
 
         function handleRegister(e) {
             e.preventDefault();
-            alert('Đăng ký thành công!');
+            
+            // Giả lập đăng ký thành công
+            isLoggedIn = true;
             closeAuthModal();
+            
+            // Cập nhật UI
+            document.getElementById('loginBtn').style.display = 'none';
+            document.getElementById('logoutBtn').style.display = 'block';
+            document.getElementById('dashboardLink').style.display = 'block';
+            document.getElementById('cartLink').style.display = 'block';
+            
+            // Chuyển sang Dashboard
+            document.getElementById('home').style.display = 'none';
+            document.getElementById('dashboard').classList.add('active');
+            
+            alert('Đăng ký thành công!');
         }
 
         function handleGoogleLogin() {
-            alert('Đăng nhập Google thành công!');
+            // Giả lập đăng nhập Google thành công
+            isLoggedIn = true;
             closeAuthModal();
+            
+            // Cập nhật UI
+            document.getElementById('loginBtn').style.display = 'none';
+            document.getElementById('logoutBtn').style.display = 'block';
+            document.getElementById('dashboardLink').style.display = 'block';
+            document.getElementById('cartLink').style.display = 'block';
+            
+            // Chuyển sang Dashboard
+            document.getElementById('home').style.display = 'none';
+            document.getElementById('dashboard').classList.add('active');
+            
+            alert('Đăng nhập Google thành công!');
+        }
+
+        // ===== LOGOUT =====
+        function logout() {
+            isLoggedIn = false;
+            
+            // Cập nhật UI
+            document.getElementById('loginBtn').style.display = 'block';
+            document.getElementById('logoutBtn').style.display = 'none';
+            document.getElementById('dashboardLink').style.display = 'none';
+            document.getElementById('cartLink').style.display = 'none';
+            
+            // Quay về trang chủ
+            document.getElementById('dashboard').classList.remove('active');
+            document.getElementById('home').style.display = 'flex';
+            
+            // Reset giỏ hàng
+            cart = [];
+            renderCart();
+            
+            alert('Đăng xuất thành công!');
         }
 
         // ===== AI CHATBOT =====
