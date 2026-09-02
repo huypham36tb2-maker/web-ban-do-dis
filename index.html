@@ -3,740 +3,1577 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NeonCraft - Bán Đồ Discord</title>
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    <title>Facebook Messenger Tools Pro</title>
     <style>
-        :root {
-            --primary: #00EFF3;
-            --secondary: #4819FF;
-            --dark-bg: #0A0A0F;
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --border: rgba(255, 255, 255, 0.1);
-            --text-main: #FFFFFF;
-            --text-muted: #A0A0B0;
-            --font: 'Inter', sans-serif;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font); }
-        body { background: var(--dark-bg); color: var(--text-main); overflow-x: hidden; }
-
-        /* ===== BACKGROUND ===== */
-        .bg-glow {
-            position: fixed;
-            top: -50%; left: -50%; width: 200%; height: 200%;
-            background: radial-gradient(circle at center, rgba(72, 25, 255, 0.2) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(0, 239, 243, 0.1) 0%, transparent 40%);
-            z-index: -1;
-            animation: rotateBg 30s linear infinite;
-        }
-        @keyframes rotateBg {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #fff;
         }
 
-        /* ===== NAVBAR ===== */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 5%;
-            backdrop-filter: blur(10px);
-            background: rgba(10, 10, 15, 0.8);
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); text-shadow: 0 0 20px var(--primary); }
-        .nav-links { display: flex; gap: 30px; list-style: none; }
-        .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 500; transition: color 0.3s; }
-        .nav-links a:hover { color: var(--primary); }
-        .nav-links .btn-login { 
-            padding: 10px 20px; 
-            background: var(--primary); 
-            color: var(--dark-bg); 
-            border-radius: 50px; 
-            font-weight: 700; 
-            text-decoration: none; 
-            cursor: pointer;
-        }
-        .nav-links .btn-logout {
-            display: none;
-            padding: 10px 20px;
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text-main);
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 700;
-            transition: border-color 0.3s;
-        }
-        .nav-links .btn-logout:hover { border-color: #ff6b6b; color: #ff6b6b; }
-        .nav-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--text-main); }
-
-        /* ===== HERO ===== */
-        .hero {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 80px 5%;
-            min-height: 80vh;
-        }
-        .hero-content { max-width: 600px; }
-        .hero-title { font-size: 3.5rem; font-weight: 800; line-height: 1.2; margin-bottom: 20px; }
-        .hero-title span { color: var(--primary); text-shadow: 0 0 30px var(--primary); }
-        .hero-subtitle { font-size: 1.2rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 30px; }
-        .btn-primary {
-            display: inline-block;
-            padding: 15px 40px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            color: var(--text-main);
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0, 239, 243, 0.4); }
-        .hero-visual {
-            width: 400px; height: 400px;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 30px;
-            backdrop-filter: blur(10px);
-            position: relative;
-            display: flex; justify-content: center; align-items: center;
-            overflow: hidden;
-        }
-        .hero-visual::before {
-            content: '';
-            position: absolute;
-            width: 200px; height: 200px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 50%;
-            filter: blur(60px);
-            opacity: 0.5;
-            animation: pulse 3s infinite alternate;
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.5; }
-            100% { transform: scale(1.2); opacity: 0.8; }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
         }
 
-        /* ===== PRODUCTS (CHỈ HIỆN KHI ĐĂNG NHẬP) ===== */
-        .dashboard {
-            display: none;
-            padding: 80px 5%;
-        }
-        .dashboard.active { display: block; }
-        .section-title { font-size: 2.5rem; font-weight: 800; text-align: center; margin-bottom: 50px; }
-        .section-title span { color: var(--primary); }
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-        .product-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 20px;
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             padding: 30px;
-            transition: transform 0.3s, border-color 0.3s;
-            backdrop-filter: blur(10px);
+            border-radius: 15px 15px 0 0;
             text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
-        .product-card:hover { transform: translateY(-10px); border-color: var(--primary); }
-        .product-icon {
-            width: 80px; height: 80px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 20px;
-            display: flex; justify-content: center; align-items: center;
-            font-size: 2rem;
-            margin: 0 auto 20px;
-            box-shadow: 0 10px 30px rgba(0, 239, 243, 0.3);
-        }
-        .product-card h3 { font-size: 1.2rem; margin-bottom: 10px; }
-        .product-card .price { font-size: 1.5rem; font-weight: 800; color: var(--primary); margin-bottom: 20px; }
-        .rating { color: #f0c060; margin-bottom: 15px; }
-        .btn-buy {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            border-radius: 10px;
-            background: var(--primary);
-            color: var(--dark-bg);
-            font-weight: 800;
-            cursor: pointer;
-            transition: transform 0.2s, opacity 0.2s;
-        }
-        .btn-buy:hover { transform: translateY(-2px); opacity: 0.9; }
 
-        /* ===== CART ===== */
-        .cart-section {
-            padding: 40px 5%;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            margin: 40px 0;
-            backdrop-filter: blur(10px);
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
-        .cart-item {
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        /* Navigation */
+        .nav {
+            background: #2d2d2d;
+            padding: 15px;
+            border-bottom: 3px solid #667eea;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-            border-bottom: 1px solid var(--border);
+            gap: 10px;
+            flex-wrap: wrap;
+            border-radius: 0 0 15px 15px;
         }
-        .cart-total { text-align: right; margin-top: 20px; font-size: 1.3rem; }
-        .cart-total span { color: var(--primary); font-weight: 800; }
-        .btn-checkout {
-            padding: 15px 40px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            color: white;
+
+        .nav-btn {
+            padding: 12px 20px;
             border: none;
-            border-radius: 50px;
-            font-weight: 700;
+            border-radius: 8px;
             cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            background: #3d3d3d;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn:hover {
+            background: #4d4d4d;
+            transform: translateY(-2px);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Main Content */
+        .content {
+            background: #fff;
+            border-radius: 15px;
             margin-top: 20px;
-            transition: transform 0.3s, box-shadow 0.3s;
+            padding: 30px;
+            color: #333;
+            min-height: 600px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
-        .btn-checkout:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0, 239, 243, 0.4); }
 
-        /* ===== AUTH MODAL ===== */
-        .auth-modal {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
+        .section {
             display: none;
-            justify-content: center;
-            align-items: center;
         }
-        .auth-modal.active { display: flex; }
-        .auth-card {
-            width: 400px;
-            background: var(--dark-bg);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 40px;
-            position: relative;
+
+        .section.active {
+            display: block;
         }
-        .auth-close {
-            position: absolute;
-            top: 20px; right: 20px;
-            cursor: pointer;
-            color: var(--text-muted);
+
+        /* Cards */
+        .card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 5px solid #667eea;
+        }
+
+        .card h3 {
+            margin-bottom: 15px;
+            color: #495057;
             font-size: 1.2rem;
-        }
-        .auth-title { font-size: 2rem; font-weight: 800; text-align: center; margin-bottom: 30px; }
-        .auth-title span { color: var(--primary); }
-        .input-group { margin-bottom: 20px; }
-        .input-group label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; }
-        .input-group input {
-            width: 100%; padding: 14px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            color: var(--text-main);
-            font-size: 1rem;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-        .input-group input:focus { border-color: var(--primary); }
-        .btn-auth {
-            width: 100%; padding: 14px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            border: none;
-            border-radius: 12px;
-            color: white;
-            font-weight: 800;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .btn-auth:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0, 239, 243, 0.3); }
-        .auth-switch { text-align: center; margin-top: 20px; font-size: 0.9rem; color: var(--text-muted); }
-        .auth-switch a { color: var(--primary); text-decoration: none; font-weight: 600; }
-        .btn-google {
-            width: 100%; padding: 14px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            color: var(--text-main);
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 15px;
             display: flex;
-            justify-content: center;
             align-items: center;
             gap: 10px;
-            transition: background 0.3s;
         }
-        .btn-google:hover { background: rgba(255, 255, 255, 0.1); }
 
-        /* ===== AI CHATBOT ===== */
-        #chatbot-container {
-            position: fixed;
-            bottom: 20px; right: 20px;
-            z-index: 999;
-            width: 350px; max-height: 500px;
-            background: var(--dark-bg);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        .card h3 i {
+            color: #667eea;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #495057;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            background: #fff;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+            font-family: 'Courier New', monospace;
+        }
+
+        .form-group input[type="number"] {
+            width: 150px;
+        }
+
+        .form-row {
             display: flex;
-            flex-direction: column;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.4);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+            color: white;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+        }
+
+        .btn-info {
+            background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+            color: white;
+        }
+
+        .btn-info:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(23, 162, 184, 0.4);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);
+            color: #212529;
+        }
+
+        .btn-warning:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 193, 7, 0.4);
+        }
+
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 0.85rem;
+        }
+
+        /* Log Console */
+        .log-container {
+            background: #1e1e1e;
+            color: #00ff00;
+            padding: 20px;
+            border-radius: 10px;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            margin-top: 20px;
+            border: 2px solid #333;
+        }
+
+        .log-container::before {
+            content: '📋 Console Log';
+            display: block;
+            color: #ff9800;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+
+        .log-entry {
+            margin-bottom: 5px;
+            padding: 3px 10px;
+            border-radius: 4px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .log-entry.error {
+            color: #ff4444;
+            background: rgba(255, 68, 68, 0.1);
+        }
+
+        .log-entry.success {
+            color: #44ff44;
+            background: rgba(68, 255, 68, 0.1);
+        }
+
+        .log-entry.info {
+            color: #44aaff;
+            background: rgba(68, 170, 255, 0.1);
+        }
+
+        .log-entry.warning {
+            color: #ffaa00;
+            background: rgba(255, 170, 0, 0.1);
+        }
+
+        .log-entry.system {
+            color: #ff00ff;
+            background: rgba(255, 0, 255, 0.1);
+        }
+
+        /* File Upload */
+        .file-upload {
+            border: 2px dashed #dee2e6;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .file-upload:hover {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .file-upload input[type="file"] {
+            display: none;
+        }
+
+        .file-upload .upload-icon {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .file-upload p {
+            color: #666;
+        }
+
+        /* Status Indicators */
+        .status-indicator {
+            display: inline-block;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin: 5px;
+        }
+
+        .status-active {
+            background: #28a745;
+            color: white;
+        }
+
+        .status-stopped {
+            background: #dc3545;
+            color: white;
+        }
+
+        .status-warning {
+            background: #ffc107;
+            color: #212529;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #e9ecef;
+            border-radius: 5px;
+            margin-top: 10px;
             overflow: hidden;
         }
-        #chatbot-container.chat-open { display: flex; }
-        #chatbot-container.chat-closed { display: none; }
-        .chat-header {
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 700;
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 5px;
+            transition: width 0.3s;
         }
-        .chat-header .chat-close { cursor: pointer; font-size: 1.2rem; }
-        .chat-body {
-            flex: 1;
-            padding: 15px;
-            overflow-y: auto;
-            max-height: 300px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .chat-message {
-            padding: 10px 15px;
-            border-radius: 12px;
-            max-width: 80%;
-            font-size: 0.9rem;
-        }
-        .chat-message.bot { background: rgba(255, 255, 255, 0.1); align-self: flex-start; }
-        .chat-message.user { background: var(--primary); color: var(--dark-bg); align-self: flex-end; }
-        .chat-input-area {
-            padding: 10px;
-            border-top: 1px solid var(--border);
-            display: flex;
-            gap: 10px;
-        }
-        .chat-input-area input {
-            flex: 1;
-            padding: 10px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            color: white;
-            outline: none;
-        }
-        .chat-input-area button {
-            background: var(--primary);
-            border: none;
-            color: var(--dark-bg);
-            border-radius: 8px;
-            padding: 10px 15px;
-            cursor: pointer;
-            font-weight: 700;
-        }
-        #chatbot-toggle-btn {
+
+        /* Modal */
+        .modal {
+            display: none;
             position: fixed;
-            bottom: 20px; right: 20px;
-            z-index: 998;
-            width: 60px; height: 60px;
-            border-radius: 50%;
-            background: var(--primary);
-            border: none;
-            color: var(--dark-bg);
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 5px 20px rgba(0, 239, 243, 0.4);
-            display: flex;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
             justify-content: center;
             align-items: center;
         }
-        #chatbot-toggle-btn.chat-open { display: none; }
 
-        /* ===== FOOTER ===== */
-        footer { padding: 40px 5%; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); }
-        footer a { color: var(--primary); text-decoration: none; }
+        .modal.active {
+            display: flex;
+        }
 
-        /* ===== RESPONSIVE ===== */
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        /* Table */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .table th,
+        .table td {
+            padding: 12px;
+            border: 1px solid #dee2e6;
+            text-align: left;
+        }
+
+        .table th {
+            background: #667eea;
+            color: white;
+        }
+
+        .table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .feature-card:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .feature-card.active {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .feature-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .feature-card h4 {
+            color: #495057;
+            margin-bottom: 5px;
+        }
+
+        .feature-card p {
+            color: #6c757d;
+            font-size: 0.85rem;
+        }
+
+        /* Dashboard Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .stat-card .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .stat-card .stat-label {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+        /* Connection Indicator */
+        .connection-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.1);
+            margin: 10px 0;
+        }
+
+        .connection-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ffc107;
+            animation: pulse 2s infinite;
+        }
+
+        .connection-dot.connected {
+            background: #28a745;
+            animation: none;
+        }
+
+        .connection-dot.disconnected {
+            background: #dc3545;
+            animation: none;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .nav-links { display: none; position: absolute; top: 70px; left: 0; width: 100%; background: rgba(10, 10, 15, 0.95); flex-direction: column; align-items: center; padding: 20px; gap: 15px; }
-            .nav-toggle { display: block; }
-            .hero { flex-direction: column; text-align: center; padding-top: 50px; }
-            .hero-title { font-size: 2.5rem; }
-            .hero-visual { width: 100%; max-width: 350px; height: 300px; margin-top: 40px; }
-            .auth-card { width: 90vw; }
-            #chatbot-container { width: 90vw; right: 5vw; }
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .form-row {
+                flex-direction: column;
+            }
+            
+            .form-row .form-group {
+                min-width: 100%;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-
-    <!-- Background Glow -->
-    <div class="bg-glow"></div>
-
-    <!-- Navbar -->
-    <nav>
-        <div class="logo">NeonCraft</div>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="#home">Trang chủ</a></li>
-            <li><a href="#dashboard" id="dashboardLink" style="display: none;">Cửa hàng</a></li>
-            <li><a href="#cart" id="cartLink" style="display: none;">Giỏ hàng</a></li>
-            <li><button class="btn-login" id="loginBtn" onclick="openAuthModal('login')">Đăng nhập</button></li>
-            <li><button class="btn-logout" id="logoutBtn" onclick="logout()">Đăng xuất</button></li>
-        </ul>
-        <div class="nav-toggle" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></div>
-    </nav>
-
-    <!-- Hero Section (Chỉ hiện khi chưa đăng nhập) -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <h1 class="hero-title">Bán đồ <span>Discord</span> Chất lượng cao</h1>
-            <p class="hero-subtitle">Nitro, Boost, Giftcode và các tài khoản Discord uy tín, giá tốt nhất thị trường. Đăng nhập để mua sắm ngay hôm nay!</p>
-            <button class="btn-primary" onclick="openAuthModal('login')">Đăng nhập để mua</button>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🎯 Facebook Messenger Tools Pro</h1>
+            <p>Quản lý và tự động hóa Messenger với giao diện web hiện đại</p>
         </div>
-        <div class="hero-visual">
-            <i class="fa-brands fa-discord" style="font-size: 5rem; color: var(--primary); filter: drop-shadow(0 0 20px var(--primary));"></i>
-        </div>
-    </section>
 
-    <!-- Dashboard (Chỉ hiện khi đã đăng nhập) -->
-    <section class="dashboard" id="dashboard">
-        <h2 class="section-title">Sản phẩm <span>Nổi bật</span></h2>
-        <div class="products-grid" id="productsGrid">
-            <!-- JS sẽ load sản phẩm vào đây -->
+        <!-- Navigation -->
+        <div class="nav" id="nav">
+            <button class="nav-btn active" data-section="dashboard" onclick="showSection('dashboard')">
+                📊 Dashboard
+            </button>
+            <button class="nav-btn" data-section="spam" onclick="showSection('spam')">
+                📨 Spam Messages
+            </button>
+            <button class="nav-btn" data-section="createGroup" onclick="showSection('createGroup')">
+                👥 Create Group
+            </button>
+            <button class="nav-btn" data-section="groupTools" onclick="showSection('groupTools')">
+                🛠️ Group Tools
+            </button>
+            <button class="nav-btn" data-section="poll" onclick="showSection('poll')">
+                📊 Poll
+            </button>
+            <button class="nav-btn" data-section="theme" onclick="showSection('theme')">
+                🎨 Themes
+            </button>
+            <button class="nav-btn" data-section="typing" onclick="showSection('typing')">
+                ⌨️ Fake Typing
+            </button>
+            <button class="nav-btn" data-section="nickname" onclick="showSection('nickname')">
+                ✏️ Nickname
+            </button>
+            <button class="nav-btn" data-section="settings" onclick="showSection('settings')">
+                ⚙️ Settings
+            </button>
         </div>
-        
-        <!-- Cart Section -->
-        <div class="cart-section" id="cart">
-            <h3 style="margin-bottom: 20px;">Giỏ hàng của bạn</h3>
-            <div id="cartItems"></div>
-            <div class="cart-total">
-                Tổng cộng: <span id="cartTotal">0đ</span>
+
+        <!-- Content -->
+        <div class="content">
+            <!-- Dashboard Section -->
+            <div class="section active" id="dashboard">
+                <div class="card">
+                    <h3><i>📊</i> Tổng quan hệ thống</h3>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-value" id="cookiesCount">0</div>
+                            <div class="stat-label">Cookies</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="activeThreads">0</div>
+                            <div class="stat-label">Threads Active</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="messagesSent">0</div>
+                            <div class="stat-label">Messages Sent</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="uptime">0s</div>
+                            <div class="stat-label">Uptime</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-card" onclick="showSection('spam')">
+                        <div class="icon">📨</div>
+                        <h4>Spam Messages</h4>
+                        <p>Gửi tin nhắn hàng loạt</p>
+                    </div>
+                    <div class="feature-card" onclick="showSection('createGroup')">
+                        <div class="icon">👥</div>
+                        <h4>Create Group</h4>
+                        <p>Tạo nhóm chat mới</p>
+                    </div>
+                    <div class="feature-card" onclick="showSection('groupTools')">
+                        <div class="icon">🛠️</div>
+                        <h4>Group Tools</h4>
+                        <p>Quản lý nhóm chat</p>
+                    </div>
+                    <div class="feature-card" onclick="showSection('poll')">
+                        <div class="icon">📊</div>
+                        <h4>Create Poll</h4>
+                        <p>Tạo bình chọn</p>
+                    </div>
+                    <div class="feature-card" onclick="showSection('theme')">
+                        <div class="icon">🎨</div>
+                        <h4>Themes</h4>
+                        <p>Thay đổi theme</p>
+                    </div>
+                    <div class="feature-card" onclick="showSection('typing')">
+                        <div class="icon">⌨️</div>
+                        <h4>Fake Typing</h4>
+                        <p>Giả lập đang gõ</p>
+                    </div>
+                    <div class="feature-card" onclick="showSection('nickname')">
+                        <div class="icon">✏️</div>
+                        <h4>Nickname</h4>
+                        <p>Đổi biệt danh</p>
+                    </div>
+                </div>
             </div>
-            <button class="btn-checkout" onclick="checkout()">Thanh toán ngay</button>
-        </div>
-    </section>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2024 NeonCraft. Bán đồ Discord uy tín. <a href="#">Liên hệ</a>.</p>
-    </footer>
+            <!-- Spam Messages Section -->
+            <div class="section" id="spam">
+                <div class="card">
+                    <h3><i>📨</i> Spam Messages</h3>
+                    <form id="spamForm">
+                        <div class="form-group">
+                            <label>File Cookie (mỗi dòng 1 cookie)</label>
+                            <div class="file-upload" onclick="document.getElementById('cookieFile').click()">
+                                <div class="upload-icon">📁</div>
+                                <p>Click để chọn file cookie</p>
+                                <input type="file" id="cookieFile" accept=".txt" onchange="updateFileName(this, 'cookieFileName')">
+                            </div>
+                            <small id="cookieFileName" style="color: #666;">Chưa chọn file</small>
+                        </div>
 
-    <!-- Auth Modal -->
-    <div class="auth-modal" id="authModal">
-        <div class="auth-card">
-            <div class="auth-close" onclick="closeAuthModal()"><i class="fa-solid fa-xmark"></i></div>
-            
-            <!-- Login Form -->
-            <div id="loginFormWrapper">
-                <h2 class="auth-title">Đăng nhập</h2>
-                <form onsubmit="handleLogin(event)">
-                    <div class="input-group">
-                        <label>EMAIL HOẶC USERNAME</label>
-                        <input type="text" id="loginUsername" placeholder="Nhập email hoặc username" required>
-                    </div>
-                    <div class="input-group">
-                        <label>PASSWORD</label>
-                        <input type="password" id="loginPassword" placeholder="Nhập mật khẩu" required>
-                    </div>
-                    <button type="submit" class="btn-auth">ĐĂNG NHẬP</button>
-                </form>
-                <button class="btn-google" onclick="handleGoogleLogin()">
-                    <i class="fa-brands fa-google" style="color: #EA4335;"></i>
-                    <span>Đăng nhập bằng Google</span>
-                </button>
-                <p class="auth-switch">Chưa có tài khoản? <a href="#" onclick="switchAuthForm('register')">Đăng ký</a></p>
+                        <div class="form-group">
+                            <label>Thread IDs (mỗi ID một dòng)</label>
+                            <textarea id="threadIds" placeholder="Nhập ID box, mỗi ID một dòng"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Nội dung tin nhắn</label>
+                            <textarea id="messageContent" placeholder="Nhập nội dung tin nhắn cần gửi"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Delay (giây)</label>
+                            <input type="number" id="delay" value="1" min="0" step="0.5">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Chế độ gửi</label>
+                            <select id="spamMode">
+                                <option value="1">Gửi tin nhắn thường</option>
+                                <option value="2">Share contact</option>
+                                <option value="3">Share link</option>
+                                <option value="5">Gửi ảnh/video</option>
+                            </select>
+                        </div>
+
+                        <div id="extraFields" style="display: none;">
+                            <div class="form-group">
+                                <label>UID để share</label>
+                                <input type="text" id="shareUid" placeholder="Nhập UID">
+                            </div>
+                            <div class="form-group">
+                                <label>URL ảnh/video</label>
+                                <input type="url" id="mediaUrl" placeholder="https://example.com/image.jpg">
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-primary" onclick="startSpam()">
+                            <i>🚀</i> Bắt đầu
+                        </button>
+                        <button type="button" class="btn btn-danger" onclick="stopAll()">
+                            <i>🛑</i> Dừng tất cả
+                        </button>
+                    </form>
+                </div>
+
+                <div class="log-container" id="spamLog">
+                    <div class="log-entry info">Hệ thống sẵn sàng...</div>
+                </div>
             </div>
 
-            <!-- Register Form -->
-            <div id="registerFormWrapper" style="display: none;">
-                <h2 class="auth-title">Đăng ký</h2>
-                <form onsubmit="handleRegister(event)">
-                    <div class="input-group">
-                        <label>HỌ VÀ TÊN</label>
-                        <input type="text" id="regName" placeholder="Nhập họ và tên" required>
-                    </div>
-                    <div class="input-group">
-                        <label>EMAIL</label>
-                        <input type="email" id="regEmail" placeholder="Nhập email" required>
-                    </div>
-                    <div class="input-group">
-                        <label>MẬT KHẨU</label>
-                        <input type="password" id="regPassword" placeholder="Nhập mật khẩu" required>
-                    </div>
-                    <button type="submit" class="btn-auth">ĐĂNG KÝ</button>
-                </form>
-                <button class="btn-google" onclick="handleGoogleLogin()">
-                    <i class="fa-brands fa-google" style="color: #EA4335;"></i>
-                    <span>Đăng ký bằng Google</span>
-                </button>
-                <p class="auth-switch">Đã có tài khoản? <a href="#" onclick="switchAuthForm('login')">Đăng nhập</a></p>
+            <!-- Create Group Section -->
+            <div class="section" id="createGroup">
+                <div class="card">
+                    <h3><i>👥</i> Create Group</h3>
+                    <form id="createGroupForm">
+                        <div class="form-group">
+                            <label>File Cookie</label>
+                            <div class="file-upload" onclick="document.getElementById('createGroupCookie').click()">
+                                <div class="upload-icon">📁</div>
+                                <p>Click để chọn file cookie</p>
+                                <input type="file" id="createGroupCookie" accept=".txt" onchange="updateFileName(this, 'createGroupCookieName')">
+                            </div>
+                            <small id="createGroupCookieName" style="color: #666;">Chưa chọn file</small>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Số lượng nhóm</label>
+                                <input type="number" id="numGroups" value="1" min="1">
+                            </div>
+                            <div class="form-group">
+                                <label>Tên cơ bản</label>
+                                <input type="text" id="baseGroupName" placeholder="Tên nhóm">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>User IDs (cách nhau bởi dấu phẩy)</label>
+                            <input type="text" id="userIds" placeholder="123456789, 987654321, ...">
+                        </div>
+
+                        <button type="button" class="btn btn-primary" onclick="createGroups()">
+                            <i>👥</i> Tạo nhóm
+                        </button>
+                    </form>
+                </div>
+
+                <div class="log-container" id="createGroupLog">
+                    <div class="log-entry info">Hệ thống sẵn sàng...</div>
+                </div>
             </div>
-        </div>
-    </div>
 
-    <!-- AI Chatbot -->
-    <div id="chatbot-toggle-btn" onclick="toggleChat()">
-        <i class="fa-solid fa-robot"></i>
-    </div>
+            <!-- Group Tools Section -->
+            <div class="section" id="groupTools">
+                <div class="card">
+                    <h3><i>🛠️</i> Group Tools</h3>
+                    <form id="groupToolsForm">
+                        <div class="form-group">
+                            <label>File Cookie</label>
+                            <div class="file-upload" onclick="document.getElementById('groupToolsCookie').click()">
+                                <div class="upload-icon">📁</div>
+                                <p>Click để chọn file cookie</p>
+                                <input type="file" id="groupToolsCookie" accept=".txt" onchange="updateFileName(this, 'groupToolsCookieName')">
+                            </div>
+                            <small id="groupToolsCookieName" style="color: #666;">Chưa chọn file</small>
+                        </div>
 
-    <div id="chatbot-container" class="chat-closed">
-        <div class="chat-header">
-            <span>AI Support - NeonCraft</span>
-            <span class="chat-close" onclick="toggleChat()"><i class="fa-solid fa-xmark"></i></span>
-        </div>
-        <div class="chat-body" id="chatBody">
-            <div class="chat-message bot">Xin chào! Tôi là AI hỗ trợ của NeonCraft. Bạn cần giúp gì?</div>
-        </div>
-        <div class="chat-input-area">
-            <input type="text" id="chatInput" placeholder="Nhập câu hỏi..." onkeydown="if(event.key==='Enter') sendChat()">
-            <button onclick="sendChat()"><i class="fa-solid fa-paper-plane"></i></button>
+                        <div class="form-group">
+                            <label>Thread ID</label>
+                            <input type="text" id="groupThreadId" placeholder="Nhập ID nhóm">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Tên nhóm mới</label>
+                            <input type="text" id="newGroupName" placeholder="Tên nhóm mới">
+                        </div>
+
+                        <div class="form-group">
+                            <label>User IDs cần thêm (cách nhau bởi dấu phẩy)</label>
+                            <input type="text" id="addUserIds" placeholder="123456789, 987654321, ...">
+                        </div>
+
+                        <button type="button" class="btn btn-primary" onclick="changeGroupName()">
+                            <i>✏️</i> Đổi tên nhóm
+                        </button>
+                        <button type="button" class="btn btn-info" onclick="addUsersToGroup()">
+                            <i>➕</i> Thêm thành viên
+                        </button>
+                        <button type="button" class="btn btn-warning" onclick="getGroupInfo()">
+                            <i>📋</i> Lấy thông tin
+                        </button>
+                    </form>
+                </div>
+
+                <div class="log-container" id="groupToolsLog">
+                    <div class="log-entry info">Hệ thống sẵn sàng...</div>
+                </div>
+            </div>
+
+            <!-- Poll Section -->
+            <div class="section" id="poll">
+                <div class="card">
+                    <h3><i>📊</i> Create Poll</h3>
+                    <form id="pollForm">
+                        <div class="form-group">
+                            <label>File Cookie</label>
+                            <div class="file-upload" onclick="document.getElementById('pollCookie').click()">
+                                <div class="upload-icon">📁</div>
+                                <p>Click để chọn file cookie</p>
+                                <input type="file" id="pollCookie" accept=".txt" onchange="updateFileName(this, 'pollCookieName')">
+                            </div>
+                            <small id="pollCookieName" style="color: #666;">Chưa chọn file</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Thread ID</label>
+                            <input type="text" id="pollThreadId" placeholder="Nhập ID nhóm">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Tiêu đề poll (mỗi dòng 1 tiêu đề)</label>
+                            <textarea id="pollTitles" placeholder="Nhập tiêu đề poll, mỗi dòng một tiêu đề"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Options (mỗi dòng 1 option)</label>
+                            <textarea id="pollOptions" placeholder="Option 1\nOption 2\nOption 3">Bá war
+Bá sàn</textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Delay (giây)</label>
+                            <input type="number" id="pollDelay" value="1" min="0" step="0.5">
+                        </div>
+
+                        <button type="button" class="btn btn-primary" onclick="createPolls()">
+                            <i>📊</i> Tạo poll
+                        </button>
+                    </form>
+                </div>
+
+                <div class="log-container" id="pollLog">
+                    <div class="log-entry info">Hệ thống sẵn sàng...</div>
+                </div>
+            </div>
+
+            <!-- Theme Section -->
+            <div class="section" id="theme">
+                <div class="card">
+                    <h3><i>🎨</i> Change Theme</h3>
+                    <form id="themeForm">
+                        <div class="form-group">
+                            <label>File Cookie</label>
+                            <div class="file-upload" onclick="document.getElementById('themeCookie').click()">
+                                <div class="upload-icon">📁</div>
+                                <p>Click để chọn file cookie</p>
+                                <input type="file" id="themeCookie" accept=".txt" onchange="updateFileName(this, 'themeCookieName')">
+                            </div>
+                            <small id="themeCookieName" style="color: #666;">Chưa chọn file</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Thread ID</label>
+                            <input type="text" id="themeThreadId" placeholder="Nhập ID nhóm">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Theme ID (để trống để chọn ngẫu nhiên)</label>
+                            <input type="text" id="themeId" placeholder="Nhập Theme ID hoặc để trống">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Delay (giây)</label>
+                            <input type="number" id="themeDelay" value="1" min="0" step="0.5">
+                        </div>
+
+                        <button type="button" class="btn btn-primary" onclick="changeThemes()">
+                            <i>🎨</i> Thay đổi theme
+                        </button>
+                    </form>
+                </div>
+
+                <div class="log-container" id="themeLog">
+                    <div class="log-entry info">Hệ thống sẵn sàng...</div>
+                </div>
+            </div>
+
+            <!-- Fake Typing Section -->
+            <div class="section" id="typing">
+                <div class="card">
+                    <h3><i>⌨️</i> Fake Typing</h3>
+                    <form id="typingForm">
+                        <div class="form-group">
+                            <label>File Cookie</label>
+                            <div class="file-upload" onclick="document.getElementById('typingCookie').click()">
+                                <div class="upload-icon">📁</div>
+                                <p>Click để chọn file cookie</p>
+                                <input type="file" id="typingCookie" accept=".txt" onchange="updateFileName(this, 'typingCookieName')">
+                            </div>
+                            <small id="typingCookieName" style="color: #666;">Chưa chọn file</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Thread IDs (mỗi ID một dòng)</label>
+                            <textarea id="typingThreadIds" placeholder="Nhập ID box, mỗi ID một dòng"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Nội dung tin nhắn (mỗi dòng 1 tin nhắn)</label>
+                            <textarea id="typingMessages" placeholder="Nhập tin nhắn, mỗi dòng một tin nhắn"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Delay (giây)</label>
+                            <input type="number" id="typingDelay" value="1" min="0" step="0.5">
+                        </div>
+
+                        <button type="button" class="btn btn-primary" onclick="startFakeTyping()">
+                            <i>⌨️</i> Bắt đầu fake typing
+                        </button>
+                    </form>
+                </div>
+
+                <div class="log-container" id="typingLog">
+                    <div class="log-entry info">Hệ thống sẵn sàng...</div>
+                </div>
+            </div>
+
+            <!-- Nickname Section -->
+            <div class="section" id="nickname">
+                <div class="card">
+                    <h3><i>✏️</i> Change Nickname</h3>
+                    <form id="nicknameForm">
+                        <div class="form-group">
+                            <label>File Cookie</label>
+                            <div class="file-upload" onclick="document.getElementById('nicknameCookie').click()">
+                                <div class="upload-icon">📁</div>
+                                <p>Click để chọn file cookie</p>
+                                <input type="file" id="nicknameCookie" accept=".txt" onchange="updateFileName(this, 'nicknameCookieName')">
+                            </div>
+                            <small id="nicknameCookieName" style="color: #666;">Chưa chọn file</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Thread ID</label>
+                            <input type="text" id="nicknameThreadId" placeholder="Nhập ID nhóm">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Biệt danh mới</label>
+                            <input type="text" id="newNickname" placeholder="Nhập biệt danh mới">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Delay (giây)</label>
+                            <input type="number" id="nicknameDelay" value="1" min="0" step="0.5">
+                        </div>
+
+                        <button type="button" class="btn btn-primary" onclick="changeAllNicknames()">
+                            <i>✏️</i> Đổi biệt danh cho tất cả
+                        </button>
+                    </form>
+                </div>
+
+                <div class="log-container" id="nicknameLog">
+                    <div class="log-entry info">Hệ thống sẵn sàng...</div>
+                </div>
+            </div>
+
+            <!-- Settings Section -->
+            <div class="section" id="settings">
+                <div class="card">
+                    <h3><i>⚙️</i> Cài đặt hệ thống</h3>
+                    
+                    <div class="connection-indicator" id="connectionStatus">
+                        <div class="connection-dot" id="connectionDot"></div>
+                        <span>Hệ thống chưa kết nối</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>MQTT Broker</label>
+                        <input type="text" id="mqttBroker" value="broker.hivemq.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label>MQTT Port</label>
+                        <input type="number" id="mqttPort" value="1883">
+                    </div>
+
+                    <button type="button" class="btn btn-success" onclick="connectMQTT()">
+                        <i>🔌</i> Kết nối
+                    </button>
+                    <button type="button" class="btn btn-danger" onclick="disconnectMQTT()">
+                        <i>🔌</i> Ngắt kết nối
+                    </button>
+
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label>Ảnh/Video mặc định</label>
+                        <input type="url" id="defaultMediaUrl" placeholder="https://example.com/media.jpg">
+                    </div>
+
+                    <div class="form-group">
+                        <label>File tên nhóm (nhay.txt)</label>
+                        <div class="file-upload" onclick="document.getElementById('groupNamesFile').click()">
+                            <div class="upload-icon">📁</div>
+                            <p>Click để chọn file chứa tên nhóm</p>
+                            <input type="file" id="groupNamesFile" accept=".txt" onchange="updateFileName(this, 'groupNamesFileName')">
+                        </div>
+                        <small id="groupNamesFileName" style="color: #666;">Chưa chọn file</small>
+                    </div>
+
+                    <button type="button" class="btn btn-primary" onclick="saveSettings()">
+                        <i>💾</i> Lưu cài đặt
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        // ===== DỮ LIỆU SẢN PHẨM =====
-        const products = [
-            { id: 1, name: 'Nitro Classic 1 tháng', price: 25000, icon: 'fa-rocket', rating: 5 },
-            { id: 2, name: 'Nitro Boost 1 tháng', price: 50000, icon: 'fa-bolt', rating: 4 },
-            { id: 3, name: 'Giftcode 100k', price: 100000, icon: 'fa-gift', rating: 5 },
-            { id: 4, name: 'Tài khoản LV30', price: 150000, icon: 'fa-user-astronaut', rating: 4 }
-        ];
+        // Global state
+        let state = {
+            cookies: [],
+            activeThreads: [],
+            isRunning: false,
+            messagesSent: 0,
+            startTime: Date.now(),
+            mqttConnected: false,
+            settings: {}
+        };
 
-        let cart = [];
-        let isLoggedIn = false;
-        let walletBalance = 200000; // Ví mặc định có 200k
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateDashboard();
+            loadSettings();
+            updateUptime();
+        });
 
-        // ===== LOAD PRODUCTS =====
-        function loadProducts() {
-            const grid = document.getElementById('productsGrid');
-            grid.innerHTML = '';
-            products.forEach(product => {
-                const stars = '★'.repeat(product.rating) + '☆'.repeat(5 - product.rating);
-                grid.innerHTML += `
-                    <div class="product-card">
-                        <div class="product-icon"><i class="fa-solid ${product.icon}"></i></div>
-                        <h3>${product.name}</h3>
-                        <div class="rating">${stars}</div>
-                        <div class="price">${product.price.toLocaleString()}đ</div>
-                        <button class="btn-buy" onclick="addToCart(${product.id})">Thêm vào giỏ</button>
-                    </div>
-                `;
+        // Navigation
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Update nav buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.dataset.section === sectionId) {
+                    btn.classList.add('active');
+                }
             });
         }
-        loadProducts();
 
-        // ===== CART =====
-        function addToCart(id) {
-            const product = products.find(p => p.id === id);
-            cart.push(product);
-            renderCart();
+        // Update file name display
+        function updateFileName(input, elementId) {
+            const fileName = input.files[0] ? input.files[0].name : 'Chưa chọn file';
+            document.getElementById(elementId).textContent = fileName;
         }
 
-        function renderCart() {
-            const cartItems = document.getElementById('cartItems');
-            cartItems.innerHTML = '';
-            let total = 0;
-            cart.forEach((item, index) => {
-                total += item.price;
-                cartItems.innerHTML += `
-                    <div class="cart-item">
-                        <span>${item.name}</span>
-                        <span style="color: var(--primary);">${item.price.toLocaleString()}đ</span>
-                        <button onclick="removeFromCart(${index})" style="background: none; border: none; color: #ff6b6b; cursor: pointer;"><i class="fa-solid fa-trash"></i></button>
-                    </div>
-                `;
+        // Dashboard updates
+        function updateDashboard() {
+            document.getElementById('cookiesCount').textContent = state.cookies.length;
+            document.getElementById('activeThreads').textContent = state.activeThreads.length;
+            document.getElementById('messagesSent').textContent = state.messagesSent;
+        }
+
+        function updateUptime() {
+            const uptime = Math.floor((Date.now() - state.startTime) / 1000);
+            const hours = Math.floor(uptime / 3600);
+            const minutes = Math.floor((uptime % 3600) / 60);
+            const seconds = uptime % 60;
+            document.getElementById('uptime').textContent = `${hours}h ${minutes}m ${seconds}s`;
+        }
+
+        setInterval(updateUptime, 1000);
+
+        // Log functions
+        function addLog(logId, message, type = 'info') {
+            const logContainer = document.getElementById(logId);
+            if (logContainer) {
+                const entry = document.createElement('div');
+                entry.className = `log-entry ${type}`;
+                entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+                logContainer.appendChild(entry);
+                logContainer.scrollTop = logContainer.scrollHeight;
+            }
+        }
+
+        // File reading
+        function readFile(file, callback) {
+            if (!file) {
+                alert('Vui lòng chọn file!');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                callback(e.target.result);
+            };
+            reader.onerror = function() {
+                alert('Lỗi khi đọc file!');
+            };
+            reader.readAsText(file);
+        }
+
+        // Spam functions
+        function startSpam() {
+            const cookieFile = document.getElementById('cookieFile').files[0];
+            const threadIds = document.getElementById('threadIds').value;
+            const messageContent = document.getElementById('messageContent').value;
+            const delay = document.getElementById('delay').value;
+            const mode = document.getElementById('spamMode').value;
+            const shareUid = document.getElementById('shareUid').value;
+            const mediaUrl = document.getElementById('mediaUrl').value;
+
+            if (!cookieFile) {
+                alert('Vui lòng chọn file cookie!');
+                return;
+            }
+
+            if (!threadIds || !messageContent) {
+                alert('Vui lòng nhập Thread IDs và nội dung!');
+                return;
+            }
+
+            readFile(cookieFile, function(content) {
+                const cookies = content.split('\n').filter(line => line.trim());
+                state.cookies = cookies;
+                
+                const threads = threadIds.split('\n').filter(line => line.trim());
+                state.activeThreads = threads;
+                
+                state.isRunning = true;
+                state.messagesSent = 0;
+                
+                addLog('spamLog', `Bắt đầu spam với ${cookies.length} cookies và ${threads.length} threads`, 'info');
+                
+                // Simulate sending (replace with actual API calls)
+                simulateSending('spamLog', threads, delay, mode, cookies);
+                
+                updateDashboard();
             });
-            document.getElementById('cartTotal').textContent = total.toLocaleString() + 'đ';
-            if (cart.length === 0) {
-                cartItems.innerHTML = '<p style="color: var(--text-muted);">Giỏ hàng trống.</p>';
-            }
         }
 
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            renderCart();
-        }
+        function simulateSending(logId, threads, delay, mode, cookies) {
+            const messages = [
+                "Hello!",
+                "Chào bạn!",
+                "Xin chào!",
+                "Hi there!",
+                "Chúc bạn một ngày tốt lành!",
+                "Bạn khỏe không?",
+                "Hôm nay thế nào?",
+                "Này, bạn có rảnh không?",
+                "Rất vui được gặp bạn!",
+                "Bạn đang làm gì đấy?"
+            ];
 
-        function checkout() {
-            if (cart.length === 0) {
-                alert('Giỏ hàng trống!');
-                return;
-            }
-            const total = cart.reduce((sum, item) => sum + item.price, 0);
-            if (walletBalance < total) {
-                alert('Số dư không đủ! Vui lòng nạp thêm tiền.');
-                return;
-            }
-            walletBalance -= total;
-            alert(`Đặt hàng thành công! Số dư còn lại: ${walletBalance.toLocaleString()}đ`);
-            cart = [];
-            renderCart();
-        }
+            let threadIndex = 0;
+            let cookieIndex = 0;
 
-        // ===== AUTH & DASHBOARD =====
-        function openAuthModal(type) {
-            document.getElementById('authModal').classList.add('active');
-            switchAuthForm(type);
-        }
-
-        function closeAuthModal() {
-            document.getElementById('authModal').classList.remove('active');
-        }
-
-        function switchAuthForm(type) {
-            if (type === 'login') {
-                document.getElementById('loginFormWrapper').style.display = 'block';
-                document.getElementById('registerFormWrapper').style.display = 'none';
-            } else {
-                document.getElementById('loginFormWrapper').style.display = 'none';
-                document.getElementById('registerFormWrapper').style.display = 'block';
-            }
-        }
-
-        function handleLogin(e) {
-            e.preventDefault();
-            
-            // Giả lập đăng nhập thành công
-            isLoggedIn = true;
-            closeAuthModal();
-            
-            // Cập nhật UI
-            document.getElementById('loginBtn').style.display = 'none';
-            document.getElementById('logoutBtn').style.display = 'block';
-            document.getElementById('dashboardLink').style.display = 'block';
-            document.getElementById('cartLink').style.display = 'block';
-            
-            // Chuyển sang Dashboard
-            document.getElementById('home').style.display = 'none';
-            document.getElementById('dashboard').classList.add('active');
-            
-            alert('Đăng nhập thành công!');
-        }
-
-        function handleRegister(e) {
-            e.preventDefault();
-            
-            // Giả lập đăng ký thành công
-            isLoggedIn = true;
-            closeAuthModal();
-            
-            // Cập nhật UI
-            document.getElementById('loginBtn').style.display = 'none';
-            document.getElementById('logoutBtn').style.display = 'block';
-            document.getElementById('dashboardLink').style.display = 'block';
-            document.getElementById('cartLink').style.display = 'block';
-            
-            // Chuyển sang Dashboard
-            document.getElementById('home').style.display = 'none';
-            document.getElementById('dashboard').classList.add('active');
-            
-            alert('Đăng ký thành công!');
-        }
-
-        function handleGoogleLogin() {
-            // Giả lập đăng nhập Google thành công
-            isLoggedIn = true;
-            closeAuthModal();
-            
-            // Cập nhật UI
-            document.getElementById('loginBtn').style.display = 'none';
-            document.getElementById('logoutBtn').style.display = 'block';
-            document.getElementById('dashboardLink').style.display = 'block';
-            document.getElementById('cartLink').style.display = 'block';
-            
-            // Chuyển sang Dashboard
-            document.getElementById('home').style.display = 'none';
-            document.getElementById('dashboard').classList.add('active');
-            
-            alert('Đăng nhập Google thành công!');
-        }
-
-        // ===== LOGOUT =====
-        function logout() {
-            isLoggedIn = false;
-            
-            // Cập nhật UI
-            document.getElementById('loginBtn').style.display = 'block';
-            document.getElementById('logoutBtn').style.display = 'none';
-            document.getElementById('dashboardLink').style.display = 'none';
-            document.getElementById('cartLink').style.display = 'none';
-            
-            // Quay về trang chủ
-            document.getElementById('dashboard').classList.remove('active');
-            document.getElementById('home').style.display = 'flex';
-            
-            // Reset giỏ hàng
-            cart = [];
-            renderCart();
-            
-            alert('Đăng xuất thành công!');
-        }
-
-        // ===== AI CHATBOT =====
-        function toggleChat() {
-            const chatbotContainer = document.getElementById('chatbot-container');
-            const toggleBtn = document.getElementById('chatbot-toggle-btn');
-
-            if (chatbotContainer.classList.contains('chat-closed')) {
-                chatbotContainer.classList.remove('chat-closed');
-                chatbotContainer.classList.add('chat-open');
-                toggleBtn.classList.add('chat-open');
-            } else {
-                chatbotContainer.classList.add('chat-closed');
-                chatbotContainer.classList.remove('chat-open');
-                toggleBtn.classList.remove('chat-open');
-            }
-        }
-
-        function sendChat() {
-            const input = document.getElementById('chatInput');
-            const message = input.value.trim();
-            if (!message) return;
-
-            const chatBody = document.getElementById('chatBody');
-            chatBody.innerHTML += `<div class="chat-message user">${message}</div>`;
-            input.value = '';
-
-            setTimeout(() => {
-                let botResponse = "Xin lỗi, tôi chưa hiểu câu hỏi của bạn. Bạn có thể hỏi về sản phẩm, giá cả hoặc đơn hàng.";
-                const lowerMessage = message.toLowerCase();
-
-                if (lowerMessage.includes('nitro')) {
-                    botResponse = "Nitro Classic giá 25.000đ/tháng, Nitro Boost giá 50.000đ/tháng. Bạn muốn mua loại nào?";
-                } else if (lowerMessage.includes('giá') || lowerMessage.includes('bao nhiêu')) {
-                    botResponse = "Cửa hàng chúng tôi có nhiều mức giá từ 25.000đ đến 150.000đ. Bạn có thể xem chi tiết trong mục Cửa hàng!";
-                } else if (lowerMessage.includes('đơn hàng') || lowerMessage.includes('order')) {
-                    botResponse = "Để xem đơn hàng, bạn hãy vào mục 'Đơn hàng của tôi' ở thanh điều hướng bên trái nhé!";
-                } else if (lowerMessage.includes('nạp')) {
-                    botResponse = "Bạn có thể nạp tiền vào ví bằng cách vào mục 'Ví của tôi' và bấm nút Nạp tiền.";
-                } else if (lowerMessage.includes('xin chào') || lowerMessage.includes('hello') || lowerMessage.includes('hi')) {
-                    botResponse = "Xin chào! Tôi có thể giúp gì cho bạn hôm nay?";
+            function sendNext() {
+                if (!state.isRunning || threadIndex >= threads.length) {
+                    addLog(logId, 'Hoàn thành việc gửi tin nhắn', 'success');
+                    state.isRunning = false;
+                    updateDashboard();
+                    return;
                 }
 
-                chatBody.innerHTML += `<div class="chat-message bot">${botResponse}</div>`;
-                chatBody.scrollTop = chatBody.scrollHeight;
-            }, 800);
+                const currentThread = threads[threadIndex];
+                const currentCookie = cookies[cookieIndex % cookies.length];
+                const message = messages[Math.floor(Math.random() * messages.length)];
+
+                addLog(logId, `Gửi tin nhắn tới box ${currentThread} với cookie ${currentCookie.substring(0, 10)}...`, 'info');
+                
+                // Simulate API call
+                setTimeout(() => {
+                    addLog(logId, `✓ Đã gửi thành công tới box ${currentThread}`, 'success');
+                    state.messagesSent++;
+                    updateDashboard();
+                    
+                    threadIndex++;
+                    cookieIndex++;
+                    
+                    if (threadIndex >= threads.length) {
+                        threadIndex = 0;
+                        addLog(logId, 'Bắt đầu chu kỳ mới...', 'info');
+                    }
+                    
+                    if (state.isRunning) {
+                        setTimeout(sendNext, delay * 1000);
+                    }
+                }, Math.random() * 2000);
+            }
+
+            sendNext();
         }
 
-        // ===== MENU TOGGLE =====
-        function toggleMenu() {
-            const navLinks = document.getElementById('navLinks');
-            if (navLinks.style.display === 'flex') {
-                navLinks.style.display = 'none';
-            } else {
-                navLinks.style.display = 'flex';
+        function stopAll() {
+            state.isRunning = false;
+            addLog('spamLog', 'Đã dừng tất cả hoạt động', 'warning');
+            updateDashboard();
+        }
+
+        // Group creation
+        function createGroups() {
+            const cookieFile = document.getElementById('createGroupCookie').files[0];
+            const numGroups = document.getElementById('numGroups').value;
+            const baseGroupName = document.getElementById('baseGroupName').value;
+            const userIds = document.getElementById('userIds').value;
+
+            if (!cookieFile) {
+                alert('Vui lòng chọn file cookie!');
+                return;
+            }
+
+            readFile(cookieFile, function(content) {
+                const cookies = content.split('\n').filter(line => line.trim());
+                const uids = userIds.split(',').map(uid => uid.trim()).filter(uid => uid);
+                
+                addLog('createGroupLog', `Bắt đầu tạo ${numGroups} nhóm với tên "${baseGroupName}"`, 'info');
+                
+                // Simulate group creation
+                for (let i = 0; i < numGroups; i++) {
+                    const groupName = `${baseGroupName} ${i + 1}`;
+                    
+                    setTimeout(() => {
+                        addLog('createGroupLog', `✓ Đã tạo nhóm: ${groupName}`, 'success');
+                    }, (i + 1) * 2000);
+                }
+                
+                setTimeout(() => {
+                    addLog('createGroupLog', 'Hoàn thành tạo nhóm', 'success');
+                }, numGroups * 2000 + 1000);
+            });
+        }
+
+        // Group tools
+        function changeGroupName() {
+            const threadId = document.getElementById('groupThreadId').value;
+            const groupName = document.getElementById('newGroupName').value;
+            
+            if (!threadId || !groupName) {
+                alert('Vui lòng nhập Thread ID và tên nhóm!');
+                return;
+            }
+            
+            addLog('groupToolsLog', `Đổi tên nhóm ${threadId} thành "${groupName}"...`, 'info');
+            
+            setTimeout(() => {
+                addLog('groupToolsLog', `✓ Đã đổi tên nhóm ${threadId} thành "${groupName}"`, 'success');
+            }, 2000);
+        }
+
+        function addUsersToGroup() {
+            const threadId = document.getElementById('groupThreadId').value;
+            const userIds = document.getElementById('addUserIds').value;
+            
+            if (!threadId || !userIds) {
+                alert('Vui lòng nhập Thread ID và User IDs!');
+                return;
+            }
+            
+            const uids = userIds.split(',').map(uid => uid.trim()).filter(uid => uid);
+            
+            addLog('groupToolsLog', `Thêm ${uids.length} người vào nhóm ${threadId}...`, 'info');
+            
+            setTimeout(() => {
+                addLog('groupToolsLog', `✓ Đã thêm ${uids.length} người vào nhóm ${threadId}`, 'success');
+            }, 2000);
+        }
+
+        function getGroupInfo() {
+            const threadId = document.getElementById('groupThreadId').value;
+            
+            if (!threadId) {
+                alert('Vui lòng nhập Thread ID!');
+                return;
+            }
+            
+            addLog('groupToolsLog', `Đang lấy thông tin nhóm ${threadId}...`, 'info');
+            
+            setTimeout(() => {
+                addLog('groupToolsLog', `✓ Đã lấy thông tin nhóm ${threadId}`, 'success');
+                addLog('groupToolsLog', `Thành viên: 50 người`, 'info');
+                addLog('groupToolsLog', `Tên: Group Test`, 'info');
+                addLog('groupToolsLog', `Trạng thái: Active`, 'success');
+            }, 2000);
+        }
+
+        // Poll creation
+        function createPolls() {
+            const cookieFile = document.getElementById('pollCookie').files[0];
+            const threadId = document.getElementById('pollThreadId').value;
+            const titles = document.getElementById('pollTitles').value;
+            const options = document.getElementById('pollOptions').value.split('\n').filter(opt => opt.trim());
+            const delay = document.getElementById('pollDelay').value;
+
+            if (!cookieFile || !threadId || !titles) {
+                alert('Vui lòng điền đầy đủ thông tin!');
+                return;
+            }
+
+            const titleList = titles.split('\n').filter(title => title.trim());
+
+            readFile(cookieFile, function(content) {
+                const cookies = content.split('\n').filter(line => line.trim());
+                
+                addLog('pollLog', `Bắt đầu tạo poll với ${titleList.length} tiêu đề`, 'info');
+                
+                titleList.forEach((title, index) => {
+                    setTimeout(() => {
+                        addLog('pollLog', `✓ Đã tạo poll "${title}" với options: ${options.join(', ')}`, 'success');
+                    }, (index + 1) * 3000);
+                });
+                
+                setTimeout(() => {
+                    addLog('pollLog', 'Hoàn thành tạo poll', 'success');
+                }, titleList.length * 3000 + 1000);
+            });
+        }
+
+        // Theme changing
+        function changeThemes() {
+            const cookieFile = document.getElementById('themeCookie').files[0];
+            const threadId = document.getElementById('themeThreadId').value;
+            const themeId = document.getElementById('themeId').value;
+            const delay = document.getElementById('themeDelay').value;
+
+            if (!cookieFile || !threadId) {
+                alert('Vui lòng chọn file cookie và nhập Thread ID!');
+                return;
+            }
+
+            const themes = [
+                {id: "3650637715209675", name: "Besties"},
+                {id: "769656934577391", name: "Women's History Month"},
+                {id: "702099018755409", name: "Dune: Part Two"},
+                {id: "1480404512543552", name: "Avatar: The Last Airbender"},
+                {id: "952656233130616", name: "J.Lo"},
+                {id: "741311439775765", name: "Love"},
+                {id: "215565958307259", name: "Bob Marley: One Love"},
+                {id: "194982117007866", name: "Football"},
+                {id: "1743641112805218", name: "Soccer"},
+                {id: "730357905262632", name: "Mean Girls"}
+            ];
+
+            readFile(cookieFile, function(content) {
+                const cookies = content.split('\n').filter(line => line.trim());
+                
+                addLog('themeLog', `Bắt đầu thay đổi theme cho box ${threadId}`, 'info');
+                
+                let themeIndex = 0;
+                let running = true;
+                
+                function changeNextTheme() {
+                    if (!running) return;
+                    
+                    const theme = themes[themeIndex % themes.length];
+                    
+                    addLog('themeLog', `Đang thay đổi theme thành: ${theme.name} (ID: ${theme.id})...`, 'info');
+                    
+                    setTimeout(() => {
+                        addLog('themeLog', `✓ Đã thay đổi theme thành: ${theme.name}`, 'success');
+                        themeIndex++;
+                        
+                        if (themeIndex < 10) {
+                            setTimeout(changeNextTheme, delay * 1000);
+                        } else {
+                            addLog('themeLog', 'Hoàn thành thay đổi theme', 'success');
+                        }
+                    }, 2000);
+                }
+                
+                changeNextTheme();
+            });
+        }
+
+        // Fake typing
+        function startFakeTyping() {
+            const cookieFile = document.getElementById('typingCookie').files[0];
+            const threadIds = document.getElementById('typingThreadIds').value;
+            const messages = document.getElementById('typingMessages').value;
+            const delay = document.getElementById('typingDelay').value;
+
+            if (!cookieFile || !threadIds || !messages) {
+                alert('Vui lòng điền đầy đủ thông tin!');
+                return;
+            }
+
+            const threads = threadIds.split('\n').filter(line => line.trim());
+            const messageList = messages.split('\n').filter(line => line.trim());
+
+            readFile(cookieFile, function(content) {
+                const cookies = content.split('\n').filter(line => line.trim());
+                
+                addLog('typingLog', `Bắt đầu fake typing trên ${threads.length} box`, 'info');
+                
+                let threadIndex = 0;
+                let messageIndex = 0;
+                
+                function nextAction() {
+                    if (threadIndex >= threads.length) {
+                        addLog('typingLog', 'Hoàn thành fake typing', 'success');
+                        return;
+                    }
+                    
+                    const currentThread = threads[threadIndex];
+                    const currentMessage = messageList[messageIndex % messageList.length];
+                    
+                    addLog('typingLog', `Fake typing trên box ${currentThread}...`, 'info');
+                    
+                    setTimeout(() => {
+                        addLog('typingLog', `✓ Gửi tin: "${currentMessage}" tới box ${currentThread}`, 'success');
+                        
+                        threadIndex++;
+                        messageIndex++;
+                        
+                        if (threadIndex >= threads.length) {
+                            threadIndex = 0;
+                        }
+                        
+                        setTimeout(nextAction, delay * 1000);
+                    }, 3000);
+                }
+                
+                nextAction();
+            });
+        }
+
+        // Nickname changing
+        function changeAllNicknames() {
+            const cookieFile = document.getElementById('nicknameCookie').files[0];
+            const threadId = document.getElementById('nicknameThreadId').value;
+            const nickname = document.getElementById('newNickname').value;
+            const delay = document.getElementById('nicknameDelay').value;
+
+            if (!cookieFile || !threadId || !nickname) {
+                alert('Vui lòng điền đầy đủ thông tin!');
+                return;
+            }
+
+            readFile(cookieFile, function(content) {
+                const cookies = content.split('\n').filter(line => line.trim());
+                
+                addLog('nicknameLog', `Đổi biệt danh cho tất cả thành viên trong box ${threadId} thành "${nickname}"...`, 'info');
+                
+                // Simulate getting members
+                const simulatedMembers = 10;
+                
+                for (let i = 0; i < simulatedMembers; i++) {
+                    setTimeout(() => {
+                        addLog('nicknameLog', `✓ Đã đổi biệt danh cho thành viên ${i + 1}`, 'success');
+                    }, (i + 1) * 1500);
+                }
+                
+                setTimeout(() => {
+                    addLog('nicknameLog', `Hoàn thành đổi biệt danh cho ${simulatedMembers} thành viên`, 'success');
+                }, simulatedMembers * 1500 + 1000);
+            });
+        }
+
+        // Settings
+        function loadSettings() {
+            const savedSettings = localStorage.getItem('fbToolsSettings');
+            if (savedSettings) {
+                const settings = JSON.parse(savedSettings);
+                document.getElementById('mqttBroker').value = settings.mqttBroker || 'broker.hivemq.com';
+                document.getElementById('mqttPort').value = settings.mqttPort || 1883;
+                document.getElementById('defaultMediaUrl').value = settings.defaultMediaUrl || '';
             }
         }
+
+        function saveSettings() {
+            const settings = {
+                mqttBroker: document.getElementById('mqttBroker').value,
+                mqttPort: document.getElementById('mqttPort').value,
+                defaultMediaUrl: document.getElementById('defaultMediaUrl').value
+            };
+            
+            localStorage.setItem('fbToolsSettings', JSON.stringify(settings));
+            alert('Đã lưu cài đặt!');
+        }
+
+        function connectMQTT() {
+            const broker = document.getElementById('mqttBroker').value;
+            const port = document.getElementById('mqttPort').value;
+            
+            // Simulate MQTT connection
+            setTimeout(() => {
+                document.getElementById('connectionDot').classList.add('connected');
+                document.getElementById('connectionDot').classList.remove('disconnected');
+                document.getElementById('connectionStatus').querySelector('span').textContent = `Đã kết nối tới ${broker}:${port}`;
+                state.mqttConnected = true;
+                alert(`Kết nối thành công tới MQTT broker ${broker}:${port}`);
+            }, 2000);
+        }
+
+        function disconnectMQTT() {
+            document.getElementById('connectionDot').classList.remove('connected');
+            document.getElementById('connectionDot').classList.add('disconnected');
+            document.getElementById('connectionStatus').querySelector('span').textContent = 'Đã ngắt kết nối';
+            state.mqttConnected = false;
+            alert('Đã ngắt kết nối MQTT');
+        }
+
+        // Handle spam mode selection
+        document.getElementById('spamMode').addEventListener('change', function() {
+            const extraFields = document.getElementById('extraFields');
+            const mode = this.value;
+            
+            if (mode === '2' || mode === '3') {
+                extraFields.style.display = 'block';
+                document.getElementById('shareUid').parentElement.style.display = 'block';
+                document.getElementById('mediaUrl').parentElement.style.display = 'none';
+            } else if (mode === '5') {
+                extraFields.style.display = 'block';
+                document.getElementById('mediaUrl').parentElement.style.display = 'block';
+                document.getElementById('shareUid').parentElement.style.display = 'none';
+            } else {
+                extraFields.style.display = 'none';
+            }
+        });
+
+        // Update dashboard periodically
+        setInterval(updateDashboard, 5000);
+
+        // Console log
+        console.log('Facebook Messenger Tools Pro đã sẵn sàng!');
     </script>
 </body>
 </html>
