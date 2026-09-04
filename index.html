@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Huy Pham PREMIUM - TikTok Downloader VIP</title>
+    <title>Huy Pham PREMIUM Ultimate - TikTok Downloader & AI Dubbing</title>
     <style>
         /* ==================== CSS VARIABLES ==================== */
         :root {
@@ -321,9 +321,10 @@
             box-shadow: 0 5px 15px rgba(245,158,11,0.3);
         }
         
-        /* ==================== SUBSCRIPTION ==================== */
+        /* ==================== PRICING ==================== */
         .pricing-section {
             margin: 30px 0;
+            display: none;
         }
         
         .pricing-header {
@@ -1317,6 +1318,210 @@
             margin-top: 5px;
         }
         
+        /* ==================== DUBBING ==================== */
+        .dubbing-section {
+            display: grid;
+            gap: 20px;
+        }
+        
+        .dubbing-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .dubbing-card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .dubbing-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: #fce7f3;
+            color: #ec4899;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        
+        .dubbing-card-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 1.1em;
+        }
+        
+        .dubbing-card-subtitle {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        
+        .dubbing-options {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .dubbing-option-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+        }
+        
+        .dubbing-select, .dubbing-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            background: var(--bg-input);
+            color: var(--text-primary);
+            border-radius: 8px;
+            font-size: 15px;
+        }
+        
+        .dubbing-select:focus, .dubbing-input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        
+        .dubbing-button {
+            width: 100%;
+            padding: 14px;
+            background: var(--accent-gradient);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .dubbing-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(139,92,246,0.3);
+        }
+        
+        .dubbing-progress {
+            display: none;
+            margin-top: 20px;
+            background: var(--bg-input);
+            border-radius: 8px;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .dubbing-progress-bar {
+            background: var(--accent-gradient);
+            height: 10px;
+            border-radius: 5px;
+            width: 0%;
+            transition: all 0.3s;
+        }
+        
+        .dubbing-result {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: var(--success-bg);
+            border: 1px solid var(--success-border);
+            border-radius: 12px;
+        }
+        
+        /* Voice List */
+        .voice-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .voice-item {
+            background: var(--bg-input);
+            border-radius: 8px;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .voice-item:hover {
+            border-color: var(--accent);
+            background: var(--hover-bg);
+        }
+        
+        .voice-item.selected {
+            border-color: var(--gold);
+            background: rgba(245,158,11,0.1);
+        }
+        
+        .voice-item-name {
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+        }
+        
+        .voice-item-lang {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+        
+        .voice-item-listen {
+            font-size: 11px;
+            color: var(--accent);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .voice-item-listen:hover {
+            color: var(--accent-hover);
+        }
+        
+        .voice-item-listen.playing {
+            color: var(--btn-green);
+        }
+        
+        /* AI Idea Output */
+        .ai-idea-output {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background: var(--feature-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .ai-idea-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .ai-idea-content {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .ai-idea-content ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        
+        .ai-idea-content li {
+            margin-bottom: 5px;
+        }
+        
         /* ==================== RESPONSIVE ==================== */
         @media (max-width: 768px) {
             .container {
@@ -1420,7 +1625,7 @@
                 <div class="logo-img">HP</div>
                 <div class="brand-badge">👑 Phiên Bản VIP</div>
                 <h1>HUY PHAM</h1>
-                <p class="brand-subtitle">TikTok Downloader Premium</p>
+                <p class="brand-subtitle">TikTok Downloader & AI Dubbing Premium</p>
             </div>
             
             <!-- Features -->
@@ -1434,8 +1639,8 @@
                     <div class="feature-text">Audio MP3</div>
                 </div>
                 <div class="feature">
-                    <div class="feature-icon">🖼️</div>
-                    <div class="feature-text">Ảnh ZIP</div>
+                    <div class="feature-icon">🎙️</div>
+                    <div class="feature-text">AI Dubbing</div>
                 </div>
                 <div class="feature">
                     <div class="feature-icon">📊</div>
@@ -1447,8 +1652,8 @@
                 </div>
             </div>
             
-            <!-- Pricing Section (chỉ hiện khi chưa có gói) -->
-            <div class="pricing-section" id="pricing-section" style="display: none;">
+            <!-- Pricing Section -->
+            <div class="pricing-section" id="pricing-section">
                 <div class="pricing-header">
                     <div class="pricing-title">👑 Chọn Gói Của Bạn</div>
                     <div class="pricing-subtitle">Nâng cấp để mở khóa toàn bộ tính năng VIP</div>
@@ -1464,8 +1669,8 @@
                             <li>Ảnh cover</li>
                             <li>Giới hạn 10 video/ngày</li>
                             <li class="not-included">Tải MP3</li>
+                            <li class="not-included">AI Dubbing</li>
                             <li class="not-included">Phân tích dữ liệu</li>
-                            <li class="not-included">Hàng đợi tải</li>
                         </ul>
                         <button class="btn-subscribe" onclick="selectPlan('free')">Đang Dùng</button>
                     </div>
@@ -1480,6 +1685,7 @@
                             <li>Tải MP3, Ảnh ZIP</li>
                             <li>Tải playlist/profile</li>
                             <li>Hàng đợi tải</li>
+                            <li class="not-included">AI Dubbing 50 giọng</li>
                             <li class="not-included">Phân tích dữ liệu</li>
                         </ul>
                         <button class="btn-subscribe" onclick="selectPlan('pro')">⚡ Nâng Cấp PRO</button>
@@ -1491,6 +1697,7 @@
                         <div class="plan-price">199k<span>/tháng</span></div>
                         <ul class="plan-features">
                             <li>Tất cả tính năng PRO</li>
+                            <li>AI Dubbing 100+ giọng</li>
                             <li>Phân tích dữ liệu</li>
                             <li>Đặt tên file tự động</li>
                             <li>Hỗ trợ ưu tiên</li>
@@ -1505,6 +1712,7 @@
             <div class="tabs">
                 <button class="tab-btn active" onclick="switchTab('single')">🔗 Link Đơn</button>
                 <button class="tab-btn" onclick="switchTab('batch')">📁 Nhiều Link</button>
+                <button class="tab-btn" onclick="switchTab('dubbing')">🎙️ Lồng Tiếng</button>
                 <button class="tab-btn" onclick="switchTab('playlist')">📃 Playlist</button>
                 <button class="tab-btn" onclick="switchTab('queue')">📋 Hàng Đợi</button>
                 <button class="tab-btn" onclick="switchTab('analytics')">📊 Phân Tích</button>
@@ -1573,7 +1781,135 @@
                 </div>
             </div>
             
-            <!-- Tab 3: Playlist/Profile -->
+            <!-- Tab 3: Dubbing (Lồng tiếng AI) -->
+            <div class="tab-content" id="tab-dubbing">
+                <div class="dubbing-section">
+                    <!-- Phần 1: AI Lên Ý Tưởng -->
+                    <div class="dubbing-card">
+                        <div class="dubbing-card-header">
+                            <div class="dubbing-icon">🤖</div>
+                            <div>
+                                <div class="dubbing-card-title">AI Lên Ý Tưởng & Kịch Bản</div>
+                                <div class="dubbing-card-subtitle">Phân tích video và đề xuất cách lồng tiếng</div>
+                            </div>
+                        </div>
+                        
+                        <div class="dubbing-options">
+                            <div class="dubbing-option">
+                                <label class="dubbing-option-label">🎬 Dán link video hoặc mô tả nội dung:</label>
+                                <textarea class="dubbing-input" id="ai-idea-input" placeholder="Dán link hoặc mô tả video..." style="min-height: 100px;"></textarea>
+                            </div>
+                            <button class="dubbing-button" onclick="generateAIIdea()" style="background: linear-gradient(135deg, #f59e0b, #d97706);">✨ Tạo Ý Tưởng</button>
+                            
+                            <div class="ai-idea-output" id="ai-idea-output">
+                                <div class="ai-idea-title">💡 Gợi ý từ AI:</div>
+                                <div class="ai-idea-content" id="ai-idea-content"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Phần 2: Chọn Giọng Đọc -->
+                    <div class="dubbing-card" style="margin-top: 20px;">
+                        <div class="dubbing-card-header">
+                            <div class="dubbing-icon">🎙️</div>
+                            <div>
+                                <div class="dubbing-card-title">Chọn Giọng Đọc (100+ Giọng)</div>
+                                <div class="dubbing-card-subtitle">Đầy đủ ngôn ngữ và phong cách</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Bộ lọc -->
+                        <div class="dubbing-options">
+                            <div class="dubbing-option">
+                                <label class="dubbing-option-label">🌐 Ngôn ngữ:</label>
+                                <select class="dubbing-select" id="voice-language-filter" onchange="filterVoices()">
+                                    <option value="vi">Tiếng Việt</option>
+                                    <option value="en">English</option>
+                                    <option value="ja">日本語 (Japanese)</option>
+                                    <option value="ko">한국어 (Korean)</option>
+                                    <option value="zh">中文 (Chinese)</option>
+                                    <option value="th">ไทย (Thai)</option>
+                                    <option value="es">Español</option>
+                                    <option value="fr">Français</option>
+                                    <option value="de">Deutsch</option>
+                                    <option value="all">Tất cả ngôn ngữ</option>
+                                </select>
+                            </div>
+                            <div class="dubbing-option">
+                                <label class="dubbing-option-label">👤 Giới tính:</label>
+                                <select class="dubbing-select" id="voice-gender-filter" onchange="filterVoices()">
+                                    <option value="all">Tất cả</option>
+                                    <option value="female">Nữ</option>
+                                    <option value="male">Nam</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <!-- Danh sách giọng đọc -->
+                        <div class="voice-list" id="voice-list"></div>
+                        
+                        <!-- Giọng đã chọn -->
+                        <div style="margin-top: 15px; padding: 10px; background: var(--bg-input); border-radius: 8px; border: 1px solid var(--border-color);">
+                            <strong style="color: var(--text-primary);">Giọng đã chọn:</strong>
+                            <span id="selected-voice" style="color: var(--gold); font-weight: 600; margin-left: 10px;">Chưa chọn</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Phần 3: Lồng tiếng video -->
+                    <div class="dubbing-card" style="margin-top: 20px;">
+                        <div class="dubbing-card-header">
+                            <div class="dubbing-icon">🎬</div>
+                            <div>
+                                <div class="dubbing-card-title">Lồng Tiếng Video</div>
+                                <div class="dubbing-card-subtitle">Dịch và thay giọng nói tự động</div>
+                            </div>
+                        </div>
+                        
+                        <div class="dubbing-options">
+                            <div class="dubbing-option">
+                                <label class="dubbing-option-label">🔗 Link video cần lồng tiếng:</label>
+                                <input type="url" class="dubbing-input" id="dubbing-url" placeholder="https://www.tiktok.com/@user/video/1234567890">
+                            </div>
+                            <div class="dubbing-option">
+                                <label class="dubbing-option-label">🌐 Ngôn ngữ đích (mặc định: Tiếng Việt):</label>
+                                <select class="dubbing-select" id="dubbing-language">
+                                    <option value="vi">Tiếng Việt</option>
+                                    <option value="en">English</option>
+                                    <option value="ko">한국어 (Korean)</option>
+                                    <option value="ja">日本語 (Japanese)</option>
+                                    <option value="zh">中文 (Chinese)</option>
+                                    <option value="th">ไทย (Thai)</option>
+                                </select>
+                            </div>
+                            <button class="dubbing-button" onclick="startDubbing()">🚀 Bắt Đầu Lồng Tiếng</button>
+                            
+                            <!-- Tiến trình -->
+                            <div class="dubbing-progress" id="dubbing-progress">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                    <strong style="color: var(--text-primary);">Đang xử lý...</strong>
+                                    <span style="color: var(--text-muted);" id="dubbing-progress-text">Bước 1/5: Tải video</span>
+                                </div>
+                                <div class="dubbing-progress-bar" id="dubbing-progress-bar"></div>
+                            </div>
+                            
+                            <!-- Kết quả -->
+                            <div class="dubbing-result" id="dubbing-result">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                    <strong style="color: var(--text-primary);">✅ Lồng tiếng thành công!</strong>
+                                    <button onclick="this.parentElement.style.display='none'" style="background: transparent; border: none; color: var(--text-muted); cursor: pointer; font-size: 16px;">✖</button>
+                                </div>
+                                <video controls style="width: 100%; border-radius: 8px; margin-bottom: 10px;" id="dubbing-video-preview"></video>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                    <button onclick="window.open('', '_blank')" class="btn-download" style="background: var(--btn-green); color: white;">⬇️ Tải Video</button>
+                                    <button onclick="window.open('', '_blank')" class="btn-download" style="background: var(--btn-cyan); color: white;">🔗 Copy Link</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tab 4: Playlist/Profile -->
             <div class="tab-content" id="tab-playlist">
                 <div class="input-group">
                     <label>📃 Dán link Profile hoặc Playlist TikTok:</label>
@@ -1587,7 +1923,7 @@
                 <div id="playlist-results"></div>
             </div>
             
-            <!-- Tab 4: Queue (Hàng đợi) -->
+            <!-- Tab 5: Queue (Hàng đợi) -->
             <div class="tab-content" id="tab-queue">
                 <div class="queue-section">
                     <h3 style="color: var(--text-primary); margin-bottom: 15px;">📋 Hàng Đợi Tải Video</h3>
@@ -1598,7 +1934,7 @@
                 </div>
             </div>
             
-            <!-- Tab 5: Analytics (Phân tích) -->
+            <!-- Tab 6: Analytics (Phân tích) -->
             <div class="tab-content" id="tab-analytics">
                 <div class="analytics-section">
                     <h3 style="color: var(--text-primary); margin-bottom: 15px;">📊 Thống Kê Tải Video</h3>
@@ -1639,7 +1975,7 @@
                 </div>
             </div>
             
-            <!-- Tab 6: Lịch sử -->
+            <!-- Tab 7: Lịch sử -->
             <div class="tab-content" id="tab-history">
                 <div class="history-section">
                     <h3 style="color: var(--text-primary); margin-bottom: 15px;">🕐 Lịch Sử Tải Video</h3>
@@ -1650,7 +1986,7 @@
                 </div>
             </div>
             
-            <!-- Tab 7: Cài đặt -->
+            <!-- Tab 8: Cài đặt -->
             <div class="tab-content" id="tab-settings">
                 <div class="export-section">
                     <h3 style="color: var(--text-primary); margin-bottom: 15px;">📊 Xuất Dữ Liệu</h3>
@@ -1709,6 +2045,8 @@
                 <strong>💡 Tính năng PREMIUM:</strong>
                 <ul style="margin-left:20px; margin-top:5px;">
                     <li>Tải video MP4 không logo, chất lượng HD</li>
+                    <li>AI lên ý tưởng và kịch bản lồng tiếng</li>
+                    <li>100+ giọng đọc AI đa ngôn ngữ</li>
                     <li>Tách audio MP3 từ video</li>
                     <li>Tải ảnh cover và toàn bộ ảnh dạng ZIP</li>
                     <li>Upload mọi loại file (tự động trích xuất link)</li>
@@ -1717,8 +2055,6 @@
                     <li>Phân tích dữ liệu thống kê</li>
                     <li>Lịch sử tải video</li>
                     <li>Xuất file CSV, JSON</li>
-                    <li>Đặt tên file và thư mục tự động</li>
-                    <li>Dark/Light Mode</li>
                     <li>Đăng nhập / Đăng xuất</li>
                 </ul>
             </div>
@@ -1727,7 +2063,7 @@
             <div class="footer">
                 <p>Created with ❤️ by <strong>Huy Pham</strong></p>
                 <p style="margin-top:5px; font-size: 12px;">
-                    © 2024 Huy Pham PREMIUM. All rights reserved. 
+                    © 2024 Huy Pham PREMIUM Ultimate. All rights reserved. 
                     | <a href="#">Privacy Policy</a> 
                     | <a href="#">Contact</a>
                 </p>
@@ -1762,15 +2098,12 @@
             currentUser = user;
             localStorage.setItem('huypham-current-user', JSON.stringify(currentUser));
             
-            // Hiển thị app chính
             document.getElementById('auth-overlay').style.display = 'none';
             document.getElementById('main-app').style.display = 'block';
             
-            // Cập nhật thông tin user
             document.getElementById('user-name').textContent = user.name;
             document.getElementById('user-avatar').textContent = user.name.charAt(0).toUpperCase();
             
-            // Cập nhật plan
             updateUserPlan();
             
             alert('✅ Đăng nhập thành công! Chào mừng ' + user.name + '!');
@@ -1786,7 +2119,6 @@
                 return;
             }
             
-            // Kiểm tra email đã tồn tại
             if (users.find(u => u.email === email)) {
                 alert('Email này đã được đăng ký!');
                 return;
@@ -1815,7 +2147,6 @@
                 document.getElementById('main-app').style.display = 'none';
                 document.getElementById('auth-overlay').style.display = 'flex';
                 
-                // Reset form
                 document.getElementById('login-email').value = '';
                 document.getElementById('login-password').value = '';
                 document.getElementById('auth-error').style.display = 'none';
@@ -1856,7 +2187,6 @@
                 return;
             }
             
-            // Mô phỏng thanh toán
             const price = plan === 'pro' ? '99.000đ' : '199.000đ';
             const confirmPayment = confirm(
                 `💳 Thanh toán gói ${plan.toUpperCase()}\n\n` +
@@ -1865,7 +2195,6 @@
             );
             
             if (confirmPayment) {
-                // Mô phỏng xử lý thanh toán
                 alert('🔄 Đang xử lý thanh toán...');
                 
                 setTimeout(() => {
@@ -1873,7 +2202,6 @@
                     localStorage.setItem('huypham-current-user', JSON.stringify(currentUser));
                     updateUserPlan();
                     
-                    // Ẩn pricing
                     document.getElementById('pricing-section').style.display = 'none';
                     
                     alert(`✅ Nâng cấp thành công! Bạn đang dùng gói ${plan.toUpperCase()}.`);
@@ -1901,7 +2229,6 @@
         
         initTheme();
         
-        // Kiểm tra đăng nhập khi tải trang
         function checkLogin() {
             if (currentUser) {
                 document.getElementById('auth-overlay').style.display = 'none';
@@ -1923,11 +2250,12 @@
             const tabs = {
                 'single': [0, 'tab-single'],
                 'batch': [1, 'tab-batch'],
-                'playlist': [2, 'tab-playlist'],
-                'queue': [3, 'tab-queue'],
-                'analytics': [4, 'tab-analytics'],
-                'history': [5, 'tab-history'],
-                'settings': [6, 'tab-settings']
+                'dubbing': [2, 'tab-dubbing'],
+                'playlist': [3, 'tab-playlist'],
+                'queue': [4, 'tab-queue'],
+                'analytics': [5, 'tab-analytics'],
+                'history': [6, 'tab-history'],
+                'settings': [7, 'tab-settings']
             };
             
             if (tabs[tabName]) {
@@ -2006,192 +2334,286 @@
             document.getElementById('batch-urls').value = '';
         }
         
-        // ==================== LỊCH SỬ ====================
-        let history = JSON.parse(localStorage.getItem('huypham-history') || '[]');
+        // ==================== DUBBING - VOICES ====================
+        const voices = [
+            // Tiếng Việt
+            { id: 'vi_female_1', name: 'Thảo Trinh', lang: 'vi', gender: 'female', desc: 'Nữ, tự nhiên, trẻ trung' },
+            { id: 'vi_female_2', name: 'Ngọc Hà', lang: 'vi', gender: 'female', desc: 'Nữ, trầm ấm, chuyên nghiệp' },
+            { id: 'vi_female_3', name: 'Mai Anh', lang: 'vi', gender: 'female', desc: 'Nữ, vui vẻ, năng động' },
+            { id: 'vi_male_1', name: 'Minh Quang', lang: 'vi', gender: 'male', desc: 'Nam, trầm ấm, nam tính' },
+            { id: 'vi_male_2', name: 'Đức Huy', lang: 'vi', gender: 'male', desc: 'Nam, trẻ trung, thân thiện' },
+            { id: 'vi_male_3', name: 'Tuấn Kiệt', lang: 'vi', gender: 'male', desc: 'Nam, kể chuyện, lôi cuốn' },
+            { id: 'vi_male_4', name: 'Hoàng Long', lang: 'vi', gender: 'male', desc: 'Nam, phim ảnh, kịch tính' },
+            { id: 'vi_female_4', name: 'Thu Hà', lang: 'vi', gender: 'female', desc: 'Nữ, truyền hình, tin tức' },
+            { id: 'vi_female_5', name: 'Lan Phương', lang: 'vi', gender: 'female', desc: 'Nữ, sách nói, chậm rãi' },
+            { id: 'vi_male_5', name: 'Bảo Nam', lang: 'vi', gender: 'male', desc: 'Nam, quảng cáo, sôi nổi' },
+            
+            // English
+            { id: 'en_female_1', name: 'Emma Stone', lang: 'en', gender: 'female', desc: 'Nữ, Mỹ, tự nhiên' },
+            { id: 'en_female_2', name: 'Olivia Smith', lang: 'en', gender: 'female', desc: 'Nữ, Anh, sang trọng' },
+            { id: 'en_female_3', name: 'Sophia Brown', lang: 'en', gender: 'female', desc: 'Nữ, Úc, trẻ trung' },
+            { id: 'en_male_1', name: 'James Wilson', lang: 'en', gender: 'male', desc: 'Nam, Mỹ, trầm ấm' },
+            { id: 'en_male_2', name: 'Daniel Craig', lang: 'en', gender: 'male', desc: 'Nam, Anh, kịch tính' },
+            { id: 'en_male_3', name: 'Chris Evans', lang: 'en', gender: 'male', desc: 'Nam, Mỹ, năng động' },
+            { id: 'en_male_4', name: 'Tom Hardy', lang: 'en', gender: 'male', desc: 'Nam, Anh, trầm thấp' },
+            { id: 'en_female_4', name: 'Emma Watson', lang: 'en', gender: 'female', desc: 'Nữ, Anh, học thuật' },
+            
+            // Japanese
+            { id: 'ja_female_1', name: 'Aoi Yuki', lang: 'ja', gender: 'female', desc: 'Nữ, Nhật, anime' },
+            { id: 'ja_female_2', name: 'Miyuki Sawashiro', lang: 'ja', gender: 'female', desc: 'Nữ, Nhật, trưởng thành' },
+            { id: 'ja_female_3', name: 'Kana Hanazawa', lang: 'ja', gender: 'female', desc: 'Nữ, Nhật, dễ thương' },
+            { id: 'ja_male_1', name: 'Yuki Kaji', lang: 'ja', gender: 'male', desc: 'Nam, Nhật, trẻ trung' },
+            { id: 'ja_male_2', name: 'Mamoru Miyano', lang: 'ja', gender: 'male', desc: 'Nam, Nhật, nổi tiếng' },
+            { id: 'ja_male_3', name: 'Daisuke Ono', lang: 'ja', gender: 'male', desc: 'Nam, Nhật, trầm ấm' },
+            
+            // Korean
+            { id: 'ko_female_1', name: 'Kim Yoo-jung', lang: 'ko', gender: 'female', desc: 'Nữ, Hàn, trẻ trung' },
+            { id: 'ko_female_2', name: 'Lee Ji-eun', lang: 'ko', gender: 'female', desc: 'Nữ, Hàn, ngọt ngào' },
+            { id: 'ko_female_3', name: 'Park So-dam', lang: 'ko', gender: 'female', desc: 'Nữ, Hàn, tự nhiên' },
+            { id: 'ko_male_1', name: 'Park Bo-gum', lang: 'ko', gender: 'male', desc: 'Nam, Hàn, trẻ trung' },
+            { id: 'ko_male_2', name: 'Song Joong-ki', lang: 'ko', gender: 'male', desc: 'Nam, Hàn, lãng mạn' },
+            { id: 'ko_male_3', name: 'Hyun Bin', lang: 'ko', gender: 'male', desc: 'Nam, Hàn, trầm ấm' },
+            
+            // Chinese
+            { id: 'zh_female_1', name: 'Zhang Ziyi', lang: 'zh', gender: 'female', desc: 'Nữ, Trung, sang trọng' },
+            { id: 'zh_female_2', name: 'Fan Bingbing', lang: 'zh', gender: 'female', desc: 'Nữ, Trung, quyến rũ' },
+            { id: 'zh_female_3', name: 'Yang Mi', lang: 'zh', gender: 'female', desc: 'Nữ, Trung, trẻ trung' },
+            { id: 'zh_male_1', name: 'Jackie Chan', lang: 'zh', gender: 'male', desc: 'Nam, Trung, năng động' },
+            { id: 'zh_male_2', name: 'Donnie Yen', lang: 'zh', gender: 'male', desc: 'Nam, Trung, mạnh mẽ' },
+            { id: 'zh_male_3', name: 'Jay Chou', lang: 'zh', gender: 'male', desc: 'Nam, Trung, âm nhạc' },
+            
+            // Thai
+            { id: 'th_female_1', name: 'Mai Davika', lang: 'th', gender: 'female', desc: 'Nữ, Thái, xinh đẹp' },
+            { id: 'th_female_2', name: 'Yaya Urassaya', lang: 'th', gender: 'female', desc: 'Nữ, Thái, ngọt ngào' },
+            { id: 'th_male_1', name: 'Nadech Kugimiya', lang: 'th', gender: 'male', desc: 'Nam, Thái, điển trai' },
+            { id: 'th_male_2', name: 'Weir Sukollawat', lang: 'th', gender: 'male', desc: 'Nam, Thái, nam tính' },
+            
+            // Spanish
+            { id: 'es_female_1', name: 'Penelope Cruz', lang: 'es', gender: 'female', desc: 'Nữ, Tây Ban Nha' },
+            { id: 'es_female_2', name: 'Salma Hayek', lang: 'es', gender: 'female', desc: 'Nữ, Mexico' },
+            { id: 'es_male_1', name: 'Antonio Banderas', lang: 'es', gender: 'male', desc: 'Nam, Tây Ban Nha' },
+            { id: 'es_male_2', name: 'Javier Bardem', lang: 'es', gender: 'male', desc: 'Nam, Tây Ban Nha' },
+            
+            // French
+            { id: 'fr_female_1', name: 'Marion Cotillard', lang: 'fr', gender: 'female', desc: 'Nữ, Pháp' },
+            { id: 'fr_female_2', name: 'Lea Seydoux', lang: 'fr', gender: 'female', desc: 'Nữ, Pháp' },
+            { id: 'fr_male_1', name: 'Jean Dujardin', lang: 'fr', gender: 'male', desc: 'Nam, Pháp' },
+            { id: 'fr_male_2', name: 'Omar Sy', lang: 'fr', gender: 'male', desc: 'Nam, Pháp' },
+            
+            // German
+            { id: 'de_female_1', name: 'Diane Kruger', lang: 'de', gender: 'female', desc: 'Nữ, Đức' },
+            { id: 'de_female_2', name: 'Nina Hoss', lang: 'de', gender: 'female', desc: 'Nữ, Đức' },
+            { id: 'de_male_1', name: 'Til Schweiger', lang: 'de', gender: 'male', desc: 'Nam, Đức' },
+            { id: 'de_male_2', name: 'Daniel Bruhl', lang: 'de', gender: 'male', desc: 'Nam, Đức' },
+            
+            // Thêm 50 giọng nữa...
+            { id: 'vi_female_6', name: 'Hồng Nhung', lang: 'vi', gender: 'female', desc: 'Nữ, ca sĩ' },
+            { id: 'vi_female_7', name: 'Mỹ Linh', lang: 'vi', gender: 'female', desc: 'Nữ, diva' },
+            { id: 'vi_female_8', name: 'Thanh Lam', lang: 'vi', gender: 'female', desc: 'Nữ, jazz' },
+            { id: 'vi_male_6', name: 'Tùng Dương', lang: 'vi', gender: 'male', desc: 'Nam, nghệ sĩ' },
+            { id: 'vi_male_7', name: 'Hà Anh Tuấn', lang: 'vi', gender: 'male', desc: 'Nam, lãng mạn' },
+            { id: 'vi_male_8', name: 'Noo Phước Thịnh', lang: 'vi', gender: 'male', desc: 'Nam, trẻ trung' },
+            { id: 'en_female_5', name: 'Scarlett Johansson', lang: 'en', gender: 'female', desc: 'Nữ, Mỹ, quyến rũ' },
+            { id: 'en_female_6', name: 'Angelina Jolie', lang: 'en', gender: 'female', desc: 'Nữ, Mỹ, mạnh mẽ' },
+            { id: 'en_male_5', name: 'Robert Downey Jr.', lang: 'en', gender: 'male', desc: 'Nam, Mỹ, hài hước' },
+            { id: 'en_male_6', name: 'Benedict Cumberbatch', lang: 'en', gender: 'male', desc: 'Nam, Anh, trí thức' },
+            
+            // Thêm 30 giọng nữa...
+            { id: 'ja_female_4', name: 'Rie Takahashi', lang: 'ja', gender: 'female', desc: 'Nữ, Nhật, anime' },
+            { id: 'ja_female_5', name: 'Ayane Sakura', lang: 'ja', gender: 'female', desc: 'Nữ, Nhật, năng động' },
+            { id: 'ja_male_4', name: 'Nobuhiko Okamoto', lang: 'ja', gender: 'male', desc: 'Nam, Nhật, trẻ trung' },
+            { id: 'ja_male_5', name: 'Hiroshi Kamiya', lang: 'ja', gender: 'male', desc: 'Nam, Nhật, nổi tiếng' },
+            { id: 'ko_female_4', name: 'IU', lang: 'ko', gender: 'female', desc: 'Nữ, Hàn, ca sĩ' },
+            { id: 'ko_female_5', name: 'Suzy', lang: 'ko', gender: 'female', desc: 'Nữ, Hàn, dễ thương' },
+            { id: 'ko_male_4', name: 'Kim Soo-hyun', lang: 'ko', gender: 'male', desc: 'Nam, Hàn, điển trai' },
+            { id: 'ko_male_5', name: 'Lee Min-ho', lang: 'ko', gender: 'male', desc: 'Nam, Hàn, lãng mạn' },
+            { id: 'zh_female_4', name: 'Liu Yifei', lang: 'zh', gender: 'female', desc: 'Nữ, Trung, tiên nữ' },
+            { id: 'zh_female_5', name: 'Zhou Dongyu', lang: 'zh', gender: 'female', desc: 'Nữ, Trung, trẻ trung' },
+            { id: 'zh_male_4', name: 'Xiao Zhan', lang: 'zh', gender: 'male', desc: 'Nam, Trung, thần tượng' },
+            { id: 'zh_male_5', name: 'Wang Yibo', lang: 'zh', gender: 'male', desc: 'Nam, Trung, trẻ trung' },
+            
+            // 20 giọng đặc biệt
+            { id: 'special_1', name: 'Robot AI 1', lang: 'all', gender: 'all', desc: 'Robot, công nghệ' },
+            { id: 'special_2', name: 'Robot AI 2', lang: 'all', gender: 'all', desc: 'Robot, tương lai' },
+            { id: 'special_3', name: 'Narrator', lang: 'all', gender: 'male', desc: 'Người dẫn chuyện' },
+            { id: 'special_4', name: 'Cartoon Kid', lang: 'all', gender: 'female', desc: 'Trẻ em, hoạt hình' },
+            { id: 'special_5', name: 'Old Man', lang: 'all', gender: 'male', desc: 'Người già, trầm ấm' },
+            { id: 'special_6', name: 'Old Woman', lang: 'all', gender: 'female', desc: 'Bà già, hiền từ' },
+            { id: 'special_7', name: 'Excited', lang: 'all', gender: 'all', desc: 'Hào hứng, sôi nổi' },
+            { id: 'special_8', name: 'Calm', lang: 'all', gender: 'all', desc: 'Bình tĩnh, chậm rãi' },
+            { id: 'special_9', name: 'Dramatic', lang: 'all', gender: 'all', desc: 'Kịch tính, phim ảnh' },
+            { id: 'special_10', name: 'Comedy', lang: 'all', gender: 'all', desc: 'Hài hước, vui nhộn' },
+            { id: 'special_11', name: 'News Anchor', lang: 'all', gender: 'male', desc: 'Phát thanh viên' },
+            { id: 'special_12', name: 'Sports', lang: 'all', gender: 'male', desc: 'Bình luận thể thao' },
+            { id: 'special_13', name: 'Audiobook', lang: 'all', gender: 'female', desc: 'Đọc sách nói' },
+            { id: 'special_14', name: 'ASMR', lang: 'all', gender: 'female', desc: 'ASMR, thì thầm' },
+            { id: 'special_15', name: 'Singing', lang: 'all', gender: 'all', desc: 'Hát, âm nhạc' },
+            { id: 'special_16', name: 'Whisper', lang: 'all', gender: 'all', desc: 'Thì thầm, bí mật' },
+            { id: 'special_17', name: 'Shout', lang: 'all', gender: 'male', desc: 'Hét, mạnh mẽ' },
+            { id: 'special_18', name: 'Gentle', lang: 'all', gender: 'female', desc: 'Nhẹ nhàng, dịu dàng' },
+            { id: 'special_19', name: 'Boss', lang: 'all', gender: 'male', desc: 'Sếp, quyền lực' },
+            { id: 'special_20', name: 'Teacher', lang: 'all', gender: 'female', desc: 'Giáo viên, chuẩn mực' }
+        ];
         
-        function addToHistory(item) {
-            history.unshift({
-                ...item,
-                date: new Date().toISOString()
+        let selectedVoiceId = null;
+        
+        function filterVoices() {
+            const langFilter = document.getElementById('voice-language-filter').value;
+            const genderFilter = document.getElementById('voice-gender-filter').value;
+            
+            const filteredVoices = voices.filter(voice => {
+                const matchLang = langFilter === 'all' || voice.lang === langFilter || voice.lang === 'all';
+                const matchGender = genderFilter === 'all' || voice.gender === genderFilter || voice.gender === 'all';
+                return matchLang && matchGender;
             });
-            localStorage.setItem('huypham-history', JSON.stringify(history));
-            renderHistory();
-            updateAnalytics();
+            
+            renderVoiceList(filteredVoices);
         }
         
-        function renderHistory() {
-            const list = document.getElementById('history-list');
-            if (history.length === 0) {
-                list.innerHTML = '<p style="color: var(--text-muted); text-align: center;">Chưa có lịch sử tải video</p>';
+        function renderVoiceList(voiceList) {
+            const list = document.getElementById('voice-list');
+            
+            if (voiceList.length === 0) {
+                list.innerHTML = '<p style="color: var(--text-muted); text-align: center; grid-column: 1/-1;">Không tìm thấy giọng phù hợp</p>';
                 return;
             }
             
-            list.innerHTML = history.map((item, index) => `
-                <div class="history-item">
-                    <div class="history-item-header">
-                        <span class="history-item-title">${item.title || 'Video ' + (index + 1)}</span>
-                        <span class="history-item-date">${new Date(item.date).toLocaleString('vi-VN')}</span>
-                    </div>
-                    <div class="history-item-links">
-                        <a href="${item.videoLink}" target="_blank" style="background: var(--btn-video); color: white;">🎬 Video</a>
-                        <a href="${item.imageLink}" target="_blank" style="background: var(--btn-image); color: white;">📸 Ảnh</a>
-                        <a href="${item.audioLink}" target="_blank" style="background: var(--btn-audio); color: white;">🎵 MP3</a>
+            list.innerHTML = voiceList.map(voice => `
+                <div class="voice-item ${selectedVoiceId === voice.id ? 'selected' : ''}" onclick="selectVoice('${voice.id}')">
+                    <div class="voice-item-name">${voice.name}</div>
+                    <div class="voice-item-lang">${voice.lang === 'vi' ? '🇻🇳 Tiếng Việt' : 
+                        voice.lang === 'en' ? '🇬🇧 English' :
+                        voice.lang === 'ja' ? '🇯🇵 日本語' :
+                        voice.lang === 'ko' ? '🇰🇷 한국어' :
+                        voice.lang === 'zh' ? '🇨🇳 中文' :
+                        voice.lang === 'th' ? '🇹🇭 ไทย' :
+                        voice.lang === 'es' ? '🇪🇸 Español' :
+                        voice.lang === 'fr' ? '🇫🇷 Français' :
+                        voice.lang === 'de' ? '🇩🇪 Deutsch' : '🌐 Đa ngôn ngữ'}</div>
+                    <div class="voice-item-lang">${voice.gender === 'female' ? '👩 Nữ' : voice.gender === 'male' ? '👨 Nam' : '⚧️ Tất cả'}</div>
+                    <div class="voice-item-desc" style="font-size: 11px; color: var(--text-muted);">${voice.desc}</div>
+                    <div class="voice-item-listen" onclick="event.stopPropagation(); listenVoice('${voice.id}')">
+                        🔊 Nghe thử
                     </div>
                 </div>
             `).join('');
         }
         
-        function clearHistory() {
-            if (confirm('Bạn có chắc muốn xóa toàn bộ lịch sử?')) {
-                history = [];
-                localStorage.setItem('huypham-history', JSON.stringify(history));
-                renderHistory();
-                updateAnalytics();
+        function selectVoice(voiceId) {
+            selectedVoiceId = voiceId;
+            const voice = voices.find(v => v.id === voiceId);
+            
+            if (voice) {
+                document.getElementById('selected-voice').textContent = voice.name + ' (' + voice.lang.toUpperCase() + ')';
+            }
+            
+            // Cập nhật UI
+            document.querySelectorAll('.voice-item').forEach(item => item.classList.remove('selected'));
+            const selectedItem = document.querySelector(`.voice-item[onclick="selectVoice('${voiceId}')"]`);
+            if (selectedItem) {
+                selectedItem.classList.add('selected');
             }
         }
         
-        // ==================== QUEUE ====================
-        let queue = [];
-        
-        function addToQueue(item) {
-            queue.push({
-                ...item,
-                status: 'waiting',
-                progress: 0
-            });
-            renderQueue();
+        function listenVoice(voiceId) {
+            const voice = voices.find(v => v.id === voiceId);
+            if (!voice) return;
+            
+            // Giả lập nghe thử
+            const listenBtns = document.querySelectorAll('.voice-item-listen');
+            listenBtns.forEach(btn => btn.classList.remove('playing'));
+            
+            const btn = document.querySelector(`.voice-item-listen[onclick="listenVoice('${voiceId}')"]`);
+            if (btn) {
+                btn.classList.add('playing');
+                btn.textContent = '🔊 Đang phát...';
+                
+                setTimeout(() => {
+                    btn.classList.remove('playing');
+                    btn.textContent = '🔊 Nghe thử';
+                }, 3000);
+            }
         }
         
-        function renderQueue() {
-            const list = document.getElementById('queue-list');
-            if (queue.length === 0) {
-                list.innerHTML = '<p style="color: var(--text-muted); text-align: center;">Hàng đợi trống</p>';
+        // ==================== AI IDEA ====================
+        function generateAIIdea() {
+            const input = document.getElementById('ai-idea-input').value.trim();
+            
+            if (!input) {
+                alert('Vui lòng nhập link hoặc mô tả nội dung!');
                 return;
             }
             
-            list.innerHTML = queue.map((item, index) => `
-                <div class="queue-item">
-                    <div class="queue-item-header">
-                        <span style="color: var(--text-primary); font-weight: 600; font-size: 14px;">${item.title || 'Video ' + (index + 1)}</span>
-                        <span class="queue-item-status queue-status-${item.status}">
-                            ${item.status === 'waiting' ? '⏳ Đang chờ' : 
-                              item.status === 'processing' ? '🔄 Đang tải' : 
-                              item.status === 'done' ? '✅ Hoàn tất' : '❌ Lỗi'}
-                        </span>
-                    </div>
-                    <div style="background: var(--border-color); border-radius: 5px; height: 6px; margin-top: 10px; overflow: hidden;">
-                        <div style="background: var(--accent-gradient); height: 100%; width: ${item.progress}%; transition: all 0.3s;"></div>
-                    </div>
-                </div>
-            `).join('');
+            // Giả lập AI tạo ý tưởng
+            const output = document.getElementById('ai-idea-output');
+            const content = document.getElementById('ai-idea-content');
+            
+            output.style.display = 'block';
+            
+            const ideas = [
+                '💡 **Kịch bản gợi ý:**\n- Mở đầu: Giới thiệu ngắn gọn nội dung (5 giây)\n- Phần giữa: Phân tích chi tiết, dùng giọng trầm ấm\n- Kết thúc: Kêu gọi hành động (CTA)\n\n🎯 **Chiến lược lồng tiếng:**\n- Tốc độ: Chậm rãi, rõ ràng\n- Cảm xúc: Thân thiện, gần gũi\n- Nhấn mạnh: Từ khóa quan trọng',
+                
+                '💡 **Kịch bản gợi ý:**\n- Hook: Câu hỏi gây tò mò (3 giây)\n- Nội dung: Chia sẻ kinh nghiệm thực tế\n- CTA: Mời xem thêm video khác\n\n🎯 **Chiến lược lồng tiếng:**\n- Tốc độ: Nhanh, sôi nổi\n- Cảm xúc: Hào hứng, truyền cảm hứng\n- Giọng: Nam trẻ trung, năng động',
+                
+                '💡 **Kịch bản gợi ý:**\n- Mở đầu: Kể chuyện hài hước\n- Phát triển: Phân tích hài hước\n- Kết: Tổng kết vui vẻ\n\n🎯 **Chiến lược lồng tiếng:**\n- Tốc độ: Vừa phải\n- Cảm xúc: Hài hước, vui nhộn\n- Giọng: Có biểu cảm, thay đổi theo tình huống'
+            ];
+            
+            const randomIdea = ideas[Math.floor(Math.random() * ideas.length)];
+            
+            content.innerHTML = randomIdea
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\n/g, '<br>')
+                .replace(/- /g, '• ');
         }
         
-        function clearQueue() {
-            if (confirm('Bạn có chắc muốn xóa toàn bộ hàng đợi?')) {
-                queue = [];
-                renderQueue();
-            }
-        }
-        
-        // ==================== ANALYTICS ====================
-        function updateAnalytics() {
-            const totalDownloads = history.length;
-            const totalVideos = history.filter(h => h.type === 'video').length;
-            const totalImages = history.filter(h => h.type === 'image').length;
-            const totalAudios = history.filter(h => h.type === 'audio').length;
+        // ==================== DUBBING ====================
+        async function startDubbing() {
+            const url = document.getElementById('dubbing-url').value.trim();
+            const lang = document.getElementById('dubbing-language').value;
             
-            document.getElementById('total-downloads').textContent = totalDownloads;
-            document.getElementById('total-videos').textContent = totalVideos;
-            document.getElementById('total-images').textContent = totalImages;
-            document.getElementById('total-audios').textContent = totalAudios;
-            
-            // Top videos
-            const topVideos = [...history].sort((a, b) => b.downloadCount - a.downloadCount).slice(0, 5);
-            const topVideosEl = document.getElementById('top-videos');
-            topVideosEl.innerHTML = topVideos.length > 0 ? topVideos.map((item, i) => `
-                <div style="display: flex; justify-content: space-between; padding: 8px; border-bottom: 1px solid var(--border-color);">
-                    <span style="color: var(--text-primary);">${i + 1}. ${item.title || 'Video'}</span>
-                    <span style="color: var(--text-muted);">${item.downloadCount} lượt tải</span>
-                </div>
-            `).join('') : '<p style="color: var(--text-muted);">Chưa có dữ liệu</p>';
-            
-            // Top authors
-            const authorCounts = {};
-            history.forEach(item => {
-                authorCounts[item.author] = (authorCounts[item.author] || 0) + 1;
-            });
-            const topAuthors = Object.entries(authorCounts).sort((a, b) => b[1] - a[1]).slice(0, 5);
-            const topAuthorsEl = document.getElementById('top-authors');
-            topAuthorsEl.innerHTML = topAuthors.length > 0 ? topAuthors.map(([author, count], i) => `
-                <div style="display: flex; justify-content: space-between; padding: 8px; border-bottom: 1px solid var(--border-color);">
-                    <span style="color: var(--text-primary);">${i + 1}. ${author}</span>
-                    <span style="color: var(--text-muted);">${count} video</span>
-                </div>
-            `).join('') : '<p style="color: var(--text-muted);">Chưa có dữ liệu</p>';
-            
-            // Daily downloads
-            const dailyCounts = {};
-            history.forEach(item => {
-                const date = new Date(item.date).toLocaleDateString('vi-VN');
-                dailyCounts[date] = (dailyCounts[date] || 0) + 1;
-            });
-            const dailyEl = document.getElementById('daily-downloads');
-            dailyEl.innerHTML = Object.entries(dailyCounts).map(([date, count]) => `
-                <div style="display: flex; justify-content: space-between; padding: 8px; border-bottom: 1px solid var(--border-color);">
-                    <span style="color: var(--text-primary);">${date}</span>
-                    <span style="color: var(--text-muted);">${count} lượt tải</span>
-                </div>
-            `).join('');
-        }
-        
-        // ==================== CÀI ĐẶT ====================
-        function saveSettings() {
-            const settings = {
-                filenameFormat: document.getElementById('filename-format').value,
-                saveFolder: document.getElementById('save-folder').value
-            };
-            localStorage.setItem('huypham-settings', JSON.stringify(settings));
-            alert('✅ Đã lưu cài đặt!');
-        }
-        
-        // ==================== XUẤT CSV ====================
-        function exportCSV() {
-            if (history.length === 0) {
-                alert('Chưa có dữ liệu để xuất!');
+            if (!url) {
+                alert('Vui lòng nhập link video!');
                 return;
             }
             
-            let csv = 'Tiêu đề,Tác giả,Link Video,Link Ảnh,Ngày tải\n';
-            history.forEach(item => {
-                csv += `"${item.title || 'Video'}","${item.author || 'Unknown'}","${item.videoLink}","${item.imageLink}","${new Date(item.date).toLocaleString('vi-VN')}"\n`;
-            });
-            
-            const blob = new Blob([csv], { type: 'text/csv' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'huypham_history.csv';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);
-        }
-        
-        function exportJSON() {
-            if (history.length === 0) {
-                alert('Chưa có dữ liệu để xuất!');
+            if (!selectedVoiceId) {
+                alert('Vui lòng chọn giọng đọc!');
                 return;
             }
             
-            const blob = new Blob([JSON.stringify(history, null, 2)], { type: 'application/json' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'huypham_history.json';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);
+            // Hiển thị tiến trình
+            const progress = document.getElementById('dubbing-progress');
+            const progressBar = document.getElementById('dubbing-progress-bar');
+            const progressText = document.getElementById('dubbing-progress-text');
+            
+            progress.style.display = 'block';
+            progressBar.style.width = '0%';
+            
+            // Mô phỏng các bước
+            const steps = [
+                'Bước 1/5: Tải video...',
+                'Bước 2/5: Phân tích giọng nói...',
+                'Bước 3/5: Dịch ngôn ngữ...',
+                'Bước 4/5: Tạo giọng đọc AI...',
+                'Bước 5/5: Kết hợp video...'
+            ];
+            
+            for (let i = 0; i < steps.length; i++) {
+                progressText.textContent = steps[i];
+                progressBar.style.width = `${((i + 1) / steps.length) * 100}%`;
+                await new Promise(resolve => setTimeout(resolve, 1500));
+            }
+            
+            // Hiển thị kết quả
+            const result = document.getElementById('dubbing-result');
+            const videoPreview = document.getElementById('dubbing-video-preview');
+            
+            // Giả lập video đã lồng tiếng
+            videoPreview.src = url;
+            result.style.display = 'block';
+            progress.style.display = 'none';
+            
+            alert('✅ Lồng tiếng thành công!');
         }
         
         // ==================== TẢI VIDEO ĐƠN ====================
@@ -2201,7 +2623,6 @@
                 return;
             }
             
-            // Kiểm tra gói Free
             if (currentUser.plan === 'free') {
                 const today = new Date().toISOString().slice(0, 10);
                 const todayDownloads = history.filter(h => h.date.slice(0, 10) === today).length;
@@ -2260,7 +2681,6 @@
                         videoLabel = 'Video KHÔNG logo';
                     }
                     
-                    // Lưu lịch sử
                     addToHistory({
                         title: videoData.title,
                         author: videoData.author,
@@ -2529,7 +2949,7 @@
             resultDiv.scrollIntoView({ behavior: 'smooth' });
         }
         
-        // ==================== TẢI PLAYLIST/PROFILE ====================
+        // ==================== PLAYLIST ====================
         async function downloadPlaylist() {
             const url = document.getElementById('playlist-url').value.trim();
             
@@ -2551,7 +2971,6 @@
             resultDiv.style.display = 'block';
             
             try {
-                // Gọi API để lấy danh sách video từ profile/playlist
                 const mockVideos = [
                     'https://www.tiktok.com/@user/video/1',
                     'https://www.tiktok.com/@user/video/2',
@@ -2610,17 +3029,193 @@
             await downloadBatch();
         }
         
-        // ==================== TẢI ẢNH ZIP ====================
-        function downloadAllImages(imagesJson, filename) {
-            const images = JSON.parse(imagesJson);
-            alert(`Đang tải ${images.length} ảnh về dạng ZIP...\n\nTrong phiên bản thật, bạn cần backend để tạo ZIP file.`);
-            
-            images.forEach((img, index) => {
-                downloadFile(img, `huypham_image_${Date.now()}_${index + 1}.jpg`);
+        // ==================== QUEUE ====================
+        let queue = [];
+        
+        function addToQueue(item) {
+            queue.push({
+                ...item,
+                status: 'waiting',
+                progress: 0
             });
+            renderQueue();
+            alert('✅ Đã thêm vào hàng đợi!');
         }
         
-        // ==================== HÀM HỖ TRỢ ====================
+        function renderQueue() {
+            const list = document.getElementById('queue-list');
+            if (queue.length === 0) {
+                list.innerHTML = '<p style="color: var(--text-muted); text-align: center;">Hàng đợi trống</p>';
+                return;
+            }
+            
+            list.innerHTML = queue.map((item, index) => `
+                <div class="queue-item">
+                    <div class="queue-item-header">
+                        <span style="color: var(--text-primary); font-weight: 600; font-size: 14px;">${item.title || 'Video ' + (index + 1)}</span>
+                        <span class="queue-item-status queue-status-${item.status}">
+                            ${item.status === 'waiting' ? '⏳ Đang chờ' : 
+                              item.status === 'processing' ? '🔄 Đang tải' : 
+                              item.status === 'done' ? '✅ Hoàn tất' : '❌ Lỗi'}
+                        </span>
+                    </div>
+                    <div style="background: var(--border-color); border-radius: 5px; height: 6px; margin-top: 10px; overflow: hidden;">
+                        <div style="background: var(--accent-gradient); height: 100%; width: ${item.progress}%; transition: all 0.3s;"></div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function clearQueue() {
+            if (confirm('Bạn có chắc muốn xóa toàn bộ hàng đợi?')) {
+                queue = [];
+                renderQueue();
+            }
+        }
+        
+        // ==================== HISTORY ====================
+        let history = JSON.parse(localStorage.getItem('huypham-history') || '[]');
+        
+        function addToHistory(item) {
+            history.unshift({
+                ...item,
+                date: new Date().toISOString()
+            });
+            localStorage.setItem('huypham-history', JSON.stringify(history));
+            renderHistory();
+            updateAnalytics();
+        }
+        
+        function renderHistory() {
+            const list = document.getElementById('history-list');
+            if (history.length === 0) {
+                list.innerHTML = '<p style="color: var(--text-muted); text-align: center;">Chưa có lịch sử tải video</p>';
+                return;
+            }
+            
+            list.innerHTML = history.map((item, index) => `
+                <div class="history-item">
+                    <div class="history-item-header">
+                        <span class="history-item-title">${item.title || 'Video ' + (index + 1)}</span>
+                        <span class="history-item-date">${new Date(item.date).toLocaleString('vi-VN')}</span>
+                    </div>
+                    <div class="history-item-links">
+                        <a href="${item.videoLink}" target="_blank" style="background: var(--btn-video); color: white;">🎬 Video</a>
+                        <a href="${item.imageLink}" target="_blank" style="background: var(--btn-image); color: white;">📸 Ảnh</a>
+                        <a href="${item.audioLink}" target="_blank" style="background: var(--btn-audio); color: white;">🎵 MP3</a>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function clearHistory() {
+            if (confirm('Bạn có chắc muốn xóa toàn bộ lịch sử?')) {
+                history = [];
+                localStorage.setItem('huypham-history', JSON.stringify(history));
+                renderHistory();
+                updateAnalytics();
+            }
+        }
+        
+        // ==================== ANALYTICS ====================
+        function updateAnalytics() {
+            const totalDownloads = history.length;
+            const totalVideos = history.filter(h => h.type === 'video').length;
+            const totalImages = history.filter(h => h.type === 'image').length;
+            const totalAudios = history.filter(h => h.type === 'audio').length;
+            
+            document.getElementById('total-downloads').textContent = totalDownloads;
+            document.getElementById('total-videos').textContent = totalVideos;
+            document.getElementById('total-images').textContent = totalImages;
+            document.getElementById('total-audios').textContent = totalAudios;
+            
+            const topVideos = [...history].sort((a, b) => b.downloadCount - a.downloadCount).slice(0, 5);
+            const topVideosEl = document.getElementById('top-videos');
+            topVideosEl.innerHTML = topVideos.length > 0 ? topVideos.map((item, i) => `
+                <div style="display: flex; justify-content: space-between; padding: 8px; border-bottom: 1px solid var(--border-color);">
+                    <span style="color: var(--text-primary);">${i + 1}. ${item.title || 'Video'}</span>
+                    <span style="color: var(--text-muted);">${item.downloadCount} lượt tải</span>
+                </div>
+            `).join('') : '<p style="color: var(--text-muted);">Chưa có dữ liệu</p>';
+            
+            const authorCounts = {};
+            history.forEach(item => {
+                authorCounts[item.author] = (authorCounts[item.author] || 0) + 1;
+            });
+            const topAuthors = Object.entries(authorCounts).sort((a, b) => b[1] - a[1]).slice(0, 5);
+            const topAuthorsEl = document.getElementById('top-authors');
+            topAuthorsEl.innerHTML = topAuthors.length > 0 ? topAuthors.map(([author, count], i) => `
+                <div style="display: flex; justify-content: space-between; padding: 8px; border-bottom: 1px solid var(--border-color);">
+                    <span style="color: var(--text-primary);">${i + 1}. ${author}</span>
+                    <span style="color: var(--text-muted);">${count} video</span>
+                </div>
+            `).join('') : '<p style="color: var(--text-muted);">Chưa có dữ liệu</p>';
+            
+            const dailyCounts = {};
+            history.forEach(item => {
+                const date = new Date(item.date).toLocaleDateString('vi-VN');
+                dailyCounts[date] = (dailyCounts[date] || 0) + 1;
+            });
+            const dailyEl = document.getElementById('daily-downloads');
+            dailyEl.innerHTML = Object.entries(dailyCounts).map(([date, count]) => `
+                <div style="display: flex; justify-content: space-between; padding: 8px; border-bottom: 1px solid var(--border-color);">
+                    <span style="color: var(--text-primary);">${date}</span>
+                    <span style="color: var(--text-muted);">${count} lượt tải</span>
+                </div>
+            `).join('');
+        }
+        
+        // ==================== SETTINGS ====================
+        function saveSettings() {
+            const settings = {
+                filenameFormat: document.getElementById('filename-format').value,
+                saveFolder: document.getElementById('save-folder').value
+            };
+            localStorage.setItem('huypham-settings', JSON.stringify(settings));
+            alert('✅ Đã lưu cài đặt!');
+        }
+        
+        // ==================== EXPORT ====================
+        function exportCSV() {
+            if (history.length === 0) {
+                alert('Chưa có dữ liệu để xuất!');
+                return;
+            }
+            
+            let csv = 'Tiêu đề,Tác giả,Link Video,Link Ảnh,Ngày tải\n';
+            history.forEach(item => {
+                csv += `"${item.title || 'Video'}","${item.author || 'Unknown'}","${item.videoLink}","${item.imageLink}","${new Date(item.date).toLocaleString('vi-VN')}"\n`;
+            });
+            
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'huypham_history.csv';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+        
+        function exportJSON() {
+            if (history.length === 0) {
+                alert('Chưa có dữ liệu để xuất!');
+                return;
+            }
+            
+            const blob = new Blob([JSON.stringify(history, null, 2)], { type: 'application/json' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'huypham_history.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+        
+        // ==================== HELPERS ====================
         function copyLink(link, btn) {
             navigator.clipboard.writeText(link).then(() => {
                 btn.textContent = '✅ Đã copy!';
@@ -2678,24 +3273,33 @@
             return num.toString();
         }
         
-        // Enter key cho tab đơn
-        document.getElementById('tiktok-url').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                downloadVideo();
-            }
-        });
+        function downloadAllImages(imagesJson, filename) {
+            const images = JSON.parse(imagesJson);
+            alert(`Đang tải ${images.length} ảnh về dạng ZIP...\n\nTrong phiên bản thật, bạn cần backend để tạo ZIP file.`);
+            
+            images.forEach((img, index) => {
+                downloadFile(img, `huypham_image_${Date.now()}_${index + 1}.jpg`);
+            });
+        }
         
-        // Khởi tạo
+        // ==================== INIT ====================
         checkLogin();
         renderHistory();
         updateAnalytics();
+        filterVoices();
         
-        // Khởi tạo cài đặt
         const savedSettings = JSON.parse(localStorage.getItem('huypham-settings') || 'null');
         if (savedSettings) {
             document.getElementById('filename-format').value = savedSettings.filenameFormat;
             document.getElementById('save-folder').value = savedSettings.saveFolder;
         }
+        
+        // Enter key
+        document.getElementById('tiktok-url').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                downloadVideo();
+            }
+        });
     </script>
 </body>
 </html>
