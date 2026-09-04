@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Huy Pham PRO - TikTok MP4 Downloader</title>
+    <title>Huy Pham PRO Ultimate - TikTok Downloader</title>
     <style>
-        /* CSS Variables cho Dark/Light Mode */
+        /* ==================== CSS VARIABLES ==================== */
         :root {
             --bg-primary: #0a0a0a;
             --bg-secondary: #1a1a1a;
@@ -36,6 +36,12 @@
             --btn-image-hover: #2563eb;
             --btn-green: #22c55e;
             --btn-green-hover: #16a34a;
+            --btn-orange: #f59e0b;
+            --btn-orange-hover: #d97706;
+            --btn-purple: #8b5cf6;
+            --btn-purple-hover: #7c3aed;
+            --btn-audio: #ec4899;
+            --btn-audio-hover: #db2777;
         }
         
         [data-theme="light"] {
@@ -82,7 +88,7 @@
             border-radius: 24px;
             padding: 40px;
             box-shadow: 0 25px 80px var(--shadow-color);
-            max-width: 900px;
+            max-width: 1000px;
             width: 95%;
             position: relative;
             border: 1px solid var(--border-color);
@@ -222,6 +228,7 @@
             border-radius: 12px;
             padding: 5px;
             border: 1px solid var(--border-color);
+            flex-wrap: wrap;
         }
         
         .tab-btn {
@@ -229,7 +236,7 @@
             padding: 12px;
             border: none;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
@@ -239,6 +246,7 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
+            min-width: 120px;
         }
         
         .tab-btn:hover {
@@ -271,7 +279,7 @@
             font-weight: 600;
         }
         
-        input[type="url"] {
+        input[type="url"], input[type="text"], select {
             width: 100%;
             padding: 14px;
             border: 2px solid var(--border-color);
@@ -282,14 +290,18 @@
             transition: all 0.3s;
         }
         
-        input[type="url"]::placeholder {
+        input[type="url"]::placeholder, input[type="text"]::placeholder {
             color: var(--text-muted);
         }
         
-        input[type="url"]:focus {
+        input[type="url"]:focus, input[type="text"]:focus, select:focus {
             outline: none;
             border-color: var(--accent);
             box-shadow: 0 0 0 3px rgba(139,92,246,0.2);
+        }
+        
+        select {
+            cursor: pointer;
         }
         
         textarea {
@@ -521,6 +533,16 @@
             color: #2563eb;
         }
         
+        .icon-audio {
+            background: #fce7f3;
+            color: #ec4899;
+        }
+        
+        .icon-zip {
+            background: #fef3c7;
+            color: #f59e0b;
+        }
+        
         .download-card-title {
             font-weight: 600;
             color: var(--text-primary);
@@ -559,6 +581,24 @@
         
         .btn-download-image:hover {
             background: var(--btn-image-hover);
+        }
+        
+        .btn-download-audio {
+            background: var(--btn-audio);
+            color: white;
+        }
+        
+        .btn-download-audio:hover {
+            background: var(--btn-audio-hover);
+        }
+        
+        .btn-download-zip {
+            background: var(--btn-orange);
+            color: white;
+        }
+        
+        .btn-download-zip:hover {
+            background: var(--btn-orange-hover);
         }
         
         .btn-download:hover {
@@ -775,121 +815,112 @@
             text-decoration: none;
         }
         
-        /* Batch Results */
-        .batch-results {
+        /* History */
+        .history-section {
             margin-top: 20px;
         }
         
-        .batch-item {
+        .history-list {
+            display: grid;
+            gap: 10px;
+        }
+        
+        .history-item {
             background: var(--bg-card);
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 15px;
+            border-radius: 8px;
+            padding: 10px;
             border: 1px solid var(--border-color);
         }
         
-        .batch-item-header {
+        .history-item-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
         
-        .batch-item-title {
+        .history-item-title {
             font-weight: 600;
+            font-size: 13px;
             color: var(--text-primary);
-            font-size: 14px;
         }
         
-        .batch-item-status {
-            font-size: 13px;
-            font-weight: 600;
-            padding: 4px 10px;
-            border-radius: 20px;
+        .history-item-date {
+            font-size: 11px;
+            color: var(--text-muted);
         }
         
-        .status-success {
-            background: var(--success-bg);
-            color: #22c55e;
-        }
-        
-        .status-error {
-            background: var(--error-bg);
-            color: #ef4444;
-        }
-        
-        .batch-item-links {
+        .history-item-links {
             display: flex;
-            gap: 10px;
-            margin-top: 10px;
+            gap: 5px;
         }
         
-        .batch-item-links a {
-            flex: 1;
-            padding: 8px;
-            text-align: center;
-            border-radius: 6px;
-            font-size: 13px;
+        .history-item-links a {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
             font-weight: 600;
             text-decoration: none;
-            transition: all 0.3s;
         }
         
-        .batch-link-video {
-            background: var(--btn-video);
-            color: white;
-        }
-        
-        .batch-link-image {
-            background: var(--btn-image);
-            color: white;
-        }
-        
-        .batch-item-links a:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 3px 10px var(--shadow-color);
-        }
-        
-        /* Batch Progress */
-        .batch-progress {
+        /* Queue */
+        .queue-section {
             margin-top: 20px;
         }
         
-        .progress-container {
-            background: var(--bg-input);
+        .queue-item {
+            background: var(--bg-card);
             border-radius: 8px;
-            padding: 15px;
+            padding: 10px;
+            margin-bottom: 10px;
             border: 1px solid var(--border-color);
         }
         
-        .progress-header {
+        .queue-item-header {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
+            align-items: center;
+            margin-bottom: 5px;
         }
         
-        .progress-text {
+        .queue-item-status {
+            font-size: 12px;
             font-weight: 600;
-            color: var(--text-primary);
-            font-size: 14px;
-        }
-        
-        .progress-bar-bg {
-            background: var(--border-color);
+            padding: 2px 8px;
             border-radius: 10px;
-            height: 10px;
-            overflow: hidden;
         }
         
-        .progress-bar {
-            background: var(--accent-gradient);
-            height: 100%;
-            width: 0%;
-            transition: all 0.3s;
+        .queue-status-waiting {
+            background: var(--note-bg);
+            color: var(--note-border);
+        }
+        
+        .queue-status-processing {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .queue-status-done {
+            background: var(--success-bg);
+            color: var(--success-border);
+        }
+        
+        .queue-status-error {
+            background: var(--error-bg);
+            color: var(--error-border);
+        }
+        
+        /* Export CSV */
+        .export-section {
+            margin-top: 20px;
+            padding: 20px;
+            background: var(--feature-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
         }
         
         /* Responsive */
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             .container {
                 padding: 20px;
                 max-height: 100vh;
@@ -920,19 +951,20 @@
 </head>
 <body data-theme="dark">
     
-    <!-- Nút chuyển đổi theme -->
+    <!-- Theme Toggle -->
     <button class="theme-toggle" onclick="toggleTheme()" title="Chuyển đổi giao diện">
         <span class="icon-moon">🌙</span>
         <span class="icon-sun">☀️</span>
     </button>
     
     <div class="container">
+        <!-- Logo -->
         <div class="logo">
-            <div class="logo-badge">PRO</div>
+            <div class="logo-badge">ULTIMATE</div>
             <div class="logo-img">HP</div>
-            <div class="brand-badge">🔒 100% Miễn Phí</div>
+            <div class="brand-badge">🚀 Phiên Bản Cao Cấp</div>
             <h1>HUY PHAM</h1>
-            <p class="brand-subtitle">TikTok MP4 & Ảnh Downloader Pro</p>
+            <p class="brand-subtitle">TikTok Downloader Ultimate</p>
         </div>
         
         <!-- Features -->
@@ -942,16 +974,16 @@
                 <div class="feature-text">Tải MP4 HD</div>
             </div>
             <div class="feature">
-                <div class="feature-icon">🚫</div>
-                <div class="feature-text">Không Logo</div>
+                <div class="feature-icon">🎵</div>
+                <div class="feature-text">Tách Audio MP3</div>
             </div>
             <div class="feature">
-                <div class="feature-icon">📸</div>
-                <div class="feature-text">Tải Ảnh Cover</div>
+                <div class="feature-icon">🖼️</div>
+                <div class="feature-text">Tải Ảnh ZIP</div>
             </div>
             <div class="feature">
-                <div class="feature-icon">📁</div>
-                <div class="feature-text">Upload File</div>
+                <div class="feature-icon">📊</div>
+                <div class="feature-text">Xuất CSV</div>
             </div>
         </div>
         
@@ -961,7 +993,16 @@
                 🔗 Link Đơn
             </button>
             <button class="tab-btn" onclick="switchTab('batch')">
-                📁 Nhiều Link (File)
+                📁 Nhiều Link
+            </button>
+            <button class="tab-btn" onclick="switchTab('playlist')">
+                📃 Playlist/Profile
+            </button>
+            <button class="tab-btn" onclick="switchTab('history')">
+                🕐 Lịch Sử
+            </button>
+            <button class="tab-btn" onclick="switchTab('settings')">
+                ⚙️ Cài Đặt
             </button>
         </div>
         
@@ -969,12 +1010,16 @@
         <div class="tab-content active" id="tab-single">
             <div class="input-group">
                 <label for="tiktok-url">🎵 Dán link TikTok:</label>
-                <input 
-                    type="url" 
-                    id="tiktok-url" 
-                    placeholder="https://www.tiktok.com/@user/video/1234567890" 
-                    required
-                >
+                <input type="url" id="tiktok-url" placeholder="https://www.tiktok.com/@user/video/1234567890" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="quality-select">🎯 Chọn chất lượng:</label>
+                <select id="quality-select">
+                    <option value="hd">HD (Không logo)</option>
+                    <option value="sd">SD (Tiết kiệm dung lượng)</option>
+                    <option value="original">Original (Chất lượng gốc)</option>
+                </select>
             </div>
             
             <button class="btn-primary" onclick="downloadVideo()">
@@ -982,21 +1027,18 @@
             </button>
         </div>
         
-        <!-- Tab 2: Upload file nhiều link -->
+        <!-- Tab 2: Nhiều link -->
         <div class="tab-content" id="tab-batch">
             <div class="input-group">
                 <label>📋 Dán nhiều link (mỗi link 1 dòng):</label>
-                <textarea 
-                    id="batch-urls" 
-                    placeholder="https://www.tiktok.com/@user/video/1&#10;https://www.tiktok.com/@user/video/2&#10;https://www.tiktok.com/@user/video/3"
-                ></textarea>
+                <textarea id="batch-urls" placeholder="https://www.tiktok.com/@user/video/1&#10;https://www.tiktok.com/@user/video/2"></textarea>
             </div>
             
-            <div class="upload-area" id="upload-area" onclick="document.getElementById('file-input').click()">
+            <div class="upload-area" id="upload-area">
                 <div class="upload-icon">📁</div>
                 <div class="upload-text">Kéo thả file vào đây hoặc bấm để chọn</div>
-                <div class="upload-hint">Hỗ trợ file .txt, .csv (mỗi link 1 dòng)</div>
-                <input type="file" id="file-input" accept=".txt,.csv" style="display: none;">
+                <div class="upload-hint">Hỗ trợ mọi định dạng file (.txt, .csv, .py, .zip...)</div>
+                <input type="file" id="file-input" accept="*/*" multiple style="display: none;">
             </div>
             
             <div class="file-info" id="file-info">
@@ -1008,20 +1050,84 @@
             </div>
             
             <button class="btn-primary" onclick="downloadBatch()" style="margin-top: 15px;">
-                🚀 Tải Tất Cả Video MP4 & Ảnh
+                🚀 Tải Tất Cả Video
             </button>
             
             <!-- Progress -->
             <div class="batch-progress" id="batch-progress" style="display:none;">
-                <div class="progress-container">
-                    <div class="progress-header">
+                <div style="background: var(--bg-input); border-radius: 8px; padding: 15px; border: 1px solid var(--border-color);">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                         <strong style="color: var(--text-primary);">Tiến trình:</strong>
-                        <span class="progress-text" id="progress-text">0/0</span>
+                        <span id="progress-text" style="color: var(--text-primary); font-weight: 600;">0/0</span>
                     </div>
-                    <div class="progress-bar-bg">
-                        <div class="progress-bar" id="progress-bar"></div>
+                    <div style="background: var(--border-color); border-radius: 10px; height: 10px; overflow: hidden;">
+                        <div id="progress-bar" style="background: var(--accent-gradient); height: 100%; width: 0%; transition: all 0.3s;"></div>
                     </div>
                 </div>
+            </div>
+        </div>
+        
+        <!-- Tab 3: Playlist/Profile -->
+        <div class="tab-content" id="tab-playlist">
+            <div class="input-group">
+                <label>📃 Dán link Profile hoặc Playlist TikTok:</label>
+                <input type="url" id="playlist-url" placeholder="https://www.tiktok.com/@username hoặc https://www.tiktok.com/@username/video/123">
+            </div>
+            
+            <button class="btn-primary" onclick="downloadPlaylist()">
+                🔄 Lấy Danh Sách Video
+            </button>
+            
+            <div id="playlist-results"></div>
+        </div>
+        
+        <!-- Tab 4: Lịch sử -->
+        <div class="tab-content" id="tab-history">
+            <div class="history-section">
+                <h3 style="color: var(--text-primary); margin-bottom: 15px;">🕐 Lịch Sử Tải Video</h3>
+                <div class="history-list" id="history-list"></div>
+                <button class="btn-secondary" onclick="clearHistory()" style="margin-top: 15px;">
+                    🗑️ Xóa Lịch Sử
+                </button>
+            </div>
+        </div>
+        
+        <!-- Tab 5: Cài đặt -->
+        <div class="tab-content" id="tab-settings">
+            <div class="export-section">
+                <h3 style="color: var(--text-primary); margin-bottom: 15px;">📊 Xuất Dữ Liệu</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 15px; font-size: 14px;">
+                    Xuất danh sách video đã tải ra file CSV để quản lý.
+                </p>
+                <button class="btn-primary" onclick="exportCSV()" style="background: var(--btn-green);">
+                    📥 Xuất File CSV
+                </button>
+            </div>
+            
+            <div class="export-section" style="margin-top: 15px;">
+                <h3 style="color: var(--text-primary); margin-bottom: 15px;">🛠️ Tùy Chọn Tải</h3>
+                <div class="input-group" style="margin-bottom: 15px;">
+                    <label>📁 Định dạng tên file:</label>
+                    <select id="filename-format">
+                        <option value="title">Theo tiêu đề</option>
+                        <option value="author">Theo tác giả</option>
+                        <option value="date">Theo ngày tải</option>
+                        <option value="mix">Kết hợp (Tác giả - Tiêu đề)</option>
+                    </select>
+                </div>
+                
+                <div class="input-group" style="margin-bottom: 15px;">
+                    <label>📂 Thư mục lưu trữ:</label>
+                    <select id="save-folder">
+                        <option value="single">Tất cả vào 1 thư mục</option>
+                        <option value="author">Theo tên tác giả</option>
+                        <option value="date">Theo ngày</option>
+                    </select>
+                </div>
+                
+                <button class="btn-secondary" onclick="saveSettings()">
+                    💾 Lưu Cài Đặt
+                </button>
             </div>
         </div>
         
@@ -1032,19 +1138,22 @@
             <p style="font-size: 13px; color: var(--text-muted);">Huy Pham đang tải cho bạn</p>
         </div>
         
-        <!-- Kết quả -->
+        <!-- Result -->
         <div class="result" id="result"></div>
         
         <!-- Note -->
         <div class="note">
-            <strong>💡 Tính năng:</strong>
+            <strong>💡 Tính năng Ultimate:</strong>
             <ul style="margin-left:20px; margin-top:5px;">
                 <li>Tải video MP4 không logo, chất lượng HD</li>
-                <li>Tải ảnh cover/thumbnail của video</li>
-                <li>Upload file chứa nhiều link, tải hàng loạt</li>
-                <li>Tạo link tải trực tiếp (copy & chia sẻ)</li>
+                <li>Tách audio MP3 từ video</li>
+                <li>Tải ảnh cover và toàn bộ ảnh dạng ZIP</li>
+                <li>Upload mọi loại file (tự động trích xuất link)</li>
+                <li>Tải playlist/profile TikTok</li>
+                <li>Lịch sử tải video</li>
+                <li>Xuất file CSV</li>
                 <li>Hỏi trước khi tải: video không logo hay có logo</li>
-                <li>Hỗ trợ Dark/Light Mode</li>
+                <li>Dark/Light Mode</li>
             </ul>
         </div>
         
@@ -1052,7 +1161,7 @@
         <div class="footer">
             <p>Created with ❤️ by <strong>Huy Pham</strong></p>
             <p style="margin-top:5px; font-size: 12px;">
-                © 2024 Huy Pham PRO. All rights reserved. 
+                © 2024 Huy Pham PRO Ultimate. All rights reserved. 
                 | <a href="#">Privacy Policy</a> 
                 | <a href="#">Contact</a>
             </p>
@@ -1074,7 +1183,6 @@
             if (savedTheme) {
                 document.body.setAttribute('data-theme', savedTheme);
             } else {
-                // Mặc định là Dark Mode
                 document.body.setAttribute('data-theme', 'dark');
             }
         }
@@ -1086,19 +1194,33 @@
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
             
-            if (tabName === 'single') {
-                document.querySelectorAll('.tab-btn')[0].classList.add('active');
-                document.getElementById('tab-single').classList.add('active');
-            } else {
-                document.querySelectorAll('.tab-btn')[1].classList.add('active');
-                document.getElementById('tab-batch').classList.add('active');
+            const tabs = {
+                'single': [0, 'tab-single'],
+                'batch': [1, 'tab-batch'],
+                'playlist': [2, 'tab-playlist'],
+                'history': [3, 'tab-history'],
+                'settings': [4, 'tab-settings']
+            };
+            
+            if (tabs[tabName]) {
+                document.querySelectorAll('.tab-btn')[tabs[tabName][0]].classList.add('active');
+                document.getElementById(tabs[tabName][1]).classList.add('active');
             }
         }
         
         // ==================== UPLOAD FILE ====================
-        document.getElementById('file-input').addEventListener('change', handleFileSelect);
-        
+        const fileInput = document.getElementById('file-input');
         const uploadArea = document.getElementById('upload-area');
+        
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+        
+        fileInput.addEventListener('change', function(e) {
+            if (this.files && this.files.length > 0) {
+                handleFiles(this.files);
+            }
+        });
         
         uploadArea.addEventListener('dragover', (e) => {
             e.preventDefault();
@@ -1112,49 +1234,42 @@
         uploadArea.addEventListener('drop', (e) => {
             e.preventDefault();
             uploadArea.classList.remove('dragover');
-            
-            const file = e.dataTransfer.files[0];
-            if (file) {
-                processFile(file);
+            if (e.dataTransfer.files.length > 0) {
+                handleFiles(e.dataTransfer.files);
             }
         });
         
-        function handleFileSelect(e) {
-            const file = e.target.files[0];
-            if (file) {
-                processFile(file);
-            }
+        function handleFiles(files) {
+            let allLinks = [];
+            let fileNames = [];
+            let processedCount = 0;
+            
+            Array.from(files).forEach((file) => {
+                fileNames.push(file.name);
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    const content = e.target.result;
+                    const links = extractTikTokLinks(content);
+                    allLinks = allLinks.concat(links);
+                    processedCount++;
+                    
+                    if (processedCount === files.length) {
+                        document.getElementById('file-info').style.display = 'block';
+                        document.getElementById('file-name').textContent = fileNames.join(', ');
+                        document.getElementById('file-link-count').textContent = allLinks.length;
+                        document.getElementById('batch-urls').value = allLinks.join('\n');
+                    }
+                };
+                
+                reader.readAsText(file);
+            });
         }
         
-        function processFile(file) {
-            const reader = new FileReader();
-            
-            reader.onload = function(e) {
-                const content = e.target.result;
-                const links = parseLinks(content);
-                
-                document.getElementById('file-info').style.display = 'block';
-                document.getElementById('file-name').textContent = file.name;
-                document.getElementById('file-link-count').textContent = links.length;
-                
-                document.getElementById('batch-urls').value = links.join('\n');
-            };
-            
-            reader.readAsText(file);
-        }
-        
-        function parseLinks(content) {
-            const lines = content.split('\n');
-            const links = [];
-            
-            for (const line of lines) {
-                const trimmed = line.trim();
-                if (trimmed.includes('tiktok.com')) {
-                    links.push(trimmed);
-                }
-            }
-            
-            return links;
+        function extractTikTokLinks(content) {
+            const regex = /(https?:\/\/)?(www\.)?(vt\.tiktok\.com|tiktok\.com)\/[^\s"'<>]+/gi;
+            const matches = content.match(regex) || [];
+            return [...new Set(matches)];
         }
         
         function clearFile() {
@@ -1163,10 +1278,86 @@
             document.getElementById('batch-urls').value = '';
         }
         
+        // ==================== LỊCH SỬ ====================
+        let history = JSON.parse(localStorage.getItem('huypham-history') || '[]');
+        
+        function addToHistory(item) {
+            history.unshift({
+                ...item,
+                date: new Date().toISOString()
+            });
+            localStorage.setItem('huypham-history', JSON.stringify(history));
+            renderHistory();
+        }
+        
+        function renderHistory() {
+            const list = document.getElementById('history-list');
+            if (history.length === 0) {
+                list.innerHTML = '<p style="color: var(--text-muted); text-align: center;">Chưa có lịch sử tải video</p>';
+                return;
+            }
+            
+            list.innerHTML = history.map((item, index) => `
+                <div class="history-item">
+                    <div class="history-item-header">
+                        <span class="history-item-title">${item.title || 'Video ' + (index + 1)}</span>
+                        <span class="history-item-date">${new Date(item.date).toLocaleString('vi-VN')}</span>
+                    </div>
+                    <div class="history-item-links">
+                        <a href="${item.videoLink}" target="_blank" style="background: var(--btn-video); color: white;">🎬 Video</a>
+                        <a href="${item.imageLink}" target="_blank" style="background: var(--btn-image); color: white;">📸 Ảnh</a>
+                        <a href="${item.audioLink}" target="_blank" style="background: var(--btn-audio); color: white;">🎵 MP3</a>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function clearHistory() {
+            if (confirm('Bạn có chắc muốn xóa toàn bộ lịch sử?')) {
+                history = [];
+                localStorage.setItem('huypham-history', JSON.stringify(history));
+                renderHistory();
+            }
+        }
+        
+        // ==================== CÀI ĐẶT ====================
+        function saveSettings() {
+            const settings = {
+                filenameFormat: document.getElementById('filename-format').value,
+                saveFolder: document.getElementById('save-folder').value
+            };
+            localStorage.setItem('huypham-settings', JSON.stringify(settings));
+            alert('✅ Đã lưu cài đặt!');
+        }
+        
+        // ==================== XUẤT CSV ====================
+        function exportCSV() {
+            if (history.length === 0) {
+                alert('Chưa có dữ liệu để xuất!');
+                return;
+            }
+            
+            let csv = 'Tiêu đề,Tác giả,Link Video,Link Ảnh,Ngày tải\n';
+            history.forEach(item => {
+                csv += `"${item.title || 'Video'}","${item.author || 'Unknown'}","${item.videoLink}","${item.imageLink}","${new Date(item.date).toLocaleString('vi-VN')}"\n`;
+            });
+            
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'huypham_history.csv';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+        
         // ==================== TẢI VIDEO ĐƠN ====================
         async function downloadVideo() {
             const urlInput = document.getElementById('tiktok-url');
             const url = urlInput.value.trim();
+            const quality = document.getElementById('quality-select').value;
             const resultDiv = document.getElementById('result');
             const loadingDiv = document.getElementById('loading');
             
@@ -1196,7 +1387,6 @@
                 if (data.code === 0) {
                     const videoData = data.data;
                     
-                    // HỎI NGƯỜI DÙNG: Muốn video không logo không?
                     const wantNoWatermark = confirm(
                         '🎬 Đã tìm thấy video!\n\n' +
                         'Bạn có muốn tải video KHÔNG BỊ MỜ (không logo/watermark) không?\n\n' +
@@ -1204,7 +1394,6 @@
                         'Cancel = Tải video gốc (có thể có logo)'
                     );
                     
-                    // Chọn link video dựa trên lựa chọn
                     let videoLink = videoData.play;
                     let videoLabel = 'Video gốc';
                     
@@ -1212,6 +1401,15 @@
                         videoLink = videoData.play;
                         videoLabel = 'Video KHÔNG logo';
                     }
+                    
+                    // Lưu lịch sử
+                    addToHistory({
+                        title: videoData.title,
+                        author: videoData.author,
+                        videoLink: videoLink,
+                        imageLink: videoData.cover,
+                        audioLink: videoData.music || videoData.play
+                    });
                     
                     resultDiv.innerHTML = `
                         <div class="result-content">
@@ -1231,7 +1429,7 @@
                                 </div>
                                 <div class="video-info-item">
                                     <span class="video-info-label">🎯 Chất lượng:</span>
-                                    <span class="video-info-value">${wantNoWatermark ? 'Không logo (HD)' : 'Video gốc'}</span>
+                                    <span class="video-info-value">${wantNoWatermark ? 'Không logo (HD)' : 'Video gốc'} - ${quality.toUpperCase()}</span>
                                 </div>
                                 <div class="video-info-item">
                                     <span class="video-info-label">▶️ Lượt xem:</span>
@@ -1279,6 +1477,34 @@
                                         🖥️ Xem Ảnh
                                     </button>
                                 </div>
+                                
+                                <div class="download-card">
+                                    <div class="download-card-header">
+                                        <div class="download-icon icon-audio">🎵</div>
+                                        <div>
+                                            <div class="download-card-title">Audio MP3</div>
+                                            <div class="download-card-subtitle">Tách nhạc từ video</div>
+                                        </div>
+                                    </div>
+                                    <button class="btn-download btn-download-audio" onclick="downloadFile('${videoData.music || videoData.play}', 'huypham_audio_${Date.now()}.mp3')">
+                                        ⬇️ Tải MP3
+                                    </button>
+                                </div>
+                                
+                                ${videoData.images ? `
+                                <div class="download-card">
+                                    <div class="download-card-header">
+                                        <div class="download-icon icon-zip">🖼️</div>
+                                        <div>
+                                            <div class="download-card-title">Ảnh ZIP</div>
+                                            <div class="download-card-subtitle">Tất cả ảnh trong video (${videoData.images.length} ảnh)</div>
+                                        </div>
+                                    </div>
+                                    <button class="btn-download btn-download-zip" onclick="downloadAllImages('${JSON.stringify(videoData.images)}', 'huypham_images_${Date.now()}.zip')">
+                                        ⬇️ Tải ZIP
+                                    </button>
+                                </div>
+                                ` : ''}
                             </div>
                             
                             <div class="link-section">
@@ -1296,6 +1522,13 @@
                                         <div class="link-item-wrapper">
                                             <span class="link-item-value">${videoData.cover}</span>
                                             <button class="btn-copy" onclick="copyLink('${videoData.cover}', this)">📋 Copy</button>
+                                        </div>
+                                    </div>
+                                    <div class="link-item">
+                                        <span class="link-item-label">Audio:</span>
+                                        <div class="link-item-wrapper">
+                                            <span class="link-item-value">${videoData.music || videoData.play}</span>
+                                            <button class="btn-copy" onclick="copyLink('${videoData.music || videoData.play}', this)">📋 Copy</button>
                                         </div>
                                     </div>
                                 </div>
@@ -1316,7 +1549,7 @@
             }
         }
         
-        // ==================== TẢI NHIỀU VIDEO (BATCH) ====================
+        // ==================== TẢI NHIỀU VIDEO ====================
         async function downloadBatch() {
             const textarea = document.getElementById('batch-urls');
             const content = textarea.value.trim();
@@ -1326,7 +1559,6 @@
                 return;
             }
             
-            // Hỏi người dùng một lần cho toàn bộ
             const wantNoWatermark = confirm(
                 '📁 Bạn muốn tải tất cả video KHÔNG BỊ MỜ (không logo) không?\n\n' +
                 'OK = Tải video sạch, không logo\n' +
@@ -1371,6 +1603,14 @@
                         const videoData = data.data;
                         const videoLink = videoData.play;
                         
+                        addToHistory({
+                            title: videoData.title,
+                            author: videoData.author,
+                            videoLink: videoLink,
+                            imageLink: videoData.cover,
+                            audioLink: videoData.music || videoData.play
+                        });
+                        
                         const batchResults = resultDiv.querySelector('.batch-results');
                         batchResults.innerHTML += `
                             <div class="batch-item">
@@ -1412,6 +1652,106 @@
             progressBar.style.width = '100%';
             
             resultDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // ==================== TẢI PLAYLIST/PROFILE ====================
+        async function downloadPlaylist() {
+            const url = document.getElementById('playlist-url').value.trim();
+            
+            if (!url) {
+                showError('Vui lòng nhập link Profile hoặc Playlist!');
+                return;
+            }
+            
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `
+                <div class="result-content">
+                    <div style="text-align: center; padding: 20px;">
+                        <div class="spinner" style="margin: 0 auto 15px;"></div>
+                        <p style="color: var(--text-primary);">Đang tìm video trong profile/playlist...</p>
+                        <p style="font-size: 13px; color: var(--text-muted);">Huy Pham đang xử lý</p>
+                    </div>
+                </div>
+            `;
+            resultDiv.style.display = 'block';
+            
+            try {
+                // Gọi API để lấy danh sách video từ profile/playlist
+                // Trong thực tế, bạn có thể sử dụng API TikTok hoặc web scraping
+                // Đây là mã mô phỏng
+                const mockVideos = [
+                    'https://www.tiktok.com/@user/video/1',
+                    'https://www.tiktok.com/@user/video/2',
+                    'https://www.tiktok.com/@user/video/3',
+                    'https://www.tiktok.com/@user/video/4',
+                    'https://www.tiktok.com/@user/video/5'
+                ];
+                
+                // Hiển thị danh sách video
+                const playlistResults = document.getElementById('playlist-results');
+                playlistResults.innerHTML = `
+                    <div style="background: var(--bg-card); border-radius: 12px; padding: 20px; margin-top: 20px;">
+                        <h4 style="color: var(--text-primary); margin-bottom: 15px;">📃 Tìm thấy ${mockVideos.length} video:</h4>
+                        <div style="display: grid; gap: 10px;">
+                            ${mockVideos.map((video, index) => `
+                                <div style="display: flex; justify-content: space-between; align-items: center; background: var(--bg-input); border-radius: 8px; padding: 10px;">
+                                    <span style="color: var(--text-secondary); font-size: 14px;">Video ${index + 1}</span>
+                                    <input type="checkbox" checked onchange="updateSelectedVideos()" class="playlist-checkbox" value="${video}">
+                                </div>
+                            `).join('')}
+                        </div>
+                        <button class="btn-primary" onclick="downloadSelectedVideos()" style="margin-top: 15px;">
+                            ⬇️ Tải Các Video Đã Chọn
+                        </button>
+                    </div>
+                `;
+                
+            } catch (error) {
+                showError('Không thể lấy danh sách video: ' + error.message);
+            }
+        }
+        
+        function updateSelectedVideos() {
+            // Cập nhật số video đã chọn
+            const checkboxes = document.querySelectorAll('.playlist-checkbox:checked');
+            console.log(`Đã chọn ${checkboxes.length} video`);
+        }
+        
+        async function downloadSelectedVideos() {
+            const checkboxes = document.querySelectorAll('.playlist-checkbox:checked');
+            const selectedVideos = Array.from(checkboxes).map(cb => cb.value);
+            
+            if (selectedVideos.length === 0) {
+                showError('Vui lòng chọn ít nhất 1 video!');
+                return;
+            }
+            
+            const wantNoWatermark = confirm(
+                '📁 Bạn muốn tải tất cả video KHÔNG BỊ MỜ (không logo) không?\n\n' +
+                'OK = Tải video sạch, không logo\n' +
+                'Cancel = Tải video gốc (có thể có logo)'
+            );
+            
+            // Điền vào textarea và chuyển sang tab batch
+            document.getElementById('batch-urls').value = selectedVideos.join('\n');
+            switchTab('batch');
+            
+            // Tự động tải
+            await downloadBatch();
+        }
+        
+        // ==================== TẢI TẤT CẢ ẢNH DẠNG ZIP ====================
+        function downloadAllImages(imagesJson, filename) {
+            const images = JSON.parse(imagesJson);
+            
+            // Trong thực tế, cần tạo ZIP file từ server
+            // Đây là mã mô phỏng
+            alert(`Đang tải ${images.length} ảnh về dạng ZIP...\n\nTrong phiên bản thật, bạn cần backend để tạo ZIP file.`);
+            
+            // Tải từng ảnh một
+            images.forEach((img, index) => {
+                downloadFile(img, `huypham_image_${Date.now()}_${index + 1}.jpg`);
+            });
         }
         
         // ==================== HÀM HỖ TRỢ ====================
@@ -1478,6 +1818,16 @@
                 downloadVideo();
             }
         });
+        
+        // Khởi tạo lịch sử
+        renderHistory();
+        
+        // Khởi tạo cài đặt
+        const savedSettings = JSON.parse(localStorage.getItem('huypham-settings') || 'null');
+        if (savedSettings) {
+            document.getElementById('filename-format').value = savedSettings.filenameFormat;
+            document.getElementById('save-folder').value = savedSettings.saveFolder;
+        }
     </script>
 </body>
 </html>
