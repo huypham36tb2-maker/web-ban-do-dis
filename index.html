@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Huy Pham PRO Ultimate - TikTok Downloader</title>
+    <title>Huy Pham PREMIUM - TikTok Downloader VIP</title>
     <style>
         /* ==================== CSS VARIABLES ==================== */
         :root {
@@ -30,6 +30,9 @@
             --accent: #8b5cf6;
             --accent-hover: #7c3aed;
             --accent-gradient: linear-gradient(135deg, #8b5cf6, #d946ef);
+            --gold-gradient: linear-gradient(135deg, #f59e0b, #fbbf24, #d97706);
+            --gold: #f59e0b;
+            --gold-hover: #d97706;
             --btn-video: #ef4444;
             --btn-video-hover: #dc2626;
             --btn-image: #3b82f6;
@@ -42,6 +45,8 @@
             --btn-purple-hover: #7c3aed;
             --btn-audio: #ec4899;
             --btn-audio-hover: #db2777;
+            --btn-cyan: #06b6d4;
+            --btn-cyan-hover: #0891b2;
         }
         
         [data-theme="light"] {
@@ -88,7 +93,7 @@
             border-radius: 24px;
             padding: 40px;
             box-shadow: 0 25px 80px var(--shadow-color);
-            max-width: 1000px;
+            max-width: 1200px;
             width: 95%;
             position: relative;
             border: 1px solid var(--border-color);
@@ -111,7 +116,336 @@
             border-radius: 10px;
         }
         
-        /* Theme Toggle */
+        /* ==================== AUTH ==================== */
+        .auth-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg-primary);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .auth-box {
+            background: var(--bg-card);
+            border-radius: 24px;
+            padding: 50px;
+            max-width: 450px;
+            width: 90%;
+            box-shadow: 0 25px 80px var(--shadow-color);
+            border: 1px solid var(--border-color);
+        }
+        
+        .auth-logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .auth-logo-img {
+            width: 80px;
+            height: 80px;
+            background: var(--gold-gradient);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 15px;
+        }
+        
+        .auth-title {
+            font-size: 2em;
+            font-weight: 700;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 5px;
+        }
+        
+        .auth-subtitle {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+        
+        .auth-input-group {
+            margin-bottom: 20px;
+        }
+        
+        .auth-input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        .auth-input-group input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid var(--border-color);
+            background: var(--bg-input);
+            color: var(--text-primary);
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .auth-input-group input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(245,158,11,0.2);
+        }
+        
+        .auth-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--gold-gradient);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 15px;
+        }
+        
+        .auth-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(245,158,11,0.3);
+        }
+        
+        .auth-error {
+            background: var(--error-bg);
+            border: 1px solid var(--error-border);
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            color: var(--error-border);
+            font-size: 14px;
+            margin-bottom: 15px;
+            display: none;
+        }
+        
+        /* ==================== USER BAR ==================== */
+        .user-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: var(--feature-bg);
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            background: var(--accent-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        .user-details {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .user-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 14px;
+        }
+        
+        .user-plan {
+            font-size: 12px;
+            color: var(--gold);
+            font-weight: 600;
+        }
+        
+        .user-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .btn-logout {
+            padding: 8px 16px;
+            background: var(--error-border);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-logout:hover {
+            background: #dc2626;
+        }
+        
+        .btn-upgrade {
+            padding: 8px 16px;
+            background: var(--gold-gradient);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-upgrade:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(245,158,11,0.3);
+        }
+        
+        /* ==================== SUBSCRIPTION ==================== */
+        .pricing-section {
+            margin: 30px 0;
+        }
+        
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .pricing-title {
+            font-size: 2em;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+        }
+        
+        .pricing-subtitle {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        .pricing-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 30px;
+            border: 2px solid var(--border-color);
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px var(--shadow-color);
+        }
+        
+        .pricing-card.popular {
+            border-color: var(--gold);
+            box-shadow: 0 10px 30px rgba(245,158,11,0.2);
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: var(--gold-gradient);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        
+        .plan-name {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+        }
+        
+        .plan-price {
+            font-size: 2.5em;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+        
+        .plan-price span {
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--text-muted);
+        }
+        
+        .plan-features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        
+        .plan-features li {
+            padding: 5px 0;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        
+        .plan-features li::before {
+            content: "✅ ";
+        }
+        
+        .plan-features li.not-included {
+            color: var(--text-muted);
+        }
+        
+        .plan-features li.not-included::before {
+            content: "❌ ";
+        }
+        
+        .btn-subscribe {
+            width: 100%;
+            padding: 12px;
+            background: var(--accent-gradient);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-subscribe:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+        
+        .btn-subscribe.gold {
+            background: var(--gold-gradient);
+        }
+        
+        /* ==================== THEME ==================== */
         .theme-toggle {
             position: fixed;
             top: 20px;
@@ -152,7 +486,7 @@
             display: none;
         }
         
-        /* Logo */
+        /* ==================== LOGO ==================== */
         .logo {
             text-align: center;
             margin-bottom: 25px;
@@ -164,7 +498,7 @@
             top: -10px;
             right: 50%;
             transform: translateX(50%);
-            background: var(--accent-gradient);
+            background: var(--gold-gradient);
             color: white;
             padding: 4px 12px;
             border-radius: 20px;
@@ -172,13 +506,13 @@
             font-weight: 700;
             letter-spacing: 0.5px;
             text-transform: uppercase;
-            box-shadow: 0 4px 10px rgba(139,92,246,0.3);
+            box-shadow: 0 4px 10px rgba(245,158,11,0.3);
         }
         
         .logo-img {
             width: 80px;
             height: 80px;
-            background: var(--accent-gradient);
+            background: var(--gold-gradient);
             border-radius: 50%;
             display: inline-flex;
             align-items: center;
@@ -186,7 +520,7 @@
             font-size: 36px;
             font-weight: bold;
             color: white;
-            box-shadow: 0 10px 30px rgba(139,92,246,0.4);
+            box-shadow: 0 10px 30px rgba(245,158,11,0.4);
             margin-bottom: 15px;
         }
         
@@ -195,7 +529,7 @@
             color: var(--text-primary);
             margin-bottom: 5px;
             font-size: 2.2em;
-            background: var(--accent-gradient);
+            background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -209,7 +543,7 @@
         }
         
         .brand-badge {
-            background: var(--accent-gradient);
+            background: var(--gold-gradient);
             color: white;
             padding: 8px 20px;
             border-radius: 30px;
@@ -219,7 +553,7 @@
             font-weight: 500;
         }
         
-        /* Tabs */
+        /* ==================== TABS ==================== */
         .tabs {
             display: flex;
             gap: 5px;
@@ -246,7 +580,7 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            min-width: 120px;
+            min-width: 110px;
         }
         
         .tab-btn:hover {
@@ -267,7 +601,7 @@
             display: block;
         }
         
-        /* Input */
+        /* ==================== INPUT ==================== */
         .input-group {
             margin-bottom: 20px;
         }
@@ -328,7 +662,7 @@
             box-shadow: 0 0 0 3px rgba(139,92,246,0.2);
         }
         
-        /* Upload area */
+        /* ==================== UPLOAD ==================== */
         .upload-area {
             border: 2px dashed var(--border-color);
             border-radius: 12px;
@@ -374,7 +708,7 @@
             color: var(--text-primary);
         }
         
-        /* Buttons */
+        /* ==================== BUTTONS ==================== */
         .btn-primary {
             width: 100%;
             padding: 14px;
@@ -418,7 +752,7 @@
             background: var(--hover-bg);
         }
         
-        /* Loading */
+        /* ==================== LOADING ==================== */
         .loading {
             display: none;
             text-align: center;
@@ -440,7 +774,7 @@
             100% { transform: rotate(360deg); }
         }
         
-        /* Result */
+        /* ==================== RESULT ==================== */
         .result {
             margin-top: 20px;
             display: none;
@@ -472,7 +806,7 @@
             font-size: 14px;
         }
         
-        /* Video Preview */
+        /* ==================== VIDEO PREVIEW ==================== */
         .video-section {
             margin-bottom: 20px;
         }
@@ -485,10 +819,10 @@
             margin-bottom: 15px;
         }
         
-        /* Download options */
+        /* ==================== DOWNLOAD CARDS ==================== */
         .download-options {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(3, 1fr);
             gap: 15px;
             margin-bottom: 20px;
         }
@@ -541,6 +875,16 @@
         .icon-zip {
             background: #fef3c7;
             color: #f59e0b;
+        }
+        
+        .icon-multi {
+            background: #dcfce7;
+            color: #22c55e;
+        }
+        
+        .icon-queue {
+            background: #e0e7ff;
+            color: #6366f1;
         }
         
         .download-card-title {
@@ -601,12 +945,30 @@
             background: var(--btn-orange-hover);
         }
         
+        .btn-download-multi {
+            background: var(--btn-green);
+            color: white;
+        }
+        
+        .btn-download-multi:hover {
+            background: var(--btn-green-hover);
+        }
+        
+        .btn-download-queue {
+            background: var(--btn-cyan);
+            color: white;
+        }
+        
+        .btn-download-queue:hover {
+            background: var(--btn-cyan-hover);
+        }
+        
         .btn-download:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px var(--shadow-color);
         }
         
-        /* Link section */
+        /* ==================== LINK SECTION ==================== */
         .link-section {
             margin-top: 20px;
             padding-top: 20px;
@@ -708,7 +1070,7 @@
             background: #4f46e5;
         }
         
-        /* Image preview */
+        /* ==================== IMAGE PREVIEW ==================== */
         .image-section {
             margin-bottom: 20px;
             text-align: center;
@@ -721,7 +1083,7 @@
             box-shadow: 0 5px 15px var(--shadow-color);
         }
         
-        /* Video Info */
+        /* ==================== VIDEO INFO ==================== */
         .video-info {
             background: var(--bg-input);
             border-radius: 8px;
@@ -747,7 +1109,7 @@
             font-weight: 600;
         }
         
-        /* Error */
+        /* ==================== ERROR ==================== */
         .error-message {
             background: var(--error-bg);
             border: 2px solid var(--error-border);
@@ -761,10 +1123,10 @@
             margin-bottom: 10px;
         }
         
-        /* Features */
+        /* ==================== FEATURES ==================== */
         .features {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(5, 1fr);
             gap: 10px;
             margin: 25px 0;
             padding: 20px;
@@ -784,12 +1146,12 @@
         }
         
         .feature-text {
-            font-size: 13px;
+            font-size: 12px;
             color: var(--text-secondary);
             font-weight: 500;
         }
         
-        /* Note */
+        /* ==================== NOTE ==================== */
         .note {
             margin-top: 20px;
             padding: 15px;
@@ -800,7 +1162,7 @@
             color: var(--text-secondary);
         }
         
-        /* Footer */
+        /* ==================== FOOTER ==================== */
         .footer {
             text-align: center;
             margin-top: 30px;
@@ -815,7 +1177,7 @@
             text-decoration: none;
         }
         
-        /* History */
+        /* ==================== HISTORY ==================== */
         .history-section {
             margin-top: 20px;
         }
@@ -863,7 +1225,7 @@
             text-decoration: none;
         }
         
-        /* Queue */
+        /* ==================== QUEUE ==================== */
         .queue-section {
             margin-top: 20px;
         }
@@ -910,16 +1272,52 @@
             color: var(--error-border);
         }
         
-        /* Export CSV */
-        .export-section {
+        /* ==================== ANALYTICS ==================== */
+        .analytics-section {
             margin-top: 20px;
-            padding: 20px;
-            background: var(--feature-bg);
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
         }
         
-        /* Responsive */
+        .analytics-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 15px;
+        }
+        
+        .analytics-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+        
+        .analytics-item {
+            text-align: center;
+            padding: 15px;
+            background: var(--feature-bg);
+            border-radius: 8px;
+        }
+        
+        .analytics-value {
+            font-size: 2em;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        
+        .analytics-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+        
+        /* ==================== RESPONSIVE ==================== */
         @media (max-width: 768px) {
             .container {
                 padding: 20px;
@@ -933,6 +1331,14 @@
             }
             
             .features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .pricing-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .analytics-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
             
@@ -951,224 +1357,530 @@
 </head>
 <body data-theme="dark">
     
-    <!-- Theme Toggle -->
-    <button class="theme-toggle" onclick="toggleTheme()" title="Chuyển đổi giao diện">
-        <span class="icon-moon">🌙</span>
-        <span class="icon-sun">☀️</span>
-    </button>
+    <!-- ==================== AUTH ==================== -->
+    <div class="auth-overlay" id="auth-overlay">
+        <div class="auth-box">
+            <div class="auth-logo">
+                <div class="auth-logo-img">HP</div>
+                <div class="auth-title">HUY PHAM PREMIUM</div>
+                <div class="auth-subtitle">Đăng nhập để sử dụng tính năng VIP</div>
+            </div>
+            
+            <div class="auth-error" id="auth-error"></div>
+            
+            <div class="auth-input-group">
+                <label>📧 Email:</label>
+                <input type="email" id="login-email" placeholder="nhap@email.com">
+            </div>
+            
+            <div class="auth-input-group">
+                <label>🔑 Mật khẩu:</label>
+                <input type="password" id="login-password" placeholder="••••••••">
+            </div>
+            
+            <button class="auth-btn" onclick="login()">
+                🔐 Đăng Nhập
+            </button>
+            
+            <button class="btn-secondary" onclick="showRegister()" style="background: transparent; border-color: var(--gold); color: var(--gold);">
+                📝 Đăng Ký Tài Khoản Mới
+            </button>
+        </div>
+    </div>
     
-    <div class="container">
-        <!-- Logo -->
-        <div class="logo">
-            <div class="logo-badge">ULTIMATE</div>
-            <div class="logo-img">HP</div>
-            <div class="brand-badge">🚀 Phiên Bản Cao Cấp</div>
-            <h1>HUY PHAM</h1>
-            <p class="brand-subtitle">TikTok Downloader Ultimate</p>
-        </div>
+    <!-- ==================== MAIN APP ==================== -->
+    <div id="main-app" style="display: none;">
         
-        <!-- Features -->
-        <div class="features">
-            <div class="feature">
-                <div class="feature-icon">🎬</div>
-                <div class="feature-text">Tải MP4 HD</div>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">🎵</div>
-                <div class="feature-text">Tách Audio MP3</div>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">🖼️</div>
-                <div class="feature-text">Tải Ảnh ZIP</div>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">📊</div>
-                <div class="feature-text">Xuất CSV</div>
-            </div>
-        </div>
+        <!-- Theme Toggle -->
+        <button class="theme-toggle" onclick="toggleTheme()" title="Chuyển đổi giao diện">
+            <span class="icon-moon">🌙</span>
+            <span class="icon-sun">☀️</span>
+        </button>
         
-        <!-- Tabs -->
-        <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab('single')">
-                🔗 Link Đơn
-            </button>
-            <button class="tab-btn" onclick="switchTab('batch')">
-                📁 Nhiều Link
-            </button>
-            <button class="tab-btn" onclick="switchTab('playlist')">
-                📃 Playlist/Profile
-            </button>
-            <button class="tab-btn" onclick="switchTab('history')">
-                🕐 Lịch Sử
-            </button>
-            <button class="tab-btn" onclick="switchTab('settings')">
-                ⚙️ Cài Đặt
-            </button>
-        </div>
-        
-        <!-- Tab 1: Link đơn -->
-        <div class="tab-content active" id="tab-single">
-            <div class="input-group">
-                <label for="tiktok-url">🎵 Dán link TikTok:</label>
-                <input type="url" id="tiktok-url" placeholder="https://www.tiktok.com/@user/video/1234567890" required>
-            </div>
+        <div class="container">
             
-            <div class="input-group">
-                <label for="quality-select">🎯 Chọn chất lượng:</label>
-                <select id="quality-select">
-                    <option value="hd">HD (Không logo)</option>
-                    <option value="sd">SD (Tiết kiệm dung lượng)</option>
-                    <option value="original">Original (Chất lượng gốc)</option>
-                </select>
-            </div>
-            
-            <button class="btn-primary" onclick="downloadVideo()">
-                🚀 Tải Video MP4 & Ảnh
-            </button>
-        </div>
-        
-        <!-- Tab 2: Nhiều link -->
-        <div class="tab-content" id="tab-batch">
-            <div class="input-group">
-                <label>📋 Dán nhiều link (mỗi link 1 dòng):</label>
-                <textarea id="batch-urls" placeholder="https://www.tiktok.com/@user/video/1&#10;https://www.tiktok.com/@user/video/2"></textarea>
-            </div>
-            
-            <div class="upload-area" id="upload-area">
-                <div class="upload-icon">📁</div>
-                <div class="upload-text">Kéo thả file vào đây hoặc bấm để chọn</div>
-                <div class="upload-hint">Hỗ trợ mọi định dạng file (.txt, .csv, .py, .zip...)</div>
-                <input type="file" id="file-input" accept="*/*" multiple style="display: none;">
-            </div>
-            
-            <div class="file-info" id="file-info">
-                <strong>📄 File đã chọn:</strong> <span id="file-name"></span>
-                <br>
-                <strong>🔗 Số link tìm thấy:</strong> <span id="file-link-count"></span>
-                <br>
-                <button class="btn-secondary" style="margin-top:10px;" onclick="clearFile()">Xóa file</button>
-            </div>
-            
-            <button class="btn-primary" onclick="downloadBatch()" style="margin-top: 15px;">
-                🚀 Tải Tất Cả Video
-            </button>
-            
-            <!-- Progress -->
-            <div class="batch-progress" id="batch-progress" style="display:none;">
-                <div style="background: var(--bg-input); border-radius: 8px; padding: 15px; border: 1px solid var(--border-color);">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                        <strong style="color: var(--text-primary);">Tiến trình:</strong>
-                        <span id="progress-text" style="color: var(--text-primary); font-weight: 600;">0/0</span>
+            <!-- User Bar -->
+            <div class="user-bar">
+                <div class="user-info">
+                    <div class="user-avatar" id="user-avatar">HP</div>
+                    <div class="user-details">
+                        <span class="user-name" id="user-name">User</span>
+                        <span class="user-plan" id="user-plan">🌱 Free</span>
                     </div>
-                    <div style="background: var(--border-color); border-radius: 10px; height: 10px; overflow: hidden;">
-                        <div id="progress-bar" style="background: var(--accent-gradient); height: 100%; width: 0%; transition: all 0.3s;"></div>
+                </div>
+                <div class="user-actions">
+                    <button class="btn-upgrade" onclick="showPricing()">👑 Nâng Cấp PRO</button>
+                    <button class="btn-logout" onclick="logout()">🚪 Đăng Xuất</button>
+                </div>
+            </div>
+            
+            <!-- Logo -->
+            <div class="logo">
+                <div class="logo-badge">PREMIUM</div>
+                <div class="logo-img">HP</div>
+                <div class="brand-badge">👑 Phiên Bản VIP</div>
+                <h1>HUY PHAM</h1>
+                <p class="brand-subtitle">TikTok Downloader Premium</p>
+            </div>
+            
+            <!-- Features -->
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">🎬</div>
+                    <div class="feature-text">MP4 HD</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🎵</div>
+                    <div class="feature-text">Audio MP3</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🖼️</div>
+                    <div class="feature-text">Ảnh ZIP</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-text">Phân Tích</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🕐</div>
+                    <div class="feature-text">Lịch Sử</div>
+                </div>
+            </div>
+            
+            <!-- Pricing Section (chỉ hiện khi chưa có gói) -->
+            <div class="pricing-section" id="pricing-section" style="display: none;">
+                <div class="pricing-header">
+                    <div class="pricing-title">👑 Chọn Gói Của Bạn</div>
+                    <div class="pricing-subtitle">Nâng cấp để mở khóa toàn bộ tính năng VIP</div>
+                </div>
+                
+                <div class="pricing-cards">
+                    <!-- Free -->
+                    <div class="pricing-card">
+                        <div class="plan-name">🌱 Free</div>
+                        <div class="plan-price">0đ<span>/mãi mãi</span></div>
+                        <ul class="plan-features">
+                            <li>Tải video thường</li>
+                            <li>Ảnh cover</li>
+                            <li>Giới hạn 10 video/ngày</li>
+                            <li class="not-included">Tải MP3</li>
+                            <li class="not-included">Phân tích dữ liệu</li>
+                            <li class="not-included">Hàng đợi tải</li>
+                        </ul>
+                        <button class="btn-subscribe" onclick="selectPlan('free')">Đang Dùng</button>
+                    </div>
+                    
+                    <!-- Pro -->
+                    <div class="pricing-card popular">
+                        <div class="popular-badge">🔥 PHỔ BIẾN</div>
+                        <div class="plan-name">⚡ PRO</div>
+                        <div class="plan-price">99k<span>/tháng</span></div>
+                        <ul class="plan-features">
+                            <li>Không giới hạn</li>
+                            <li>Tải MP3, Ảnh ZIP</li>
+                            <li>Tải playlist/profile</li>
+                            <li>Hàng đợi tải</li>
+                            <li class="not-included">Phân tích dữ liệu</li>
+                        </ul>
+                        <button class="btn-subscribe" onclick="selectPlan('pro')">⚡ Nâng Cấp PRO</button>
+                    </div>
+                    
+                    <!-- Premium -->
+                    <div class="pricing-card">
+                        <div class="plan-name">👑 PREMIUM</div>
+                        <div class="plan-price">199k<span>/tháng</span></div>
+                        <ul class="plan-features">
+                            <li>Tất cả tính năng PRO</li>
+                            <li>Phân tích dữ liệu</li>
+                            <li>Đặt tên file tự động</li>
+                            <li>Hỗ trợ ưu tiên</li>
+                            <li>Xuất CSV, JSON</li>
+                        </ul>
+                        <button class="btn-subscribe gold" onclick="selectPlan('premium')">👑 Nâng Cấp PREMIUM</button>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- Tab 3: Playlist/Profile -->
-        <div class="tab-content" id="tab-playlist">
-            <div class="input-group">
-                <label>📃 Dán link Profile hoặc Playlist TikTok:</label>
-                <input type="url" id="playlist-url" placeholder="https://www.tiktok.com/@username hoặc https://www.tiktok.com/@username/video/123">
+            
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('single')">🔗 Link Đơn</button>
+                <button class="tab-btn" onclick="switchTab('batch')">📁 Nhiều Link</button>
+                <button class="tab-btn" onclick="switchTab('playlist')">📃 Playlist</button>
+                <button class="tab-btn" onclick="switchTab('queue')">📋 Hàng Đợi</button>
+                <button class="tab-btn" onclick="switchTab('analytics')">📊 Phân Tích</button>
+                <button class="tab-btn" onclick="switchTab('history')">🕐 Lịch Sử</button>
+                <button class="tab-btn" onclick="switchTab('settings')">⚙️ Cài Đặt</button>
             </div>
             
-            <button class="btn-primary" onclick="downloadPlaylist()">
-                🔄 Lấy Danh Sách Video
-            </button>
-            
-            <div id="playlist-results"></div>
-        </div>
-        
-        <!-- Tab 4: Lịch sử -->
-        <div class="tab-content" id="tab-history">
-            <div class="history-section">
-                <h3 style="color: var(--text-primary); margin-bottom: 15px;">🕐 Lịch Sử Tải Video</h3>
-                <div class="history-list" id="history-list"></div>
-                <button class="btn-secondary" onclick="clearHistory()" style="margin-top: 15px;">
-                    🗑️ Xóa Lịch Sử
+            <!-- Tab 1: Link đơn -->
+            <div class="tab-content active" id="tab-single">
+                <div class="input-group">
+                    <label for="tiktok-url">🎵 Dán link TikTok:</label>
+                    <input type="url" id="tiktok-url" placeholder="https://www.tiktok.com/@user/video/1234567890" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="quality-select">🎯 Chọn chất lượng:</label>
+                    <select id="quality-select">
+                        <option value="hd">HD (Không logo)</option>
+                        <option value="sd">SD (Tiết kiệm dung lượng)</option>
+                        <option value="original">Original (Chất lượng gốc)</option>
+                    </select>
+                </div>
+                
+                <button class="btn-primary" onclick="downloadVideo()">
+                    🚀 Tải Video MP4 & Ảnh
                 </button>
             </div>
-        </div>
-        
-        <!-- Tab 5: Cài đặt -->
-        <div class="tab-content" id="tab-settings">
-            <div class="export-section">
-                <h3 style="color: var(--text-primary); margin-bottom: 15px;">📊 Xuất Dữ Liệu</h3>
-                <p style="color: var(--text-secondary); margin-bottom: 15px; font-size: 14px;">
-                    Xuất danh sách video đã tải ra file CSV để quản lý.
+            
+            <!-- Tab 2: Nhiều link -->
+            <div class="tab-content" id="tab-batch">
+                <div class="input-group">
+                    <label>📋 Dán nhiều link (mỗi link 1 dòng):</label>
+                    <textarea id="batch-urls" placeholder="https://www.tiktok.com/@user/video/1&#10;https://www.tiktok.com/@user/video/2"></textarea>
+                </div>
+                
+                <div class="upload-area" id="upload-area">
+                    <div class="upload-icon">📁</div>
+                    <div class="upload-text">Kéo thả file vào đây hoặc bấm để chọn</div>
+                    <div class="upload-hint">Hỗ trợ mọi định dạng file (.txt, .csv, .py, .zip...)</div>
+                    <input type="file" id="file-input" accept="*/*" multiple style="display: none;">
+                </div>
+                
+                <div class="file-info" id="file-info">
+                    <strong>📄 File đã chọn:</strong> <span id="file-name"></span>
+                    <br>
+                    <strong>🔗 Số link tìm thấy:</strong> <span id="file-link-count"></span>
+                    <br>
+                    <button class="btn-secondary" style="margin-top:10px;" onclick="clearFile()">Xóa file</button>
+                </div>
+                
+                <button class="btn-primary" onclick="downloadBatch()" style="margin-top: 15px;">
+                    🚀 Tải Tất Cả Video
+                </button>
+                
+                <!-- Progress -->
+                <div class="batch-progress" id="batch-progress" style="display:none;">
+                    <div style="background: var(--bg-input); border-radius: 8px; padding: 15px; border: 1px solid var(--border-color);">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <strong style="color: var(--text-primary);">Tiến trình:</strong>
+                            <span id="progress-text" style="color: var(--text-primary); font-weight: 600;">0/0</span>
+                        </div>
+                        <div style="background: var(--border-color); border-radius: 10px; height: 10px; overflow: hidden;">
+                            <div id="progress-bar" style="background: var(--accent-gradient); height: 100%; width: 0%; transition: all 0.3s;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tab 3: Playlist/Profile -->
+            <div class="tab-content" id="tab-playlist">
+                <div class="input-group">
+                    <label>📃 Dán link Profile hoặc Playlist TikTok:</label>
+                    <input type="url" id="playlist-url" placeholder="https://www.tiktok.com/@username hoặc https://www.tiktok.com/@username/video/123">
+                </div>
+                
+                <button class="btn-primary" onclick="downloadPlaylist()">
+                    🔄 Lấy Danh Sách Video
+                </button>
+                
+                <div id="playlist-results"></div>
+            </div>
+            
+            <!-- Tab 4: Queue (Hàng đợi) -->
+            <div class="tab-content" id="tab-queue">
+                <div class="queue-section">
+                    <h3 style="color: var(--text-primary); margin-bottom: 15px;">📋 Hàng Đợi Tải Video</h3>
+                    <div id="queue-list"></div>
+                    <button class="btn-secondary" onclick="clearQueue()" style="margin-top: 15px;">
+                        🗑️ Xóa Tất Cả Hàng Đợi
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Tab 5: Analytics (Phân tích) -->
+            <div class="tab-content" id="tab-analytics">
+                <div class="analytics-section">
+                    <h3 style="color: var(--text-primary); margin-bottom: 15px;">📊 Thống Kê Tải Video</h3>
+                    
+                    <div class="analytics-grid">
+                        <div class="analytics-item">
+                            <div class="analytics-value" id="total-downloads">0</div>
+                            <div class="analytics-label">Tổng Tải</div>
+                        </div>
+                        <div class="analytics-item">
+                            <div class="analytics-value" id="total-videos">0</div>
+                            <div class="analytics-label">Video</div>
+                        </div>
+                        <div class="analytics-item">
+                            <div class="analytics-value" id="total-images">0</div>
+                            <div class="analytics-label">Ảnh</div>
+                        </div>
+                        <div class="analytics-item">
+                            <div class="analytics-value" id="total-audios">0</div>
+                            <div class="analytics-label">Audio</div>
+                        </div>
+                    </div>
+                    
+                    <div class="analytics-card" style="margin-top: 20px;">
+                        <div class="analytics-title">🔥 Top Video Được Tải Nhiều Nhất</div>
+                        <div id="top-videos"></div>
+                    </div>
+                    
+                    <div class="analytics-card" style="margin-top: 20px;">
+                        <div class="analytics-title">👤 Top Tác Giả Được Tải Nhiều Nhất</div>
+                        <div id="top-authors"></div>
+                    </div>
+                    
+                    <div class="analytics-card" style="margin-top: 20px;">
+                        <div class="analytics-title">📅 Tải Theo Ngày</div>
+                        <div id="daily-downloads"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tab 6: Lịch sử -->
+            <div class="tab-content" id="tab-history">
+                <div class="history-section">
+                    <h3 style="color: var(--text-primary); margin-bottom: 15px;">🕐 Lịch Sử Tải Video</h3>
+                    <div class="history-list" id="history-list"></div>
+                    <button class="btn-secondary" onclick="clearHistory()" style="margin-top: 15px;">
+                        🗑️ Xóa Lịch Sử
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Tab 7: Cài đặt -->
+            <div class="tab-content" id="tab-settings">
+                <div class="export-section">
+                    <h3 style="color: var(--text-primary); margin-bottom: 15px;">📊 Xuất Dữ Liệu</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 15px; font-size: 14px;">
+                        Xuất danh sách video đã tải ra file CSV hoặc JSON.
+                    </p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <button class="btn-primary" onclick="exportCSV()" style="background: var(--btn-green);">
+                            📥 Xuất CSV
+                        </button>
+                        <button class="btn-primary" onclick="exportJSON()" style="background: var(--btn-purple);">
+                            📥 Xuất JSON
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="export-section" style="margin-top: 15px;">
+                    <h3 style="color: var(--text-primary); margin-bottom: 15px;">🛠️ Tùy Chọn Tải</h3>
+                    <div class="input-group" style="margin-bottom: 15px;">
+                        <label>📁 Định dạng tên file:</label>
+                        <select id="filename-format">
+                            <option value="title">Theo tiêu đề</option>
+                            <option value="author">Theo tác giả</option>
+                            <option value="date">Theo ngày tải</option>
+                            <option value="mix">Kết hợp (Tác giả - Tiêu đề)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group" style="margin-bottom: 15px;">
+                        <label>📂 Thư mục lưu trữ:</label>
+                        <select id="save-folder">
+                            <option value="single">Tất cả vào 1 thư mục</option>
+                            <option value="author">Theo tên tác giả</option>
+                            <option value="date">Theo ngày</option>
+                        </select>
+                    </div>
+                    
+                    <button class="btn-secondary" onclick="saveSettings()">
+                        💾 Lưu Cài Đặt
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Loading -->
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p style="color: var(--accent); font-weight: 500;">Đang xử lý...</p>
+                <p style="font-size: 13px; color: var(--text-muted);">Huy Pham đang tải cho bạn</p>
+            </div>
+            
+            <!-- Result -->
+            <div class="result" id="result"></div>
+            
+            <!-- Note -->
+            <div class="note">
+                <strong>💡 Tính năng PREMIUM:</strong>
+                <ul style="margin-left:20px; margin-top:5px;">
+                    <li>Tải video MP4 không logo, chất lượng HD</li>
+                    <li>Tách audio MP3 từ video</li>
+                    <li>Tải ảnh cover và toàn bộ ảnh dạng ZIP</li>
+                    <li>Upload mọi loại file (tự động trích xuất link)</li>
+                    <li>Tải playlist/profile TikTok</li>
+                    <li>Hàng đợi tải video</li>
+                    <li>Phân tích dữ liệu thống kê</li>
+                    <li>Lịch sử tải video</li>
+                    <li>Xuất file CSV, JSON</li>
+                    <li>Đặt tên file và thư mục tự động</li>
+                    <li>Dark/Light Mode</li>
+                    <li>Đăng nhập / Đăng xuất</li>
+                </ul>
+            </div>
+            
+            <!-- Footer -->
+            <div class="footer">
+                <p>Created with ❤️ by <strong>Huy Pham</strong></p>
+                <p style="margin-top:5px; font-size: 12px;">
+                    © 2024 Huy Pham PREMIUM. All rights reserved. 
+                    | <a href="#">Privacy Policy</a> 
+                    | <a href="#">Contact</a>
                 </p>
-                <button class="btn-primary" onclick="exportCSV()" style="background: var(--btn-green);">
-                    📥 Xuất File CSV
-                </button>
             </div>
-            
-            <div class="export-section" style="margin-top: 15px;">
-                <h3 style="color: var(--text-primary); margin-bottom: 15px;">🛠️ Tùy Chọn Tải</h3>
-                <div class="input-group" style="margin-bottom: 15px;">
-                    <label>📁 Định dạng tên file:</label>
-                    <select id="filename-format">
-                        <option value="title">Theo tiêu đề</option>
-                        <option value="author">Theo tác giả</option>
-                        <option value="date">Theo ngày tải</option>
-                        <option value="mix">Kết hợp (Tác giả - Tiêu đề)</option>
-                    </select>
-                </div>
-                
-                <div class="input-group" style="margin-bottom: 15px;">
-                    <label>📂 Thư mục lưu trữ:</label>
-                    <select id="save-folder">
-                        <option value="single">Tất cả vào 1 thư mục</option>
-                        <option value="author">Theo tên tác giả</option>
-                        <option value="date">Theo ngày</option>
-                    </select>
-                </div>
-                
-                <button class="btn-secondary" onclick="saveSettings()">
-                    💾 Lưu Cài Đặt
-                </button>
-            </div>
-        </div>
-        
-        <!-- Loading -->
-        <div class="loading" id="loading">
-            <div class="spinner"></div>
-            <p style="color: var(--accent); font-weight: 500;">Đang xử lý...</p>
-            <p style="font-size: 13px; color: var(--text-muted);">Huy Pham đang tải cho bạn</p>
-        </div>
-        
-        <!-- Result -->
-        <div class="result" id="result"></div>
-        
-        <!-- Note -->
-        <div class="note">
-            <strong>💡 Tính năng Ultimate:</strong>
-            <ul style="margin-left:20px; margin-top:5px;">
-                <li>Tải video MP4 không logo, chất lượng HD</li>
-                <li>Tách audio MP3 từ video</li>
-                <li>Tải ảnh cover và toàn bộ ảnh dạng ZIP</li>
-                <li>Upload mọi loại file (tự động trích xuất link)</li>
-                <li>Tải playlist/profile TikTok</li>
-                <li>Lịch sử tải video</li>
-                <li>Xuất file CSV</li>
-                <li>Hỏi trước khi tải: video không logo hay có logo</li>
-                <li>Dark/Light Mode</li>
-            </ul>
-        </div>
-        
-        <!-- Footer -->
-        <div class="footer">
-            <p>Created with ❤️ by <strong>Huy Pham</strong></p>
-            <p style="margin-top:5px; font-size: 12px;">
-                © 2024 Huy Pham PRO Ultimate. All rights reserved. 
-                | <a href="#">Privacy Policy</a> 
-                | <a href="#">Contact</a>
-            </p>
         </div>
     </div>
     
     <script>
+        // ==================== AUTH ====================
+        const users = JSON.parse(localStorage.getItem('huypham-users') || '[]');
+        let currentUser = JSON.parse(localStorage.getItem('huypham-current-user') || 'null');
+        
+        function login() {
+            const email = document.getElementById('login-email').value.trim();
+            const password = document.getElementById('login-password').value;
+            const errorDiv = document.getElementById('auth-error');
+            
+            if (!email || !password) {
+                errorDiv.textContent = 'Vui lòng nhập đầy đủ email và mật khẩu!';
+                errorDiv.style.display = 'block';
+                return;
+            }
+            
+            const user = users.find(u => u.email === email && u.password === password);
+            
+            if (!user) {
+                errorDiv.textContent = 'Email hoặc mật khẩu không đúng!';
+                errorDiv.style.display = 'block';
+                return;
+            }
+            
+            currentUser = user;
+            localStorage.setItem('huypham-current-user', JSON.stringify(currentUser));
+            
+            // Hiển thị app chính
+            document.getElementById('auth-overlay').style.display = 'none';
+            document.getElementById('main-app').style.display = 'block';
+            
+            // Cập nhật thông tin user
+            document.getElementById('user-name').textContent = user.name;
+            document.getElementById('user-avatar').textContent = user.name.charAt(0).toUpperCase();
+            
+            // Cập nhật plan
+            updateUserPlan();
+            
+            alert('✅ Đăng nhập thành công! Chào mừng ' + user.name + '!');
+        }
+        
+        function showRegister() {
+            const email = prompt('Nhập email mới:');
+            const password = prompt('Nhập mật khẩu:');
+            const name = prompt('Nhập tên của bạn:');
+            
+            if (!email || !password || !name) {
+                alert('Vui lòng điền đầy đủ thông tin!');
+                return;
+            }
+            
+            // Kiểm tra email đã tồn tại
+            if (users.find(u => u.email === email)) {
+                alert('Email này đã được đăng ký!');
+                return;
+            }
+            
+            const newUser = {
+                id: Date.now(),
+                email: email,
+                password: password,
+                name: name,
+                plan: 'free',
+                registeredAt: new Date().toISOString()
+            };
+            
+            users.push(newUser);
+            localStorage.setItem('huypham-users', JSON.stringify(users));
+            
+            alert('✅ Đăng ký thành công! Vui lòng đăng nhập.');
+        }
+        
+        function logout() {
+            if (confirm('Bạn có chắc muốn đăng xuất?')) {
+                currentUser = null;
+                localStorage.removeItem('huypham-current-user');
+                
+                document.getElementById('main-app').style.display = 'none';
+                document.getElementById('auth-overlay').style.display = 'flex';
+                
+                // Reset form
+                document.getElementById('login-email').value = '';
+                document.getElementById('login-password').value = '';
+                document.getElementById('auth-error').style.display = 'none';
+                
+                alert('👋 Đã đăng xuất!');
+            }
+        }
+        
+        function updateUserPlan() {
+            if (!currentUser) return;
+            
+            const planNames = {
+                'free': '🌱 Free',
+                'pro': '⚡ PRO',
+                'premium': '👑 PREMIUM'
+            };
+            
+            document.getElementById('user-plan').textContent = planNames[currentUser.plan] || '🌱 Free';
+        }
+        
+        // ==================== PRICING ====================
+        function showPricing() {
+            document.getElementById('pricing-section').style.display = 'block';
+            document.getElementById('pricing-section').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function selectPlan(plan) {
+            if (!currentUser) {
+                alert('Vui lòng đăng nhập trước!');
+                return;
+            }
+            
+            if (plan === 'free') {
+                currentUser.plan = 'free';
+                localStorage.setItem('huypham-current-user', JSON.stringify(currentUser));
+                updateUserPlan();
+                alert('Bạn đang dùng gói Free!');
+                return;
+            }
+            
+            // Mô phỏng thanh toán
+            const price = plan === 'pro' ? '99.000đ' : '199.000đ';
+            const confirmPayment = confirm(
+                `💳 Thanh toán gói ${plan.toUpperCase()}\n\n` +
+                `Giá: ${price}/tháng\n\n` +
+                `Bạn có muốn tiến hành thanh toán?`
+            );
+            
+            if (confirmPayment) {
+                // Mô phỏng xử lý thanh toán
+                alert('🔄 Đang xử lý thanh toán...');
+                
+                setTimeout(() => {
+                    currentUser.plan = plan;
+                    localStorage.setItem('huypham-current-user', JSON.stringify(currentUser));
+                    updateUserPlan();
+                    
+                    // Ẩn pricing
+                    document.getElementById('pricing-section').style.display = 'none';
+                    
+                    alert(`✅ Nâng cấp thành công! Bạn đang dùng gói ${plan.toUpperCase()}.`);
+                }, 2000);
+            }
+        }
+        
         // ==================== THEME ====================
         function toggleTheme() {
             const body = document.body;
@@ -1189,6 +1901,20 @@
         
         initTheme();
         
+        // Kiểm tra đăng nhập khi tải trang
+        function checkLogin() {
+            if (currentUser) {
+                document.getElementById('auth-overlay').style.display = 'none';
+                document.getElementById('main-app').style.display = 'block';
+                document.getElementById('user-name').textContent = currentUser.name;
+                document.getElementById('user-avatar').textContent = currentUser.name.charAt(0).toUpperCase();
+                updateUserPlan();
+            } else {
+                document.getElementById('auth-overlay').style.display = 'flex';
+                document.getElementById('main-app').style.display = 'none';
+            }
+        }
+        
         // ==================== TABS ====================
         function switchTab(tabName) {
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -1198,8 +1924,10 @@
                 'single': [0, 'tab-single'],
                 'batch': [1, 'tab-batch'],
                 'playlist': [2, 'tab-playlist'],
-                'history': [3, 'tab-history'],
-                'settings': [4, 'tab-settings']
+                'queue': [3, 'tab-queue'],
+                'analytics': [4, 'tab-analytics'],
+                'history': [5, 'tab-history'],
+                'settings': [6, 'tab-settings']
             };
             
             if (tabs[tabName]) {
@@ -1208,7 +1936,7 @@
             }
         }
         
-        // ==================== UPLOAD FILE ====================
+        // ==================== UPLOAD ====================
         const fileInput = document.getElementById('file-input');
         const uploadArea = document.getElementById('upload-area');
         
@@ -1288,6 +2016,7 @@
             });
             localStorage.setItem('huypham-history', JSON.stringify(history));
             renderHistory();
+            updateAnalytics();
         }
         
         function renderHistory() {
@@ -1317,7 +2046,102 @@
                 history = [];
                 localStorage.setItem('huypham-history', JSON.stringify(history));
                 renderHistory();
+                updateAnalytics();
             }
+        }
+        
+        // ==================== QUEUE ====================
+        let queue = [];
+        
+        function addToQueue(item) {
+            queue.push({
+                ...item,
+                status: 'waiting',
+                progress: 0
+            });
+            renderQueue();
+        }
+        
+        function renderQueue() {
+            const list = document.getElementById('queue-list');
+            if (queue.length === 0) {
+                list.innerHTML = '<p style="color: var(--text-muted); text-align: center;">Hàng đợi trống</p>';
+                return;
+            }
+            
+            list.innerHTML = queue.map((item, index) => `
+                <div class="queue-item">
+                    <div class="queue-item-header">
+                        <span style="color: var(--text-primary); font-weight: 600; font-size: 14px;">${item.title || 'Video ' + (index + 1)}</span>
+                        <span class="queue-item-status queue-status-${item.status}">
+                            ${item.status === 'waiting' ? '⏳ Đang chờ' : 
+                              item.status === 'processing' ? '🔄 Đang tải' : 
+                              item.status === 'done' ? '✅ Hoàn tất' : '❌ Lỗi'}
+                        </span>
+                    </div>
+                    <div style="background: var(--border-color); border-radius: 5px; height: 6px; margin-top: 10px; overflow: hidden;">
+                        <div style="background: var(--accent-gradient); height: 100%; width: ${item.progress}%; transition: all 0.3s;"></div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function clearQueue() {
+            if (confirm('Bạn có chắc muốn xóa toàn bộ hàng đợi?')) {
+                queue = [];
+                renderQueue();
+            }
+        }
+        
+        // ==================== ANALYTICS ====================
+        function updateAnalytics() {
+            const totalDownloads = history.length;
+            const totalVideos = history.filter(h => h.type === 'video').length;
+            const totalImages = history.filter(h => h.type === 'image').length;
+            const totalAudios = history.filter(h => h.type === 'audio').length;
+            
+            document.getElementById('total-downloads').textContent = totalDownloads;
+            document.getElementById('total-videos').textContent = totalVideos;
+            document.getElementById('total-images').textContent = totalImages;
+            document.getElementById('total-audios').textContent = totalAudios;
+            
+            // Top videos
+            const topVideos = [...history].sort((a, b) => b.downloadCount - a.downloadCount).slice(0, 5);
+            const topVideosEl = document.getElementById('top-videos');
+            topVideosEl.innerHTML = topVideos.length > 0 ? topVideos.map((item, i) => `
+                <div style="display: flex; justify-content: space-between; padding: 8px; border-bottom: 1px solid var(--border-color);">
+                    <span style="color: var(--text-primary);">${i + 1}. ${item.title || 'Video'}</span>
+                    <span style="color: var(--text-muted);">${item.downloadCount} lượt tải</span>
+                </div>
+            `).join('') : '<p style="color: var(--text-muted);">Chưa có dữ liệu</p>';
+            
+            // Top authors
+            const authorCounts = {};
+            history.forEach(item => {
+                authorCounts[item.author] = (authorCounts[item.author] || 0) + 1;
+            });
+            const topAuthors = Object.entries(authorCounts).sort((a, b) => b[1] - a[1]).slice(0, 5);
+            const topAuthorsEl = document.getElementById('top-authors');
+            topAuthorsEl.innerHTML = topAuthors.length > 0 ? topAuthors.map(([author, count], i) => `
+                <div style="display: flex; justify-content: space-between; padding: 8px; border-bottom: 1px solid var(--border-color);">
+                    <span style="color: var(--text-primary);">${i + 1}. ${author}</span>
+                    <span style="color: var(--text-muted);">${count} video</span>
+                </div>
+            `).join('') : '<p style="color: var(--text-muted);">Chưa có dữ liệu</p>';
+            
+            // Daily downloads
+            const dailyCounts = {};
+            history.forEach(item => {
+                const date = new Date(item.date).toLocaleDateString('vi-VN');
+                dailyCounts[date] = (dailyCounts[date] || 0) + 1;
+            });
+            const dailyEl = document.getElementById('daily-downloads');
+            dailyEl.innerHTML = Object.entries(dailyCounts).map(([date, count]) => `
+                <div style="display: flex; justify-content: space-between; padding: 8px; border-bottom: 1px solid var(--border-color);">
+                    <span style="color: var(--text-primary);">${date}</span>
+                    <span style="color: var(--text-muted);">${count} lượt tải</span>
+                </div>
+            `).join('');
         }
         
         // ==================== CÀI ĐẶT ====================
@@ -1353,8 +2177,42 @@
             window.URL.revokeObjectURL(url);
         }
         
+        function exportJSON() {
+            if (history.length === 0) {
+                alert('Chưa có dữ liệu để xuất!');
+                return;
+            }
+            
+            const blob = new Blob([JSON.stringify(history, null, 2)], { type: 'application/json' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'huypham_history.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+        
         // ==================== TẢI VIDEO ĐƠN ====================
         async function downloadVideo() {
+            if (!currentUser) {
+                alert('Vui lòng đăng nhập trước!');
+                return;
+            }
+            
+            // Kiểm tra gói Free
+            if (currentUser.plan === 'free') {
+                const today = new Date().toISOString().slice(0, 10);
+                const todayDownloads = history.filter(h => h.date.slice(0, 10) === today).length;
+                
+                if (todayDownloads >= 10) {
+                    alert('Bạn đã đạt giới hạn 10 video/ngày cho gói Free!\nHãy nâng cấp lên PRO hoặc PREMIUM để tải không giới hạn!');
+                    showPricing();
+                    return;
+                }
+            }
+            
             const urlInput = document.getElementById('tiktok-url');
             const url = urlInput.value.trim();
             const quality = document.getElementById('quality-select').value;
@@ -1408,7 +2266,9 @@
                         author: videoData.author,
                         videoLink: videoLink,
                         imageLink: videoData.cover,
-                        audioLink: videoData.music || videoData.play
+                        audioLink: videoData.music || videoData.play,
+                        type: 'video',
+                        downloadCount: 1
                     });
                     
                     resultDiv.innerHTML = `
@@ -1505,6 +2365,19 @@
                                     </button>
                                 </div>
                                 ` : ''}
+                                
+                                <div class="download-card">
+                                    <div class="download-card-header">
+                                        <div class="download-icon icon-queue">📋</div>
+                                        <div>
+                                            <div class="download-card-title">Thêm Vào Hàng Đợi</div>
+                                            <div class="download-card-subtitle">Tải sau, không cần chờ</div>
+                                        </div>
+                                    </div>
+                                    <button class="btn-download btn-download-queue" onclick="addToQueue({title: '${videoData.title}', videoLink: '${videoLink}', imageLink: '${videoData.cover}'})">
+                                        📋 Thêm Vào Queue
+                                    </button>
+                                </div>
                             </div>
                             
                             <div class="link-section">
@@ -1608,7 +2481,9 @@
                             author: videoData.author,
                             videoLink: videoLink,
                             imageLink: videoData.cover,
-                            audioLink: videoData.music || videoData.play
+                            audioLink: videoData.music || videoData.play,
+                            type: 'video',
+                            downloadCount: 1
                         });
                         
                         const batchResults = resultDiv.querySelector('.batch-results');
@@ -1677,8 +2552,6 @@
             
             try {
                 // Gọi API để lấy danh sách video từ profile/playlist
-                // Trong thực tế, bạn có thể sử dụng API TikTok hoặc web scraping
-                // Đây là mã mô phỏng
                 const mockVideos = [
                     'https://www.tiktok.com/@user/video/1',
                     'https://www.tiktok.com/@user/video/2',
@@ -1687,7 +2560,6 @@
                     'https://www.tiktok.com/@user/video/5'
                 ];
                 
-                // Hiển thị danh sách video
                 const playlistResults = document.getElementById('playlist-results');
                 playlistResults.innerHTML = `
                     <div style="background: var(--bg-card); border-radius: 12px; padding: 20px; margin-top: 20px;">
@@ -1706,13 +2578,14 @@
                     </div>
                 `;
                 
+                resultDiv.style.display = 'none';
+                
             } catch (error) {
                 showError('Không thể lấy danh sách video: ' + error.message);
             }
         }
         
         function updateSelectedVideos() {
-            // Cập nhật số video đã chọn
             const checkboxes = document.querySelectorAll('.playlist-checkbox:checked');
             console.log(`Đã chọn ${checkboxes.length} video`);
         }
@@ -1732,23 +2605,16 @@
                 'Cancel = Tải video gốc (có thể có logo)'
             );
             
-            // Điền vào textarea và chuyển sang tab batch
             document.getElementById('batch-urls').value = selectedVideos.join('\n');
             switchTab('batch');
-            
-            // Tự động tải
             await downloadBatch();
         }
         
-        // ==================== TẢI TẤT CẢ ẢNH DẠNG ZIP ====================
+        // ==================== TẢI ẢNH ZIP ====================
         function downloadAllImages(imagesJson, filename) {
             const images = JSON.parse(imagesJson);
-            
-            // Trong thực tế, cần tạo ZIP file từ server
-            // Đây là mã mô phỏng
             alert(`Đang tải ${images.length} ảnh về dạng ZIP...\n\nTrong phiên bản thật, bạn cần backend để tạo ZIP file.`);
             
-            // Tải từng ảnh một
             images.forEach((img, index) => {
                 downloadFile(img, `huypham_image_${Date.now()}_${index + 1}.jpg`);
             });
@@ -1819,8 +2685,10 @@
             }
         });
         
-        // Khởi tạo lịch sử
+        // Khởi tạo
+        checkLogin();
         renderHistory();
+        updateAnalytics();
         
         // Khởi tạo cài đặt
         const savedSettings = JSON.parse(localStorage.getItem('huypham-settings') || 'null');
